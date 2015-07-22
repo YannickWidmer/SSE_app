@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SSE.iml" filepath="$PROJECT_DIR$/SSE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/raw_creator/raw_creator.iml" filepath="$PROJECT_DIR$/raw_creator/raw_creator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rule_tester/rule_tester.iml" filepath="$PROJECT_DIR$/rule_tester/rule_tester.iml" />
+    </modules>
+  </component>
+</project>
