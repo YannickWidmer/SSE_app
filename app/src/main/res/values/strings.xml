@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SSE help</string>
+    <string name="menu_errase">errase</string>
+    <string name="settings">Settings</string>
+    <string name="Name">Name</string>
+    <string name="ok">OK</string>
+    <string name="cancel">cancel</string>
+	<string name="to_tired">to tired</string>
+    
+    <!-- Titles -->
+    <string name="title_dice">chose a Dice</string>
+    <string name="title_play">Play</string>
+    <string name="title_choose_hero">choose your hero</string>
+
+    <!-- Perso -->
+    <string name="menu_new_personnage">add Hero</string>
+    <string name="heroes">Heroes</string>
+    <string name="STR_KA">force</string>
+    <string name="STR_GK">agility</string>
+    <string name="STR_GW">speed</string>
+    <string name="STR_SZ">astuteness</string>
+    <string name="STR_CH">charisma</string>
+    <string name="STR_SS">acuity</string>
+    <string name="STR_KB">physique</string>
+    <string name="STR_AU">stamina</string>
+    <string name="STR_MA">magic</string>
+
+    <!-- Play -->
+    <string name="play">Start</string>
+    <string name="modif">modif</string>
+    <string name="skill">skill</string>
+    <string name="act">act</string>
+    <string name="react">react</string>
+    <string name="takehit">hit</string>
+    <string name="defend">defend</string>
+    <string name="move">move</string>
+    <string name="health">health</string> 
+    <string name="stamina">stamina</string>
+    <string name="next_round">next round</string>
+
+    <!-- Play:-menu -->
+    <string name="weapon">weapon</string>
+    <string name="actions">actions</string>
+    <string name="weapon_right">right weapon</string>
+    <string name="weapon_left">left weapon</string>
+    <string name="backpack">backpack</string>
+    <!-- Arsenal -->
+    <string name="arsenal">arsenal</string>
+    <string name="menu_new_weapon">add Weapon</string>
+    <!-- Any changes here must be syncronized with the list of ints in Weapon -->
+    <string name="sword">sword</string>
+    <string name="twohanded">twohanded sword</string>
+    <string name="range_weapon">range weapon</string>
+    <string name="shield">shield</string>
+
+    <string name="attack">attack</string>
+    <string name="plus">+</string>
+    <string name="defense">defense</string>
+    <string name="load">load</string>
+    <string name="fatigue">fatigue</string>
+    <string name="degats">damage</string>
+    <string name="addDice">add dice</string>
+    <string name="removeDice">remove dice</string>
+    <string name="penetration">penetration</string>
+    <string name="other">other</string>
+    <string name="head">head</string>
+    <string name="chest">chest</string>
+    <string name="arms">arms</string>
+    <string name="legs">legs</string>
+    <string name="left_arm">Left Arm</string>
+    <string name="chose_weapon">change weapon</string>
+    <string name="change_type">Change type</string>
+    <string name="esquiv">esquiv</string>
+    <string name="attribute">Attribute</string>
+    <string name="save">save</string>
+    <string name="chose_action">action</string>
+    <string name="bear_hands">bear hands</string>
+    <string name="one_a_half_sword">long sword</string>
+    <string name="two_hand_attack">twohanded attack</string>
+    <string name="direct">direct</string>
+    <string name="remove">remove</string>
+    <string name="now">now:</string>
+    <string name="fill">fill</string>
+    <string name="empty">empty</string>
+    <string name="used">used:</string>
+    <string name="set_to_std">compute</string>
+    <string name="max">max:</string>
+    <string name="bodypart_head">head</string>
+    <string name="bodypart_chest">chest</string>
+    <string name="bodypart_arms">arms</string>
+    <string name="bodypart_legs">legs</string>
+    <string name="weight">weight</string>
+    <string name="weigth_libra">libra</string>
+    <string name="weight_ounce">ounce</string>
+    <string name="weight_explanation">The weights are given in libra and ounces. Twelve ounces make one libra. (Three libra make about one kilo)</string>
+    <string name="weight_ounces">ounces</string>
+    <string name="weight_libras">libras</string>
+    <string name="menu_new_armor">add armor</string>
+    <string name="bodypart">bodypart</string>
+    <string name="protection">protection</string>
+    <string name="equiped">equiped</string>
+    <string name="armor">armor</string>
+    <string name="human">human</string>
+    <string name="garan">Garan</string>
+    <string name="lemur">lemur</string>
+    <string name="pfeilor">Pfeilor</string>
+    <string name="race">race</string>
+    <string name="weather_protection">weather protection</string>
+    <string name="right_arm">right arm</string>
+    <string name="equipement">equipement</string>
+    <string name="fight">fight</string>
+    <string name="run">run</string>
+    <string name="base">base</string>
+    <string name="mouvement">movement</string>
+    <string name="malus">malus</string>
+    <string name="mental_neutral">neutral</string>
+    <string name="agressive">agressive</string>
+    <string name="frenetic">brutal</string>
+    <string name="berserk" translatable="false">berserker</string>
+    <string name="concentrated">concentrated</string>
+    <string name="immersed">immersed</string>
+    <string name="ecstasy">ecstasy</string>
+    <string name="delirium">delirium</string>
+    <string name="fear">fear</string>
+    <string name="focused">focused</string>
+    <string name="metaphase" translatable="false">metaphase</string>
+    <string name="SYNESTHESIA">synesthesia</string>
+    <string name="shock">shock</string>
+    <string name="endurance">endurance</string>
+    <string name="steal">steal</string>
+    <string name="conjure">conjure</string>
+    <string name="talents">talents</string>
+    <string name="base_fatigue">base fatigue</string>
+    <string name="make_fire">make fire</string>
+    <string name="cook">cooking</string>
+    <string name="butcher">butchering</string>
+    <string name="fishing">fishing</string>
+    <string name="climb">climb</string>
+    <string name="swim">swim</string>
+    <string name="th_row">throw</string>
+    <string name="make_music">make music</string>
+    <string name="sing">sing</string>
+    <string name="combat">combat</string>
+    <string name="reset_mental">reset mental</string>
+    <string name="show_dice_eyes">Dice values</string>
+    <string name="fury">fury</string>
+</resources>

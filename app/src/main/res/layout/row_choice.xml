@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ch.yannick.views.DiceDisplayer xmlns:android="http://schemas.android.com/apk/res/android"
+    			xmlns:yannick="http://schemas.android.com/apk/res-auto"
+    android:textSize="@dimen/big_text"
+    yannick:showNumber = "true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right"
+    />

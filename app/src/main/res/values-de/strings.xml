@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SSE Spiel hilfe</string>
+    <string name="menu_errase">löschen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="Name">Name</string>
+    <string name="ok">OK</string>
+    <string name="cancel">zurück</string>
+    <string name="to_tired">zu müde</string>
+
+    <!-- Titles -->
+    <string name="title_dice">Würfel wählen</string>
+    <string name="title_play">Spielen</string>
+    <string name="title_choose_hero">Held wählen</string>
+
+    <!-- Perso -->
+    <string name="menu_new_personnage">neuer Held</string>
+    <string name="heroes">Helden</string>
+    <string name="STR_KA">Kraft</string>
+    <string name="STR_GK">Geschick</string>
+    <string name="STR_GW">Geschwind.</string>
+    <string name="STR_SZ">Sagazit.</string>
+    <string name="STR_CH">Charisma</string>
+    <string name="STR_SS">Sinne</string>
+    <string name="STR_KB">Körperbau</string>
+    <string name="STR_AU">Ausdauer</string>
+    <string name="STR_MA">Magie</string>
+
+    <!-- Play -->
+    <string name="play">Starten</string>
+    <string name="modif">änderung</string>
+    <string name="skill">Talent</string>
+    <string name="act">Agieren</string>
+    <string name="react">Reagieren</string>
+    <string name="takehit">Treffer</string>
+    <string name="defend">verteidigen</string>
+    <string name="move">bewegen</string>
+    <string name="health">Leben</string>
+    <string name="stamina">Ausdauer</string>
+    <string name="next_round">nächste Runde</string>
+
+    <!-- Play:-menu -->
+    <string name="weapon">Waffen</string>
+    <string name="weapon_right">Rechte Waffe</string>
+    <string name="weapon_left">Linke Waffe</string>
+    <string name="backpack">backpack</string>
+    <!-- Arsenal -->
+    <string name="arsenal">Arsenal</string>
+    <string name="menu_new_weapon">neue Waffe</string>
+
+    <string name="attack">Angriff</string>
+    <string name="plus">+</string>
+    <string name="defense">Verteidigung</string>
+    <string name="load">Laden</string>
+    <string name="fatigue">Ermüdung</string>
+    <string name="degats">Schaden</string>
+    <string name="addDice">neuer Würfel</string>
+    <string name="removeDice">Würfel entfernen</string>
+    <string name="penetration">Penetration</string>
+    <string name="other">anderes</string>
+    <string name="head">Kopf</string>
+    <string name="chest">Brust</string>
+    <string name="arms">Arme</string>
+    <string name="legs">Beine</string>
+    <string name="left_arm">Linker Arm</string>
+    <string name="chose_weapon">Waffe wechseln</string>
+    <string name="actions">aktionen</string>
+    <string name="attribute">attribute</string>
+    <string name="bear_hands">freihändig</string>
+    <string name="change_type">Typ ändern</string>
+    <string name="chose_action">aktion</string>
+    <string name="esquiv">ausweichen</string>
+    <string name="range_weapon">Fernkampf Waffe</string>
+    <string name="save">speichern</string>
+    <string name="shield">Schield</string>
+    <string name="sword">Schwert</string>
+    <string name="twohanded">Bihänder</string>
+    <string name="one_a_half_sword">Anderthalbhänder</string>
+    <string name="two_hand_attack">zweihändiger Angriff</string>
+    <string name="direct">direkt</string>
+    <string name="remove">ablegen</string>
+    <string name="empty">leeren</string>
+    <string name="fill">füllen</string>
+    <string name="max">max:</string>
+    <string name="now">jetzt:</string>
+    <string name="set_to_std">ableiten</string>
+    <string name="used">leistung:</string>
+    <string name="bodypart_arms">Arme</string>
+    <string name="bodypart_chest">Brust</string>
+    <string name="bodypart_head">Kopf</string>
+    <string name="bodypart_legs">Beine</string>
+    <string name="weight">gewicht</string>
+    <string name="weight_explanation">Gewicht wird in Pfund und unze angegeben. Zwölf unzen sind ein Pfund. (3 Pfunde sind etwa ein Kilo)</string>
+    <string name="weight_ounce">unze</string>
+    <string name="weigth_libra">pfund</string>
+    <string name="weight_libras">Pfunde</string>
+    <string name="weight_ounces">unzen</string>
+    <string name="bodypart">Körperteil</string>
+    <string name="equiped">ausgerüstet</string>
+    <string name="menu_new_armor">neue Rüstung</string>
+    <string name="protection">Schutz</string>
+    <string name="armor">Rüstung</string>
+    <string name="race">Rasse</string>
+    <string name="base_fatigue">grund Müdigkeit</string>
+    <string name="equipement">Ausrüstung</string>
+    <string name="fight">Kampf</string>
+    <string name="garan">Garaner</string>
+    <string name="human">Mensch</string>
+    <string name="lemur">Lithuaner</string>
+    <string name="pfeilor">Pfeilor</string>
+    <string name="right_arm">rechter Arm</string>
+    <string name="run">rennen</string>
+    <string name="weather_protection">Wetterschutz</string>
+    <string name="SYNESTHESIA">synesthesie</string>
+    <string name="agressive">agressive</string>
+    <string name="base">Basis</string>
+    <string name="concentrated">konzentriert</string>
+    <string name="conjure">zaubern</string>
+    <string name="delirium">delirium</string>
+    <string name="ecstasy">Extasy</string>
+    <string name="endurance">Ausdauer</string>
+    <string name="fear">Angst</string>
+    <string name="focused">fokusiert</string>
+    <string name="frenetic">Frenetisch</string>
+    <string name="immersed">immersiert</string>
+    <string name="malus">malus</string>
+    <string name="mental_neutral">neutral</string>
+    <string name="mouvement">Bewegung</string>
+    <string name="shock">Schock</string>
+    <string name="steal">stehlen</string>
+    <string name="butcher">metzgen</string>
+    <string name="climb">klettern</string>
+    <string name="cook">kochen</string>
+    <string name="fishing">angeln</string>
+    <string name="make_fire">feuern</string>
+    <string name="make_music">musizieren</string>
+    <string name="sing">singen</string>
+    <string name="swim">schwimen</string>
+    <string name="th_row">werfen</string>
+    <string name="talents">Talente</string>
+    <string name="combat">kampf</string>
+    <string name="reset_mental">mental reseten</string>
+    <string name="show_dice_eyes">Würfel Zahlen</string>
+    <string name="fury">furieux</string>
+</resources>

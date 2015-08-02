@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/view_padding"
+    tools:context=".RootApplication">
+
+    <TextView
+        android:id="@+id/nom_armor"
+        style="@style/BigText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/view_padding">
+        <TextView
+            style="@style/BaseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/view_padding"
+            android:text="@string/bodypart"/>
+        <Button
+            android:id="@+id/bodypart"
+            style="@style/BaseTextWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/view_padding"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/view_padding">
+        <TextView
+            android:text="@string/protection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/view_padding"
+            style="@style/BaseText"/>
+        <ch.yannick.views.ValueControler
+            android:id="@+id/protection"
+            style="@style/BaseTextWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/view_padding"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/view_padding">
+        <TextView
+            android:text="@string/weather_protection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/view_padding"
+            style="@style/BaseText"/>
+        <ch.yannick.views.ValueControler
+            android:id="@+id/wheater_protection"
+            style="@style/BaseTextWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/view_padding"/>
+    </LinearLayout>
+
+
+
+
+
+    <Button
+        android:id="@+id/weight"
+        style= "@style/BaseText"
+        android:text ="@string/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/view_padding"/>
+    <ch.yannick.views.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/view_padding">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ch.yannick.views.ValueControler
+                style= "@style/BaseTextWhite"
+                android:id="@+id/libras"
+                app:lower_bound="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/view_padding"/>
+            <TextView
+                style= "@style/BaseText"
+                android:text ="@string/weight_libras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/view_padding"
+                android:paddingLeft="@dimen/view_padding"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ch.yannick.views.ValueControler
+                style= "@style/BaseTextWhite"
+                android:id="@+id/ounces"
+                app:lower_bound="0"
+                app:upper_bound="11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/view_padding"/>
+            <TextView
+                style= "@style/BaseText"
+                android:text ="@string/weight_ounces"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/view_padding"
+                android:paddingLeft="@dimen/view_padding"/>
+        </LinearLayout>
+        </ch.yannick.views.FlowLayout>
+</LinearLayout>

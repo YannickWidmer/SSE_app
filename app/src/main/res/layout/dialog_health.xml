@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            style="@style/BaseTextWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:padding="@dimen/view_padding"
+            android:text="@string/now" />
+
+        <ch.yannick.views.ValueControler
+            android:id="@+id/health"
+            style="@style/BaseTextWhite"
+            app:lower_bound="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0" />
+
+        <Button
+            style="@style/BaseTextWhite"
+            android:id="@+id/now_fill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:padding="@dimen/view_padding"
+            android:text="@string/fill" />
+
+
+        <TextView
+            style="@style/BaseTextWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:padding="@dimen/view_padding"
+            android:text="@string/max" />
+
+
+        <ch.yannick.views.ValueControler
+            android:id="@+id/max"
+            app:lower_bound="0"
+            style="@style/BaseTextWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            style="@style/BaseTextWhite"
+            android:id="@+id/max_compute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:padding="@dimen/view_padding"
+            android:text="@string/set_to_std" />
+    </GridLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/ok"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ok" />
+
+        <Button
+            android:id="@+id/cancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel" />
+    </LinearLayout>
+</LinearLayout>

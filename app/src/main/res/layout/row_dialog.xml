@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="android:attr/listItemFirstLineStyle"
+    android:id="@android:id/text1"
+    android:textColor="@android:color/white"
+    android:paddingTop="2dip"
+    android:textSize="@dimen/normal_text"
+    android:paddingBottom="3dip"
+    android:paddingLeft="@dimen/view_padding"
+    android:text="TEST"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" />

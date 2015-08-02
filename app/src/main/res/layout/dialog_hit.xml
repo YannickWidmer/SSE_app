@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:padding="@dimen/view_padding"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center" >
+
+        <ch.yannick.views.ValueControler
+            style="@style/WhiteButton"
+            app:lower_bound="0"
+            android:id="@+id/hit_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ToggleButton
+            android:id="@+id/direct"
+            android:background="@drawable/check_shield"
+            android:textOn=""
+            android:textOff=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ch.yannick.views.ValueControler
+            android:id="@+id/pierce_value"
+            style="@style/WhiteButton"
+            app:lower_bound="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/head"
+            style="@style/WhiteButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/head" />
+
+        <Button
+            android:id="@+id/chest"
+            style="@style/WhiteButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/chest" />
+
+        <Button
+            android:id="@+id/arms"
+            style="@style/WhiteButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/arms" />
+
+        <Button
+            android:id="@+id/legs"
+            style="@style/WhiteButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/legs" />
+    </LinearLayout>
+
+</LinearLayout>

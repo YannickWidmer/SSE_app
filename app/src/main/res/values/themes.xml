@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+      <!--
+        Base theme.
+    -->
+    <style name="SSEBaseThemeNoOrientation" parent="android:Theme.Holo.Light">
+        <item name="android:windowActionBar">true</item>
+        <item name="android:textColorAlertDialogListItem">@android:color/white</item>
+	    <item name="android:buttonStyle">@style/BaseButton</item>
+        <item name="android:dialogTheme">@style/SSEBaseDialog</item>
+        <item name="android:alertDialogTheme">@style/SSEAlertDialog</item>
+        <item name="android:textSize">@dimen/normal_text</item>
+    </style>
+    
+    <style name="SSEBaseTheme" parent="SSEBaseThemeNoOrientation">
+    	<item name="android:windowBackground">@drawable/background</item>
+	</style>
+
+    <style name="SSEBaseDialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textColorAlertDialogListItem">@android:color/white</item>
+        <!--    <item name="android:windowNoTitle">true</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+		<item name="android:windowBackground">@color/transparent</item>-->
+    </style>
+
+    <style name="SSEAlertDialog" parent="SSEBaseDialog">
+		<item name="android:windowBackground">@color/transparent</item>
+        <item name="android:textColorAlertDialogListItem">@android:color/white</item>
+    </style>
+
+
+
+    <style name="SSECopy" parent="SSEBaseThemeNoOrientation">
+        <item name="android:windowFrame">@null</item>
+
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+    
+</resources>
