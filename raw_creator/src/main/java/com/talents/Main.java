@@ -9,8 +9,8 @@ import org.yaml.snakeyaml.Yaml;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.yannick.intern.Talent;
-import ch.yannick.enums.Action;
+import ch.yannick.intern.action_talent.Talent;
+import ch.yannick.intern.action_talent.Action;
 
 public class Main {
 
