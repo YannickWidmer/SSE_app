@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!--     Fragments  -->
+	<integer name="List">1</integer>
+    <integer name="Frame">2</integer>
+    <integer name="InsideFrame">3</integer>
+   
+	    <!--     Views   -->
+    <integer name="blankView1">101</integer>
+    <integer name="blankView2">102</integer>
+    <integer name="listView">110</integer>
+    <integer name="spinner">111</integer>
+    
+	<!--     Buttons -->
+    <integer name="heroes">200</integer>
+    <integer name="play">201</integer>
+    <integer name="create_new">202</integer>
+   	<integer name="errase">203</integer>
+   	<integer name="minus">204</integer>
+	<integer name="plus">205</integer>
+    <integer name="arsenal">206</integer>
+    <integer name="move">209</integer>
+	<integer name = "value"> 210</integer>
+    
+    <!--     Menu options -->
+     <integer name="action_new_personnage">300</integer>
+    
+    <!--     Texts    	 -->
+    <integer name="nom">400</integer>
+
+
+    <!-- Actions dialog -->
+    <integer name="act_with_weapon">1</integer>
+    <integer name="react_with_weapon">2</integer>
+    <integer name="act_other">3</integer>
+    <integer name="react_other">4</integer>
+
+
+
+
+</resources>

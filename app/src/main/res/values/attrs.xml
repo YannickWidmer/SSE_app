@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DiceDisplayer">
+       <attr name="showNumber" format="boolean" />
+       <attr name="android:textSize" />
+   </declare-styleable>
+
+    <declare-styleable name="ValueControler">
+        <attr name="lower_bound" format="integer" />
+        <attr name="upper_bound" format="integer" />
+        <attr name="show_number" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="JaugeView">
+        <attr name="first_color" format="color"/>
+        <attr name="second_color" format="color"/>
+        <attr name="third_color" format="color"/>
+        <attr name="text_color" format="color"/>
+        <attr name="android:textSize" />
+    </declare-styleable>
+    
+</resources>

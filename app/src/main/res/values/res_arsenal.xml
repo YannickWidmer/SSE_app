@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>     
+   
+    
+    <!--      Weapon Detail -->
+    <integer name="att_attribut1">600</integer>
+    <integer name="att_attribut2">601</integer>
+    <integer name="att_plus">602</integer>
+    <integer name="att_minus">603</integer>
+    <integer name="att_value">604</integer>
+    <integer name="att_fatigue">605</integer>
+    <integer name="att_fatigue_plus">606</integer>
+    <integer name="att_fatigue_minus">607</integer>
+    
+    <integer name="def_attribut1">609</integer>
+    <integer name="def_attribut2">610</integer>
+    <integer name="def_value">611</integer>
+    <integer name="def_minus">612</integer>
+    <integer name="def_plus">613</integer>
+    <integer name="def_fatigue">614</integer>
+    <integer name="def_fatigue_minus">615</integer>
+    <integer name="def_fatigue_plus">616</integer>
+    
+    <integer name="penetration">617</integer>
+    <integer name="penetration_plus">618</integer>
+    <integer name="penetration_minus">619</integer>
+    <integer name="degats">620</integer>
+    <integer name="degats_dice">621</integer>
+    <integer name="degats_minus">622</integer>
+    <integer name="degats_plus">623</integer>
+	<integer name="degats_new_dice">624</integer>
+	<integer name="degats_remove_dice">625</integer>  
+	
+	<integer name="load_fatigue">626</integer>
+    <integer name="load_fatigue_minus">627</integer>
+    <integer name="load_fatigue_plus">628</integer>
+</resources>

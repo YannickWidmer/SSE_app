@@ -1,0 +1,47 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:padding="@dimen/view_padding"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment class="ch.yannick.activityPlay.Frag_PlayAttributes"
+        android:id="@+id/attributes"
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/frag_play_attributes" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Act_Play">
+
+        <fragment class="ch.yannick.activityPlay.Frag_PlayControl"
+            android:id="@+id/play"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            tools:layout="@layout/frag_play_control" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal" />
+
+        <fragment class="ch.yannick.activityPlay.Frag_Displayer"
+            android:id="@+id/display"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            tools:layout="@layout/frag_displayer" />
+    </LinearLayout>
+
+    <fragment class="ch.yannick.activityPlay.Frag_Equipment"
+        android:id="@+id/equipement"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/frag_equipment" />
+</LinearLayout>

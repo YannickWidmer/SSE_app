@@ -1,0 +1,243 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="${relativePackage}.${activityClass}"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/view_padding">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:padding="@dimen/view_padding"
+            android:background="@drawable/brown_border"
+            android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/arsenal"
+            android:padding="@dimen/view_padding"
+            android:layout_width="@dimen/list_item_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            />
+        </LinearLayout>
+        <RelativeLayout
+            android:padding="@dimen/view_padding"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/guerrier">
+
+            <ListView
+                android:id="@+id/head"
+                android:background="@drawable/brown_border"
+                android:padding="@dimen/view_padding"
+                android:layout_width="@dimen/list_item_width"
+                android:layout_height="@dimen/list_height"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/weapon_right" />
+
+            <ListView
+                android:id="@+id/chest"
+                android:background="@drawable/brown_border"
+                android:padding="@dimen/view_padding"
+                android:layout_width="@dimen/list_item_width"
+                android:layout_height="@dimen/list_height"
+                android:layout_alignTop="@+id/arms"
+                android:layout_toStartOf="@+id/arms" />
+            <ListView
+                android:id="@+id/arms"
+                android:background="@drawable/brown_border"
+                android:padding="@dimen/view_padding"
+                android:layout_width="@dimen/list_item_width"
+                android:layout_height="@dimen/list_height"
+                android:layout_below="@+id/head"
+                android:layout_alignParentRight="true" />
+
+            <ListView
+                android:id="@+id/legs"
+                android:background="@drawable/brown_border"
+                android:padding="@dimen/view_padding"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="@dimen/list_item_width"
+                android:layout_height="@dimen/list_height"/>
+
+            <Button
+                style="@style/BaseTextWhite"
+                android:id="@+id/weapon_left"
+                android:layout_below="@+id/chest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/left_arm"/>
+            <Button
+                style="@style/BaseTextWhite"
+                android:id="@+id/weapon_right"
+                android:layout_below="@+id/arms"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/right_arm"/>
+
+            <TextView
+                style="@style/BaseTextWhite"
+                android:id="@+id/protection_legs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_alignBottom="@+id/legs"
+                android:layout_alignEnd="@+id/legs" />
+
+            <TextView
+                style="@style/BaseTextWhite"
+                android:id="@+id/protection_chest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_alignBottom="@+id/chest"
+                android:layout_alignEnd="@+id/chest" />
+
+            <TextView
+                style="@style/BaseTextWhite"
+                android:id="@+id/protection_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_alignBottom="@+id/head"
+                android:layout_alignEnd="@+id/head" />
+
+            <TextView
+                style="@style/BaseTextWhite"
+                android:id="@+id/protection_arms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:text="0"
+                android:layout_column="2"
+                android:layout_alignBottom="@+id/arms"
+                android:layout_alignEnd="@+id/arms" />
+
+            <TextView
+                style="@style/BaseText"
+                android:padding="@dimen/view_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weight"
+                android:id="@+id/weight_name"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/weight"
+                style="@style/BaseTextWhite"
+                android:padding="@dimen/view_padding"
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/weight_name"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/BaseText"
+            android:padding="@dimen/view_padding"
+            android:text="@string/fatigue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            style="@style/BaseText"
+            android:padding="@dimen/view_padding"
+            android:text=":"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            style="@style/BaseText"
+            android:padding="@dimen/view_padding"
+            android:text="@string/base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/base_fatigue"
+            style="@style/BaseTextWhite"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            style="@style/BaseText"
+            android:text="@string/mouvement"
+            android:padding="@dimen/view_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/mouvement_fatigue"
+            style="@style/BaseTextWhite"
+            android:text="0"
+            android:padding="@dimen/view_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/BaseText"
+            android:padding="@dimen/view_padding"
+            android:text="@string/malus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            style="@style/BaseText"
+            android:padding="@dimen/view_padding"
+            android:text=":"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/BaseText"
+            android:text="@string/esquiv"
+            android:padding="@dimen/view_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/esquiv"
+            style="@style/BaseTextWhite"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            style="@style/BaseText"
+            android:text="@string/run"
+            android:padding="@dimen/view_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/run"
+            style="@style/BaseTextWhite"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            style="@style/BaseText"
+            android:text="@string/fight"
+            android:padding="@dimen/view_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/fight"
+            style="@style/BaseTextWhite"
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,69 @@
+<resources>
+
+    <style name="BaseButton" parent="android:style/Widget.Button">
+  		<item name="android:textSize">19sp</item>
+		<item name="android:layout_margin">0dip</item>
+  		<item name="android:layout_width">wrap_content</item>
+  		<item name="android:layout_height">wrap_content</item>
+  		<item name="android:background">@color/transparent</item>
+ 	</style>
+ 	
+     <style name="WhiteButton" parent="BaseButton">
+  		<item name="android:textColor">@android:color/white</item>
+   	    <item name="android:textStyle">bold</item>
+ 	</style>
+ 	
+     
+     
+   	<style name="BaseText" parent="android:style/Widget.TextView">
+  		<item name="android:textSize">20sp</item>
+        <item name="android:textColor">#e1fddd6f</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+ 	</style>
+
+   	
+   	<style name="BaseTextWhite" parent="BaseText">
+   	    <item name="android:textColor">@android:color/white</item>
+   	</style>
+
+    <style name="BaseTextBlack" parent="BaseText">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+   	<style name="BigText" parent="android:style/Widget.TextView">
+  		<item name="android:textSize">32sp</item>
+ 	</style>
+   			
+    <style name="SmallText" parent="android:style/Widget.TextView">
+  		<item name="android:textSize">12sp</item>
+ 	</style> 
+ 	 
+      
+      
+	<!--       act_detail  -->
+
+   	 <style name="ValueWithBackground" parent="android:style/Widget.TextView">
+        <item name="android:background">@drawable/twisted_branches</item>
+ 	    <item name="android:textSize">40sp</item>
+ 	    <item name="android:layout_width">wrap_content</item>
+ 	    <item name="android:layout_height">60sp</item>
+ 	    <item name="android:layout_marginLeft">25dp</item>
+ 	    <item name="android:layout_marginRight">25dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>  
+    
+   	 <style name="LeftRightLayout">
+	    <item name="android:orientation">horizontal</item>
+	    <item name="android:background">@drawable/gauchedroite</item>
+   	</style> 
+   
+   	<style name="LeftRightLayoutVerticalBigSize" parent="LeftRightLayout">
+	    <item name="android:layout_width">match_parent</item>
+ 	    <item name="android:layout_height">40dp</item>
+   	</style> 	 
+   	 
+   	 
+     
+</resources>
