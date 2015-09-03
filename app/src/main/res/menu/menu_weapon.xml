@@ -7,9 +7,4 @@
         android:showAsAction="ifRoom"
         android:icon="@drawable/save_icon"
         android:title="@string/save"/>
-    <item
-        android:id="@+id/change_type"
-        android:orderInCategory="1"
-        android:showAsAction="never"
-        android:title="@string/change_type"/>
 </menu>

@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="ch.yannick.activityArsenal.Dialog_newWeapon" >
+    tools:context="ch.yannick.display.activityArsenal.Dialog_newWeapon" >
 
     <EditText
         android:id="@+id/nom"

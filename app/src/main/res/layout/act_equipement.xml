@@ -4,7 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment class="ch.yannick.activityPlay.Frag_Equipment"
+    <fragment class="ch.yannick.display.activityPlay.Frag_Equipment"
         android:id="@+id/equipement"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

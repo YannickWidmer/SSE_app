@@ -5,7 +5,7 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:id = "@+id/root"
-    tools:context="ch.yannick.activityPlay.Dialog_choice" >
+    tools:context="ch.yannick.display.activityPlay.Dialog_choice" >
 
 
 </LinearLayout>

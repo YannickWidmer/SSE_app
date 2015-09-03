@@ -20,7 +20,7 @@
             android:padding="@dimen/view_padding"
             android:text="@string/now" />
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/health"
             style="@style/BaseTextWhite"
             app:lower_bound="0"
@@ -50,7 +50,7 @@
             android:text="@string/max" />
 
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/max"
             app:lower_bound="0"
             style="@style/BaseTextWhite"

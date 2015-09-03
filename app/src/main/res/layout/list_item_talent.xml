@@ -12,7 +12,7 @@
         style="@style/BaseText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <ch.yannick.views.ValueControler
+    <ch.yannick.display.views.ValueControler
         android:id="@+id/level"
         style="@style/BaseTextWhite"
         app:lower_bound="0"

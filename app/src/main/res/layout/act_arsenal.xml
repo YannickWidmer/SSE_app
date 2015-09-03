@@ -7,7 +7,7 @@
     tools:context=".Act_HeroesGestion">
 
 
-    <fragment class="ch.yannick.activityArsenal.Frag_WeaponsList"
+    <fragment class="ch.yannick.display.activityArsenal.Frag_WeaponsList"
         android:id="@+id/List"
         android:layout_weight="1"
         android:layout_width="0px"

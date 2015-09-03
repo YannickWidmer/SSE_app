@@ -146,4 +146,18 @@
     <string name="reset_mental">reset mental</string>
     <string name="show_dice_eyes">Dice values</string>
     <string name="fury">fury</string>
+    <string name="left_hand">left hand</string>
+    <string name="right_hand">right hand</string>
+    <string name="bare_hands">bare hands</string>
+    <string name="left_foot">left foot</string>
+    <string name="right_foot">right foot</string>
+    <string name="foots">foots</string>
+    <string name="fill_mana">fill with mana</string>
+    <string name="use_mana">use mana</string>
+    <string name="mana_weapon">mana weapon</string>
+    <string name="mana_attack">mana attack</string>
+    <string name="shoot">shoot</string>
+    <string name="value">value</string>
+    <string name="enhancer">enhancer</string>
+    <string name="action_remake">makes a new action</string>
 </resources>

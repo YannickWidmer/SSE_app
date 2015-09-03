@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:padding="20dp">
 
-        <ch.yannick.views.JaugeView
+        <ch.yannick.display.views.JaugeView
             android:id="@+id/vie"
             style="@style/BaseText"
             app:first_color="@color/blue"
@@ -46,7 +46,7 @@
             android:layout_width="@dimen/view_padding"
             android:layout_height="0dp" />
 
-        <ch.yannick.views.JaugeView
+        <ch.yannick.display.views.JaugeView
             android:id="@+id/endurance"
             app:first_color="@color/green"
             app:second_color="@color/red"

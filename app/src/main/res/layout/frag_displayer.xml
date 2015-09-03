@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView android:text="@string/degats" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-            <ch.yannick.views.DiceDisplayer  style="@style/BaseText"  android:paddingLeft="@dimen/view_padding" android:layout_height="wrap_content" android:layout_width="wrap_content"
+            <ch.yannick.display.views.DiceDisplayer
+                style="@style/BaseText"  android:paddingLeft="@dimen/view_padding" android:layout_height="wrap_content" android:layout_width="wrap_content"
                 android:id="@+id/degats_dice" />
             <TextView android:text="+" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
             <TextView android:id="@+id/degats_value" android:text="0" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
@@ -38,11 +39,13 @@
         <TextView android:text="@string/skill" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
         <TextView android:id="@+id/skill" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
         <TextView android:text="+" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-        <ch.yannick.views.ValueControler  android:padding="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content"
+        <ch.yannick.display.views.ValueControler
+            android:padding="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content"
             android:id="@+id/alter" />
 
 		<TextView android:text="@string/modif" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-        <ch.yannick.views.ValueControler android:padding="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content"
+        <ch.yannick.display.views.ValueControler
+            android:padding="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content"
             android:id="@+id/modif"/>
 
     </LinearLayout>

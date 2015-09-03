@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/view_padding"
             style="@style/BaseText"/>
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/protection"
             style="@style/BaseTextWhite"
             android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/view_padding"
             style="@style/BaseText"/>
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/wheater_protection"
             style="@style/BaseTextWhite"
             android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/view_padding"/>
-    <ch.yannick.views.FlowLayout
+    <ch.yannick.display.views.FlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/view_padding">
@@ -88,7 +88,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ch.yannick.views.ValueControler
+            <ch.yannick.display.views.ValueControler
                 style= "@style/BaseTextWhite"
                 android:id="@+id/libras"
                 app:lower_bound="0"
@@ -107,7 +107,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ch.yannick.views.ValueControler
+            <ch.yannick.display.views.ValueControler
                 style= "@style/BaseTextWhite"
                 android:id="@+id/ounces"
                 app:lower_bound="0"
@@ -123,5 +123,5 @@
                 android:paddingRight="@dimen/view_padding"
                 android:paddingLeft="@dimen/view_padding"/>
         </LinearLayout>
-        </ch.yannick.views.FlowLayout>
+        </ch.yannick.display.views.FlowLayout>
 </LinearLayout>

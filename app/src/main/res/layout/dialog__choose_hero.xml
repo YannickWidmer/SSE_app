@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ch.yannick.activityPlay.Dialog_ChooseHero" >
+    tools:context="ch.yannick.display.activityPlay.Dialog_ChooseHero" >
 
 	 <ListView
         android:id="@+id/listView"

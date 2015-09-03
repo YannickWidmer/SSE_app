@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin">
 
-        <ch.yannick.views.DiceDisplayer
+        <ch.yannick.display.views.DiceDisplayer
             android:id="@+id/degats_dice"
             style="@style/BaseText"
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="@string/plus" />
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/schaden"
             style="@style/BaseText"
             app:lower_bound="0"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/penetration"
             style="@style/BaseText"
             android:layout_width="80dp"

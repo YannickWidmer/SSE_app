@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:gravity="center" >
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             style="@style/WhiteButton"
             app:lower_bound="0"
             android:id="@+id/hit_value"
@@ -27,7 +27,7 @@
             android:textOff=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/pierce_value"
             style="@style/WhiteButton"
             app:lower_bound="0"

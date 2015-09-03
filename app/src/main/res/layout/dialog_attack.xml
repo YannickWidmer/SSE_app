@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/degats" />
 
-            <ch.yannick.views.DiceDisplayer
+            <ch.yannick.display.views.DiceDisplayer
                 android:id="@+id/degats_dice"
                 yannick:showNumber = "true"
                 android:layout_width="0dp"
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        class="ch.yannick.activityPlay.Frag_Displayer"
+        class="ch.yannick.display.activityPlay.Frag_Displayer"
         tools:layout="@layout/frag_displayer" />
 
 </LinearLayout>

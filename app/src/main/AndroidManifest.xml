@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/SSEBaseTheme">
         <activity
-            android:name="ch.yannick.activityMain.Act_Configurations"
+            android:name="ch.yannick.display.activityMain.Act_Configurations"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,89 +25,89 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ch.yannick.activityHeroes.Act_HeroesGestion"
+            android:name="ch.yannick.display.activityHeroes.Act_HeroesGestion"
             android:label="@string/heroes"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:windowActionBar="true" />
         <activity
-            android:name="ch.yannick.activityPlay.Act_Equipement"
+            android:name="ch.yannick.display.activityPlay.Act_Equipement"
             android:label="@string/equipement"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:windowActionBar="false" />
         <activity
-            android:name="ch.yannick.activityMental.Act_Mental"
+            android:name="ch.yannick.display.activityMental.Act_Mental"
             android:label="@string/heroes"
             android:theme="@style/SSEBaseDialog"
-            android:parentActivityName="ch.yannick.activityPlay.Act_Play"
+            android:parentActivityName="ch.yannick.display.activityPlay.Act_Play"
             android:windowActionBar="false" />
         <activity
-            android:name="ch.yannick.activityArsenal.Act_WeaponsDetail"
+            android:name="ch.yannick.display.activityArsenal.Act_WeaponsDetail"
             android:label="@string/arsenal"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:windowActionBar="true" />
         <activity
-            android:name="ch.yannick.activityHeroes.Act_HeroesDetail"
+            android:name="ch.yannick.display.activityHeroes.Act_HeroesDetail"
             android:label="@string/heroes"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:windowActionBar="true" />
         <activity
-            android:name="ch.yannick.activityArsenal.Act_Arsenal"
+            android:name="ch.yannick.display.activityArsenal.Act_Arsenal"
             android:label="@string/arsenal"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:windowActionBar="true" />
         <activity
-            android:name="ch.yannick.activityArmor.Act_Armures"
+            android:name="ch.yannick.display.activityArmor.Act_Armures"
             android:label="@string/arsenal"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:windowActionBar="true" />
         <activity
-            android:name="ch.yannick.activityArmor.Act_ArmorDetail"
+            android:name="ch.yannick.display.activityArmor.Act_ArmorDetail"
             android:label="@string/arsenal"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:windowActionBar="true" />
         <activity
-            android:name="ch.yannick.activityPlay.Act_Play"
+            android:name="ch.yannick.display.activityPlay.Act_Play"
             android:label="@string/title_play"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations" />
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations" />
         <activity
-            android:name="ch.yannick.activityArmor.Dialog_NewArmor"
+            android:name="ch.yannick.display.activityArmor.Dialog_NewArmor"
             android:label="@string/heroes"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:theme="@style/SSEBaseDialog" />
         <activity
-            android:name="ch.yannick.activityHeroes.Dialog_NewPersonnage"
+            android:name="ch.yannick.display.activityHeroes.Dialog_NewPersonnage"
             android:label="@string/heroes"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:theme="@style/SSEBaseDialog" />
         <activity
-            android:name="ch.yannick.activityArsenal.Dialog_newWeapon"
+            android:name="ch.yannick.display.activityArsenal.Dialog_newWeapon"
             android:label="@string/arsenal"
-            android:parentActivityName="ch.yannick.activityMain.Act_Configurations"
+            android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:theme="@style/SSEBaseDialog" />
         <activity
-            android:name="ch.yannick.activityArsenal.Dialog_Schaden"
+            android:name="ch.yannick.display.activityArsenal.Dialog_Schaden"
             android:label="@string/arsenal"
-            android:parentActivityName="ch.yannick.activityArsenal.Act_WeaponsDetail"
+            android:parentActivityName="ch.yannick.display.activityArsenal.Act_WeaponsDetail"
             android:theme="@style/SSEBaseDialog" />
         <activity
-            android:name="ch.yannick.activityPlay.Dialog_stamina"
+            android:name="ch.yannick.display.activityPlay.Dialog_stamina"
             android:label="@string/stamina"
-            android:parentActivityName="ch.yannick.activityPlay.Act_Play" 
+            android:parentActivityName="ch.yannick.display.activityPlay.Act_Play"
       		android:theme="@style/SSEBaseDialog" />
         <activity
-            android:name="ch.yannick.activityPlay.Dialog_health"
+            android:name="ch.yannick.display.activityPlay.Dialog_health"
             android:label="@string/stamina"
-            android:parentActivityName="ch.yannick.activityPlay.Act_Play" 
+            android:parentActivityName="ch.yannick.display.activityPlay.Act_Play"
       		android:theme="@style/SSEBaseDialog" />
           <activity
-            android:name="ch.yannick.activityPlay.Dialog_fatigue"
+            android:name="ch.yannick.display.activityPlay.Dialog_fatigue"
             android:label="@string/stamina"
-            android:parentActivityName="ch.yannick.activityPlay.Act_Play" 
+            android:parentActivityName="ch.yannick.display.activityPlay.Act_Play"
       		android:theme="@style/SSEBaseDialog"/>
           <activity
-            android:name="ch.yannick.activityPlay.Dialog_hit"
+            android:name="ch.yannick.display.activityPlay.Dialog_hit"
             android:label="@string/degats"
-            android:parentActivityName="ch.yannick.activityPlay.Act_Play" 
+            android:parentActivityName="ch.yannick.display.activityPlay.Act_Play"
       		android:theme="@style/SSEBaseDialog" />
     </application>
 </manifest>
