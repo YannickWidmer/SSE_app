@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment class="ch.yannick.display.activityPlay.Frag_PlayAttributes"
+    <fragment class="ch.yannick.activityPlay.Frag_PlayAttributes"
         android:id="@+id/attributes"
         android:layout_width="160dp"
         android:layout_height="match_parent"
@@ -20,7 +20,7 @@
         android:orientation="vertical"
         tools:context=".Act_Play">
 
-        <fragment class="ch.yannick.display.activityPlay.Frag_PlayControl"
+        <fragment class="ch.yannick.activityPlay.Frag_PlayControl"
             android:id="@+id/play"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_height="20dp"
             android:layout_gravity="center_horizontal" />
 
-        <fragment class="ch.yannick.display.activityPlay.Frag_Displayer"
+        <fragment class="ch.yannick.activityPlay.Frag_Displayer"
             android:id="@+id/display"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             tools:layout="@layout/frag_displayer" />
     </LinearLayout>
 
-    <fragment class="ch.yannick.display.activityPlay.Frag_Equipment"
+    <fragment class="ch.yannick.activityPlay.Frag_Equipment"
         android:id="@+id/equipement"
         android:layout_width="400dp"
         android:layout_height="match_parent"

@@ -71,7 +71,7 @@
                         android:id="@+id/KEY_KA"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.display.views.ValueControler
+                    <ch.yannick.views.ValueControler
                         android:id="@+id/controler_KA"
                         app:lower_bound="0"
                         app:show_number="false"
@@ -88,7 +88,7 @@
                         android:id="@+id/KEY_GK"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.display.views.ValueControler
+                    <ch.yannick.views.ValueControler
                         android:id="@+id/controler_GK"
                         app:lower_bound="0"
                         app:show_number="false"
@@ -106,7 +106,7 @@
                         android:id="@+id/KEY_GW"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.display.views.ValueControler
+                    <ch.yannick.views.ValueControler
                         android:id="@+id/controler_GW"
                         app:lower_bound="0"
                         app:show_number="false"
@@ -123,7 +123,7 @@
                         android:id="@+id/KEY_SZ"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.display.views.ValueControler
+                    <ch.yannick.views.ValueControler
                         android:id="@+id/controler_SZ"
                         app:lower_bound="0"
                         app:show_number="false"
@@ -151,7 +151,7 @@
                         android:id="@+id/KEY_SS"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.display.views.ValueControler
+                    <ch.yannick.views.ValueControler
                         android:id="@+id/controler_SS"
                         app:lower_bound="0"
                         app:show_number="false"
@@ -169,7 +169,7 @@
                         android:id="@+id/KEY_KB"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.display.views.ValueControler
+                    <ch.yannick.views.ValueControler
                         android:id="@+id/controler_KB"
                         app:lower_bound="0"
                         app:show_number="false"
@@ -187,7 +187,7 @@
                         android:id="@+id/KEY_AU"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.display.views.ValueControler
+                    <ch.yannick.views.ValueControler
                         android:id="@+id/controler_AU"
                         app:lower_bound="0"
                         app:show_number="false"
@@ -205,7 +205,7 @@
                         android:id="@+id/KEY_CH"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.display.views.ValueControler
+                    <ch.yannick.views.ValueControler
                         android:id="@+id/controler_CH"
                         app:lower_bound="0"
                         app:show_number="false"
@@ -230,7 +230,7 @@
             android:id="@+id/KEY_MA"
             style="@style/ValueWithBackground"/>
 
-        <ch.yannick.display.views.ValueControler
+        <ch.yannick.views.ValueControler
             android:id="@+id/controler_MA"
             app:lower_bound="0"
             app:show_number="false"

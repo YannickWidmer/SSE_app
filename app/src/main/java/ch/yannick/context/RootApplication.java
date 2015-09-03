@@ -9,11 +9,11 @@ import android.util.Log;
 import android.util.LongSparseArray;
 import android.widget.Toast;
 
-import ch.yannick.context.datamanagement.DataManager;
-import ch.yannick.intern.personnage.Personnage;
-import ch.yannick.intern.state.State;
-import ch.yannick.intern.action_talent.Talent;
-import ch.yannick.intern.items.Weapon;
+import ch.yannick.datamanagement.DataManager;
+import ch.yannick.intern.Personnage;
+import ch.yannick.intern.State;
+import ch.yannick.intern.Talent;
+import ch.yannick.intern.Weapon;
 
 /**
  * @author yannick

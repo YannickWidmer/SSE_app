@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:baselineAligned="false"
     tools:context=".Act_HeroesGestion">
-	<fragment class="ch.yannick.display.activityArmor.Frag_ArmorList"
+	<fragment class="ch.yannick.activityArmor.Frag_ArmorList"
 	    android:id="@+id/List"
 		android:layout_weight="1"
 		android:layout_width="0px"

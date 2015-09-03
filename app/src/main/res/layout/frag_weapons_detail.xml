@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/view_padding"
     tools:context=".RootApplication">
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
     <TextView
         android:id="@+id/name_weapon"
         style="@style/BigText"
@@ -26,22 +26,21 @@
 
      <LinearLayout
         android:id="@+id/InsideFrame"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_gravity="center_horizontal"
          android:orientation="vertical"
+         android:layout_gravity="center_horizontal"
+         android:layout_width="match_parent"
          android:paddingLeft="@dimen/view_padding"
-         android:paddingRight="@dimen/view_padding"/>
+         android:paddingRight="@dimen/view_padding"
+         android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/weight"
         style= "@style/BaseText"
+        android:text ="@string/weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/view_padding"
-        android:text ="@string/weight"/>
-
-    <ch.yannick.display.views.FlowLayout
+        android:padding="@dimen/view_padding"/>
+    <ch.yannick.views.FlowLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/view_padding">
@@ -49,41 +48,74 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ch.yannick.display.views.ValueControler
-                android:id="@+id/libras"
+            <ch.yannick.views.ValueControler
                 style= "@style/BaseTextWhite"
+                android:id="@+id/libras"
+                app:lower_bound="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/view_padding"
-                app:lower_bound="0"/>
+                android:paddingRight="@dimen/view_padding"/>
             <TextView
                 style= "@style/BaseText"
+                android:text ="@string/weight_libras"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/view_padding"
-                android:paddingRight="@dimen/view_padding"
-                android:text ="@string/weight_libras"/>
+                android:paddingRight="@dimen/view_padding"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <ch.yannick.display.views.ValueControler
-                android:id="@+id/ounces"
+            <ch.yannick.views.ValueControler
                 style= "@style/BaseTextWhite"
+                android:id="@+id/ounces"
+                app:lower_bound="0"
+                app:upper_bound="11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/view_padding"
-                app:lower_bound="0"
-                app:upper_bound="11"/>
+                android:paddingRight="@dimen/view_padding"/>
             <TextView
                 style= "@style/BaseText"
+                android:text ="@string/weight_ounces"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/view_padding"
-                android:paddingRight="@dimen/view_padding"
-                android:text ="@string/weight_ounces"/>
+                android:paddingRight="@dimen/view_padding"/>
         </LinearLayout>
-        </ch.yannick.display.views.FlowLayout>
+        </ch.yannick.views.FlowLayout>
+    <!-- Damage -->
+    <LinearLayout
+        android:id="@+id/frame_damage"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView android:text="@string/degats" style="@style/BaseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout android:layout_width="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <ch.yannick.views.DiceDisplayer android:layout_height="wrap_content" android:layout_width="wrap_content"
+                android:id="@+id/degats_dice" style="@style/BaseTextBlack"/>
+            <TextView android:text="@string/plus" style="@style/BaseTextBlack" android:layout_width ="wrap_content" android:layout_height = "fill_parent"/>
+            <TextView  style="@style/BaseTextBlack"
+                android:layout_height="fill_parent" android:layout_width="wrap_content"
+                android:id="@+id/degats"/>
+            <ToggleButton
+                android:id="@+id/direct"
+                android:textOff=""
+                android:textOn=""
+                android:text=" "
+                android:background="@drawable/check_shield"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView  style="@style/BaseTextBlack"
+                android:layout_height="wrap_content" android:layout_width="wrap_content"
+                android:id="@+id/penetration"/>
+        </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
 </ScrollView>

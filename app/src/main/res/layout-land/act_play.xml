@@ -13,7 +13,7 @@
         android:baselineAligned="false"
         tools:context=".Act_Play">
 
-        <fragment class="ch.yannick.display.activityPlay.Frag_PlayControl"
+        <fragment class="ch.yannick.activityPlay.Frag_PlayControl"
             android:id="@+id/play"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal" />
 
-        <fragment class="ch.yannick.display.activityPlay.Frag_Displayer"
+        <fragment class="ch.yannick.activityPlay.Frag_Displayer"
             android:id="@+id/display"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -33,7 +33,7 @@
             tools:layout="@layout/frag_displayer" />
     </LinearLayout>
 
-    <fragment class="ch.yannick.display.activityPlay.Frag_PlayAttributes"
+    <fragment class="ch.yannick.activityPlay.Frag_PlayAttributes"
         android:id="@+id/attributes"
         android:layout_width="240dp"
         android:layout_height="match_parent"

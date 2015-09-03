@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/view_padding">
-    <ch.yannick.display.views.ValueControler
+    <ch.yannick.views.ValueControler
     android:id="@+id/stamina_used_value"
     style="@style/BaseTextWhite"
     app:lower_bound="0"

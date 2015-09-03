@@ -6,7 +6,7 @@
     android:baselineAligned="false"
     tools:context=".Act_HeroesGestion">
 	
-	<fragment class="ch.yannick.display.activityHeroes.Frag_HeroesList"
+	<fragment class="ch.yannick.activityHeroes.Frag_HeroesList"
 	    android:id="@+id/List"
 		android:layout_weight="1"
 		android:layout_width="0px"

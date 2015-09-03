@@ -1,4 +1,4 @@
- <ch.yannick.display.activityMental.GameView
+ <ch.yannick.activityMental.GameView
      xmlns:android="http://schemas.android.com/apk/res/android"
      xmlns:tools="http://schemas.android.com/tools"
      android:id="@+id/mental_display"
