@@ -2,12 +2,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
-    android:padding="@dimen/view_padding"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/view_padding">
 
-    <fragment class="ch.yannick.activityPlay.Frag_PlayAttributes"
-        android:id="@+id/attributes"
+    <fragment android:id="@+id/attributes"
+        class="ch.yannick.display.activityPlay.Frag_PlayAttributes"
         android:layout_width="160dp"
         android:layout_height="match_parent"
         tools:layout="@layout/frag_play_attributes" />
@@ -15,15 +15,15 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
         tools:context=".Act_Play">
 
-        <fragment class="ch.yannick.activityPlay.Frag_PlayControl"
-            android:id="@+id/play"
-            android:layout_height="wrap_content"
+        <fragment android:id="@+id/play"
+            class="ch.yannick.display.activityPlay.Frag_PlayControl"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             tools:layout="@layout/frag_play_control" />
 
         <Space
@@ -31,16 +31,16 @@
             android:layout_height="20dp"
             android:layout_gravity="center_horizontal" />
 
-        <fragment class="ch.yannick.activityPlay.Frag_Displayer"
-            android:id="@+id/display"
-            android:layout_weight="1"
+        <fragment android:id="@+id/display"
+            class="ch.yannick.display.activityPlay.Frag_Displayer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
             tools:layout="@layout/frag_displayer" />
     </LinearLayout>
 
-    <fragment class="ch.yannick.activityPlay.Frag_Equipment"
-        android:id="@+id/equipement"
+    <fragment android:id="@+id/equipement"
+        class="ch.yannick.display.activityPlay.Frag_Equipment"
         android:layout_width="400dp"
         android:layout_height="match_parent"
         tools:layout="@layout/frag_equipment" />

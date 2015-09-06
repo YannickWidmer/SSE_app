@@ -2,10 +2,9 @@
      xmlns:android="http://schemas.android.com/apk/res/android"
      xmlns:tools="http://schemas.android.com/tools"
      android:id="@+id/mental_display"
-     android:padding="@dimen/view_padding"
-     android:minWidth="200dp"
-     android:layout_width="match_parent"
-     android:layout_gravity="center"
+     android:layout_width="400dp"
      android:layout_height="wrap_content"
-     tools:layout="@layout/frag_displayer"
-     tools:context=".Act_Play"/>
+     android:layout_gravity="center"
+     android:padding="@dimen/view_padding"
+     tools:context=".Act_Play"
+     tools:layout="@layout/frag_displayer"/>

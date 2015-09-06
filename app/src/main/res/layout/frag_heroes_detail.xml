@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,16 +18,16 @@
         android:layout_height="wrap_content">
         <TextView
             style="@style/BaseText"
-            android:text="@string/race"
-            android:padding="@dimen/view_padding"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="@dimen/view_padding"
+            android:text="@string/race" />
         <TextView
             style="@style/BaseText"
-            android:text=":"
-            android:padding="@dimen/view_padding"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="@dimen/view_padding"
+            android:text=":" />
         <Button
             android:id="@+id/race"
             style="@style/BaseTextWhite"
@@ -71,12 +71,12 @@
                         android:id="@+id/KEY_KA"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.views.ValueControler
+                    <ch.yannick.display.views.ValueControler
                         android:id="@+id/controler_KA"
-                        app:lower_bound="0"
-                        app:show_number="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text" />
+                        android:layout_height="@dimen/big_text"
+                        app:lower_bound="0"
+                        app:show_number="false" />
                     <!-- Geschicklichkeit -->
                     <TextView
                         style="@style/BaseText"
@@ -88,12 +88,12 @@
                         android:id="@+id/KEY_GK"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.views.ValueControler
+                    <ch.yannick.display.views.ValueControler
                         android:id="@+id/controler_GK"
-                        app:lower_bound="0"
-                        app:show_number="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text" />
+                        android:layout_height="@dimen/big_text"
+                        app:lower_bound="0"
+                        app:show_number="false" />
 
                     <!-- Geschwindigkeit -->
                     <TextView
@@ -106,12 +106,12 @@
                         android:id="@+id/KEY_GW"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.views.ValueControler
+                    <ch.yannick.display.views.ValueControler
                         android:id="@+id/controler_GW"
-                        app:lower_bound="0"
-                        app:show_number="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text" />
+                        android:layout_height="@dimen/big_text"
+                        app:lower_bound="0"
+                        app:show_number="false" />
                     <!-- Sagazitàt-->
                     <TextView
                         style="@style/BaseText"
@@ -123,20 +123,20 @@
                         android:id="@+id/KEY_SZ"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.views.ValueControler
+                    <ch.yannick.display.views.ValueControler
                         android:id="@+id/controler_SZ"
-                        app:lower_bound="0"
-                        app:show_number="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text" />
+                        android:layout_height="@dimen/big_text"
+                        app:lower_bound="0"
+                        app:show_number="false" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
                     android:gravity="center_horizontal"
+                    android:orientation="vertical"
                     android:padding="@dimen/view_padding">
 
 
@@ -151,12 +151,12 @@
                         android:id="@+id/KEY_SS"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.views.ValueControler
+                    <ch.yannick.display.views.ValueControler
                         android:id="@+id/controler_SS"
-                        app:lower_bound="0"
-                        app:show_number="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text" />
+                        android:layout_height="@dimen/big_text"
+                        app:lower_bound="0"
+                        app:show_number="false" />
 
                     <!-- Körperbau -->
                     <TextView
@@ -169,12 +169,12 @@
                         android:id="@+id/KEY_KB"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.views.ValueControler
+                    <ch.yannick.display.views.ValueControler
                         android:id="@+id/controler_KB"
-                        app:lower_bound="0"
-                        app:show_number="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text" />
+                        android:layout_height="@dimen/big_text"
+                        app:lower_bound="0"
+                        app:show_number="false" />
 
                     <!-- Ausdauer -->
                     <TextView
@@ -187,12 +187,12 @@
                         android:id="@+id/KEY_AU"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.views.ValueControler
+                    <ch.yannick.display.views.ValueControler
                         android:id="@+id/controler_AU"
-                        app:lower_bound="0"
-                        app:show_number="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text" />
+                        android:layout_height="@dimen/big_text"
+                        app:lower_bound="0"
+                        app:show_number="false" />
 
                     <!-- Charme -->
                     <TextView
@@ -205,12 +205,12 @@
                         android:id="@+id/KEY_CH"
                         style="@style/ValueWithBackground" />
 
-                    <ch.yannick.views.ValueControler
+                    <ch.yannick.display.views.ValueControler
                         android:id="@+id/controler_CH"
-                        app:lower_bound="0"
-                        app:show_number="false"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text" />
+                        android:layout_height="@dimen/big_text"
+                        app:lower_bound="0"
+                        app:show_number="false" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -230,18 +230,15 @@
             android:id="@+id/KEY_MA"
             style="@style/ValueWithBackground"/>
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/controler_MA"
-            app:lower_bound="0"
-            app:show_number="false"
             android:layout_width="wrap_content"
+            android:layout_height="@dimen/big_text"
             android:layout_gravity="center_horizontal"
-            android:layout_height="@dimen/big_text" />
+            app:lower_bound="0"
+            app:show_number="false" />
                 </LinearLayout>
         </LinearLayout>
-
-
-
 
     </ScrollView>
 

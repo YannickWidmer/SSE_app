@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
-import ch.yannick.intern.items.WaffenTyp;
 import ch.yannick.display.technical.EnumAdapter;
+import ch.yannick.intern.items.WaffenTyp;
 
 
 public class Dialog_newWeapon extends MyBaseActivity implements AdapterView.OnItemClickListener {
-    EnumAdapter<WaffenTyp> adapter;
+    private EnumAdapter<WaffenTyp> adapter;
     private int mPosition =0;
 
 	@Override
@@ -33,7 +33,7 @@ public class Dialog_newWeapon extends MyBaseActivity implements AdapterView.OnIt
 
         final ListView listview = (ListView) findViewById(R.id.listView);
 
-        adapter =	new EnumAdapter(this,typeList);
+        adapter = new EnumAdapter<>(this, typeList);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(this);
     }

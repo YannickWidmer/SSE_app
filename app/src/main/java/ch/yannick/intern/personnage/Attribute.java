@@ -18,7 +18,7 @@ public enum Attribute implements AdapterUsable {
     MAGIC(R.string.STR_MA,R.id.KEY_MA,R.id.controler_MA);
 
     private int id,controler, string;
-    private Attribute(int stringId, int id, int controler){
+    Attribute(int stringId, int id, int controler){
         this.id = id;
         this.string = stringId;
         this.controler = controler;

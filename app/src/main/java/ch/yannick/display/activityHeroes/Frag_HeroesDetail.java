@@ -23,13 +23,13 @@ import java.util.Map;
 
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
-import ch.yannick.intern.personnage.Attribute;
-import ch.yannick.intern.personnage.Race;
-import ch.yannick.intern.personnage.Personnage;
-import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.display.views.ValueChangeListener;
 import ch.yannick.display.views.ValueControler;
+import ch.yannick.intern.action_talent.Talent;
+import ch.yannick.intern.personnage.Attribute;
+import ch.yannick.intern.personnage.Personnage;
+import ch.yannick.intern.personnage.Race;
 
 public class Frag_HeroesDetail extends Fragment{
 	
@@ -173,7 +173,7 @@ public class Frag_HeroesDetail extends Fragment{
 		}
 	}
 	
-	public void updateValues(View v){
+	private void updateValues(View v){
         for(Attribute attribute:Attribute.values())
 		    ((TextView)v.findViewById(attribute.getId())).setText(String.valueOf(p.getAttr(attribute)));
 	}
@@ -226,7 +226,7 @@ public class Frag_HeroesDetail extends Fragment{
             }
 
             holder.talent= mList.get(position);
-            holder.name.setText((int) holder.talent.getStringId());
+            holder.name.setText( holder.talent.getStringId());
             holder.controler.setBounds(0,holder.talent.getMax());
 
             if(p.getTalents().containsKey(holder.talent))

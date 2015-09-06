@@ -8,9 +8,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:paddingTop="20dp">
         <TextView
             android:id="@+id/race"
             style="@style/BaseText"
@@ -32,29 +32,29 @@
         android:layout_height="wrap_content"
         android:padding="20dp">
 
-        <ch.yannick.views.JaugeView
+        <ch.yannick.display.views.JaugeView
             android:id="@+id/vie"
             style="@style/BaseText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             app:first_color="@color/blue"
             app:second_color="@color/blue"
-            app:third_color="@color/red"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"/>
+            app:third_color="@color/red"/>
 
         <Space
             android:layout_width="@dimen/view_padding"
             android:layout_height="0dp" />
         
-        <ch.yannick.views.JaugeView
+        <ch.yannick.display.views.JaugeView
             android:id="@+id/endurance"
+            style="@style/BaseText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             app:first_color="@color/green"
             app:second_color="@color/red"
-            app:third_color="@color/black"
-            style="@style/BaseText"
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            app:third_color="@color/black" />
     </LinearLayout>
 
     <LinearLayout
@@ -65,21 +65,21 @@
             android:id="@+id/weapon_left"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_weight="1"
-            android:showDividers="middle"
             android:divider="@drawable/empty_tall_divider"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:showDividers="middle">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/weapon_left_name"
                     style="@style/BaseText"
-                    android:paddingRight="@dimen/view_padding"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingRight="@dimen/view_padding"
                     android:text="@string/left_arm"/>
                 <ImageView
                     android:id="@+id/loaded_left"
@@ -100,12 +100,12 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:showDividers="middle"
-            android:divider="@drawable/empty_tall_divider"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:divider="@drawable/empty_tall_divider"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:showDividers="middle">
             <TextView
                 style="@style/BaseText"
                 android:layout_width="wrap_content"
@@ -119,24 +119,24 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
             android:id="@+id/weapon_right"
-            android:showDividers="middle"
-            android:divider="@drawable/empty_tall_divider"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:divider="@drawable/empty_tall_divider"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:showDividers="middle">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/weapon_right_name"
                     style="@style/BaseText"
-                    android:paddingRight="@dimen/view_padding"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingRight="@dimen/view_padding"
                     android:text="@string/left_arm"/>
                 <ImageView
                     android:id="@+id/loaded_right"
@@ -170,25 +170,25 @@
         <Button
             android:id="@+id/act"
             style="@style/BaseButton"
-            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-        	android:layout_width="0dp"
+        	android:layout_weight="1"
             android:text="@string/act" />
 
         <Button
             android:id="@+id/react"
             style="@style/BaseButton"
-             android:layout_weight="1"
+             android:layout_width="0dp"
             android:layout_height="match_parent"
-        	android:layout_width="0dp"
+        	android:layout_weight="1"
             android:text="@string/react" />
 
         <Button
             android:id="@+id/takehit"
             style="@style/BaseButton"
-             android:layout_weight="1"
+             android:layout_width="0dp"
             android:layout_height="match_parent"
-        	android:layout_width="0dp"
+        	android:layout_weight="1"
             android:text="@string/takehit" />
     </LinearLayout>
 </LinearLayout>

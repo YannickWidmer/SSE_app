@@ -34,33 +34,36 @@ public class SQLDBManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "SSE";
  
     // table names
-    public static final String
-            TABLE_PERSONAGE = "personages", TABLE_TALENTS = "talents",
-            TABLE_WEAPONS="weapons", TABLE_SCHADEN="schaden",
-            TABLE_WEAPON_ACTION="weapon_action", TABLE_ARMOR = "armor";
+    private static final String
+            TABLE_PERSONAGE = "personages";
+    private static final String TABLE_TALENTS = "talents";
+    private static final String TABLE_WEAPONS="weapons";
+    private static final String TABLE_SCHADEN="schaden";
+    private static final String TABLE_WEAPON_ACTION="weapon_action";
+    private static final String TABLE_ARMOR = "armor";
  
     //Table columns for all tables
-    public static final String KEY_NAME = "name", KEY_ID="id";
+    private static final String KEY_NAME = "name", KEY_ID="id";
     
     // Personage Table Columns names
-    public static final String  KEY_KA = "kraft", KEY_GK = "geschicklichkeit", KEY_GW = "vitesse",
+    private static final String  KEY_KA = "kraft", KEY_GK = "geschicklichkeit", KEY_GW = "vitesse",
     		KEY_SZ = "saga", KEY_CH = "charme", KEY_SS = "Acuite", KEY_KB = "koebau", KEY_AU = "ausdauer", KEY_MA = "magie",
             KEY_RACE = "race";
 
     // weapon Table Columns names
-    public static final String KEY_TYPE= "type";
+    private static final String KEY_TYPE= "type";
     		
 	// Schaden Table Columns
-    public static final String KEY_VALUE="value",KEY_ACTION = "action";
+    private static final String KEY_VALUE="value",KEY_ACTION = "action";
 
 	// Weapon action Table Columns
-    public static final String KEY_ATTRIBUTE1="first_attribute",
+    private static final String KEY_ATTRIBUTE1="first_attribute",
             KEY_ATTRIBUTE2="second_attribute",KEY_WEIGHT="weight",
             KEY_FATIGUE="fatigue",  KEY_PENETRATION="penetration", KEY_DIRECT="isDirect",
             KEY_SCHADEN="schaden", KEY_ENHANCER = "enhancer";
 
     // armor table columns
-    public static final String KEY_BODYPART="body_part", KEY_PROTECTION="protection", KEY_HEAT = "heat_protection";
+    private static final String KEY_BODYPART="body_part", KEY_PROTECTION="protection", KEY_HEAT = "heat_protection";
 
     private SQLiteDatabase db;
    
@@ -367,8 +370,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
         c.put(KEY_WEIGHT, "" + armor.getWeight());
         c.put(KEY_HEAT,""+armor.getWeatherProtection());
         c.put(KEY_PROTECTION,""+armor.getProtection());
-        Long id = pushData(TABLE_ARMOR,armor.getId(),c); // in case it is first time
-        return id;
+        return pushData(TABLE_ARMOR,armor.getId(),c); // in case it is first time
     }
 
     public synchronized ArrayList<Armor> getAllArmor(){

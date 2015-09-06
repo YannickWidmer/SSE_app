@@ -16,9 +16,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import ch.yannick.display.activityMain.Inter_ListCarrier;
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
+import ch.yannick.display.activityMain.Inter_ListCarrier;
 import ch.yannick.intern.items.Armor;
 
 /*
@@ -27,10 +27,9 @@ import ch.yannick.intern.items.Armor;
  */
 
 public class Frag_ArmorList extends Fragment implements OnItemClickListener, OnItemLongClickListener{
+	private static final String LOG="Frag:ArmorList";
 	//private boolean isDualPane;
 	private int position=-1;
-	private static final String LOG="Frag:ArmorList";
-	
 	private ArrayAdapter<Armor> adapter;
 	private ArrayList<Armor> armorList = new ArrayList<>();
 	

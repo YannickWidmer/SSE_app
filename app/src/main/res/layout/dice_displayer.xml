@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ch.yannick.views.DiceDisplayer xmlns:android="http://schemas.android.com/apk/res/android"
+<ch.yannick.display.views.DiceDisplayerr xmlns:android="http://schemas.android.com/apk/res/android"
     			xmlns:yannick="http://schemas.android.com/apk/res-auto"
-    android:textSize="@dimen/huge_text"
     android:id="@+id/dices"
-    yannick:showNumber = "true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/view_padding"
+    android:textSize="@dimen/huge_text"
+    yannick:showNumber = "true"
     />

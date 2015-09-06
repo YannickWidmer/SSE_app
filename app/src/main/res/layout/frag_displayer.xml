@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <LinearLayout
         android:id="@+id/degats"
@@ -15,18 +15,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView android:text="@string/degats" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-            <ch.yannick.views.DiceDisplayer  style="@style/BaseText"  android:paddingLeft="@dimen/view_padding" android:layout_height="wrap_content" android:layout_width="wrap_content"
-                android:id="@+id/degats_dice" />
-            <TextView android:text="+" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-            <TextView android:id="@+id/degats_value" android:text="0" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
+            <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/degats"/>
+            <ch.yannick.display.views.DiceDisplayer  android:id="@+id/degats_dice"  style="@style/BaseText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/view_padding" />
+            <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="+"/>
+            <TextView android:id="@+id/degats_value" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <TextView android:text="@string/penetration" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-        <TextView android:id="@+id/penetration" android:text="0" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
+        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/penetration"/>
+        <TextView android:id="@+id/penetration" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -35,15 +35,15 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     
-        <TextView android:text="@string/skill" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-        <TextView android:id="@+id/skill" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-        <TextView android:text="+" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-        <ch.yannick.views.ValueControler  android:padding="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content"
-            android:id="@+id/alter" />
+        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/skill"/>
+        <TextView android:id="@+id/skill" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp"/>
+        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="+"/>
+        <ch.yannick.display.views.ValueControler  android:id="@+id/alter" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:padding="5dp" />
 
-		<TextView android:text="@string/modif" android:padding="5dp" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content"/>
-        <ch.yannick.views.ValueControler android:padding="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content"
-            android:id="@+id/modif"/>
+		<TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/modif"/>
+        <ch.yannick.display.views.ValueControler android:id="@+id/modif" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:padding="5dp"/>
 
     </LinearLayout>
 	

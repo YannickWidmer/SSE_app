@@ -2,21 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:baselineAligned="false"
+    android:orientation="horizontal"
     tools:context=".Act_HeroesGestion">
 	
-	<fragment class="ch.yannick.activityArmor.Frag_ArmorList"
-	    android:id="@+id/List"
-		android:layout_weight="1"
+	<fragment android:id="@+id/List"
+	    class="ch.yannick.display.activityArmor.Frag_ArmorList"
 		android:layout_width="0px"
 		android:layout_height="match_parent"
+		android:layout_weight="1"
         tools:layout="@layout/frag_armor_list" />
 	
 	<ScrollView
         android:layout_width="0px"
-        android:layout_weight="1"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 	 <FrameLayout 
 	     	android:id="@+id/Frame"
             android:layout_width="match_parent"

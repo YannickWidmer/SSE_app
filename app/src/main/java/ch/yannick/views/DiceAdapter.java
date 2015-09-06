@@ -9,19 +9,20 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
 import ch.yannick.context.R;
-import ch.yannick.intern.Choice;
+import ch.yannick.intern.dice.Choice;
+
 
 public class DiceAdapter extends ArrayAdapter<Choice> {
 
     private boolean silent=false;
 
-    public void changeSilent(){
-        silent = !silent;
-    }
-	
 	public DiceAdapter(Context context, ArrayList<Choice> choices){
 		super(context,0,choices);
 	}
+	
+    public void changeSilent(){
+        silent = !silent;
+    }
 	
 	 @Override
      public View getView(int position, View convertView, ViewGroup parent) {

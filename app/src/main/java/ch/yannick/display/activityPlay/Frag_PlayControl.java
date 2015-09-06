@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,24 +23,24 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import ch.yannick.context.R;
 import ch.yannick.display.activityMental.Act_Mental;
 import ch.yannick.display.activityMental.Vector;
-import ch.yannick.context.R;
-import ch.yannick.intern.action_talent.Action;
-import ch.yannick.intern.personnage.HitZone;
-import ch.yannick.intern.personnage.Limb;
-import ch.yannick.intern.state.State;
 import ch.yannick.display.technical.AdapterColored;
 import ch.yannick.display.technical.ColoredHolder;
 import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.display.views.JaugeView;
+import ch.yannick.intern.action_talent.Action;
+import ch.yannick.intern.personnage.HitZone;
+import ch.yannick.intern.personnage.Limb;
+import ch.yannick.intern.state.State;
 
 public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClickListener {
+	private static final String LOG = "frag:Control";
+	private static final int act_end = 0, react_end = 2, new_round = 3, mental = 4;
 	private State st;
     private Frag_PlayAttributes mAttr;
     private Frag_Displayer mDisplayer;
-	private static final String LOG = "frag:Control";
-	private static final int act_end = 0, react_end = 2, new_round = 3, mental = 4;
     private LinearLayout mLeftWeaponLayout, mRightWeaponLayout;
     private TextView mWeaponLeftName, mWeaponRightName;
     private JaugeView healthJauge, staminaJauge;
@@ -110,24 +109,24 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         loaded_right =  getView().findViewById(R.id.loaded_right);
         unLoaded_right = getView().findViewById(R.id.unloaded_right);
 
-		((Button)v.findViewById(R.id.act)).setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View arg0) {
-				act(false);
-			}
-		});
-		((Button)v.findViewById(R.id.react)).setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View arg0) {
-				act(true);
-			}
-		});
-		((Button)v.findViewById(R.id.takehit)).setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View arg0) {
-				hit();
-			}
-		});
+		v.findViewById(R.id.act).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                act(false);
+            }
+        });
+		v.findViewById(R.id.react).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                act(true);
+            }
+        });
+		v.findViewById(R.id.takehit).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                hit();
+            }
+        });
 
         mActionArrayLeft = new ArrayList<>();
         mActionArrayRight = new ArrayList<>();
@@ -146,12 +145,12 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         refresh();
 	}
 
-    protected void hit() {
+    private void hit() {
 		Intent intent = new Intent(getActivity().getApplication(), Dialog_hit.class);
 		startActivityForResult(intent,R.id.degats);
 	}
 
-	protected void act(final boolean reaction) {
+	private void act(final boolean reaction) {
 		if(st.canAct(0,reaction)){
             List<ColoredHolder<Action>> actionsColored = new ArrayList<>();
             for(Action action:st.getActions(Limb.ALL)){
@@ -221,7 +220,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
             fatigue(coloredPossiblities.get(0).getObject(),act,reaction);
     }
 
-    public final void fatigue(Limb which, Action action,boolean reaction){
+    private void fatigue(Limb which, Action action, boolean reaction){
         Intent intent;
         intent = new Intent(getActivity().getApplication(), Dialog_fatigue.class);
         intent.putExtra("id",st.getId());
@@ -305,7 +304,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 	  	refresh();
 	}
 	
-	public void refresh(){
+	private void refresh(){
         mLeftWeaponLayout.setVisibility(View.GONE);
         mRightWeaponLayout.setVisibility(View.GONE);
         if(st.hasWeapon(Limb.LEFTHAND)) {

@@ -16,9 +16,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import ch.yannick.display.activityMain.Inter_ListCarrier;
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
+import ch.yannick.display.activityMain.Inter_ListCarrier;
 import ch.yannick.intern.items.Weapon;
 
 /*
@@ -27,10 +27,9 @@ import ch.yannick.intern.items.Weapon;
  */
 
 public class Frag_WeaponsList extends Fragment implements OnItemClickListener, OnItemLongClickListener{
+	private static final String LOG="Frag:WeaponsList";
 	//private boolean isDualPane;
 	private int position=-1;
-	private static final String LOG="Frag:WeaponsList";
-	
 	private ArrayAdapter<Weapon> adapter;
 	private ArrayList<Weapon> weaponsList= new ArrayList<Weapon>();
 	

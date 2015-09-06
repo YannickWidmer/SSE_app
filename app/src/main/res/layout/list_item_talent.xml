@@ -7,16 +7,16 @@
 
     <TextView
         android:id="@+id/talent_name"
-        android:layout_alignParentLeft="true"
-        android:text="Talent"
         style="@style/BaseText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <ch.yannick.views.ValueControler
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Talent" />
+    <ch.yannick.display.views.ValueControler
         android:id="@+id/level"
         style="@style/BaseTextWhite"
-        app:lower_bound="0"
-        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        app:lower_bound="0" />
 </RelativeLayout>

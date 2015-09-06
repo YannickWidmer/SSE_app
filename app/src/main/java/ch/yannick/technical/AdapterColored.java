@@ -1,7 +1,6 @@
 package ch.yannick.technical;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,8 @@ import ch.yannick.context.R;
  */
 public class AdapterColored<T>  extends ArrayAdapter<ColoredHolder<T>> {
 
-    private int layout;
     private static String LOG = "Colorde Adapter";
-    private static class ViewHolder {
-        private TextView itemView;
-    }
-
+    private int layout;
     public AdapterColored(Context context, List<ColoredHolder<T>> objects, int layout) {
         super(context, layout, objects);
         this.layout=layout;
@@ -47,5 +42,9 @@ public class AdapterColored<T>  extends ArrayAdapter<ColoredHolder<T>> {
             text.setText(item.getStringId());
         text.setTextColor(getContext().getResources().getColor(item.getColor()));
         return convertView;
+    }
+
+    private static class ViewHolder {
+        private TextView itemView;
     }
 }

@@ -7,12 +7,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.yannick.intern.dice.Choice;
-import ch.yannick.intern.dice.Dice;
-
 public class DicePossibilities {
     private static String LOG="DicePossibilities";
-	int length,mSum;
+	private int length;
+	private int mSum;
 	private Map<Dice,Integer> mMaxes;
 	private ArrayList<Choice> mResult;
 	private Choice mChoice;

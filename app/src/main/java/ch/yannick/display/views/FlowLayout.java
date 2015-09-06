@@ -15,7 +15,7 @@ import ch.yannick.context.R;
  * @author Melinda Green
  */
 public class FlowLayout extends ViewGroup {
-    private static int PAD_H = 2, PAD_V = 2; // Space between child views.
+    private int PAD_H = 2, PAD_V = 2; // Space between child views.
     private int mHeight;
 
     public FlowLayout(Context context) {

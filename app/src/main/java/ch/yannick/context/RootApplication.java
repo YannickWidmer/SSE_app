@@ -9,11 +9,12 @@ import android.util.Log;
 import android.util.LongSparseArray;
 import android.widget.Toast;
 
-import ch.yannick.datamanagement.DataManager;
-import ch.yannick.intern.Personnage;
-import ch.yannick.intern.State;
-import ch.yannick.intern.Talent;
-import ch.yannick.intern.Weapon;
+import ch.yannick.context.datamanagement.DataManager;
+import ch.yannick.intern.action_talent.Talent;
+import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.personnage.Personnage;
+import ch.yannick.intern.state.State;
+
 
 /**
  * @author yannick
@@ -21,12 +22,11 @@ import ch.yannick.intern.Weapon;
  */
 public class RootApplication extends Application {
 
-	private DataManager myManager;
 	private static final String LOG="RootApplication";
+    public Weapon currentWeapon;
+	private DataManager myManager;
 	private MyBaseActivity mCurrentActivity = null;
 	private LongSparseArray<State> states;
-
-    public Weapon currentWeapon;
 
 	@Override
 	public void onCreate(){
@@ -71,7 +71,7 @@ public class RootApplication extends Application {
             switch (Flag){
                 case MyBaseActivity.INSERTWEAPON:
                     Toast.makeText(this,"new weapon created",Toast.LENGTH_SHORT).show();
-                    break;
+					break;
                 case MyBaseActivity.UPDATEWEAPON:
                     Toast.makeText(this,"weapon saved",Toast.LENGTH_SHORT).show();
                     break;

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import java.util.List;
 
 import ch.yannick.context.R;
@@ -16,10 +17,6 @@ import ch.yannick.context.R;
 public class EnumAdapter<T extends AdapterUsable> extends ArrayAdapter<T> {
 
     private int layout;
-    private static class ViewHolder {
-        private TextView itemView;
-    }
-
     public EnumAdapter(Context context, List<T> objects, int layout) {
         super(context, layout, objects);
         this.layout=layout;
@@ -39,5 +36,9 @@ public class EnumAdapter<T extends AdapterUsable> extends ArrayAdapter<T> {
         TextView text = (TextView) convertView.findViewById(android.R.id.text1);
         text.setText(getItem(position).getStringId());
         return convertView;
+    }
+
+    private static class ViewHolder {
+        private TextView itemView;
     }
 }

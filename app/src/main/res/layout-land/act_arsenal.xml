@@ -2,20 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:baselineAligned="false"
+    android:orientation="horizontal"
     tools:context=".Act_HeroesGestion">
 	
-	<fragment class="ch.yannick.activityArsenal.Frag_WeaponsList"
-	    android:id="@+id/List"
-		android:layout_weight="1"
+	<fragment android:id="@+id/List"
+	    class="ch.yannick.display.activityArsenal.Frag_WeaponsList"
 		android:layout_width="0px"
 		android:layout_height="match_parent"
+		android:layout_weight="1"
         tools:layout="@layout/frag_weapons_list" />
 
 	 <FrameLayout 
 	     	android:id="@+id/Frame"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
 </LinearLayout>

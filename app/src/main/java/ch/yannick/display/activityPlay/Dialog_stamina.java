@@ -6,9 +6,9 @@ import android.view.View.OnClickListener;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
+import ch.yannick.display.views.ValueControler;
 import ch.yannick.intern.state.Resolver;
 import ch.yannick.intern.state.State;
-import ch.yannick.display.views.ValueControler;
 
 public class Dialog_stamina extends MyBaseActivity {
 	private State st;

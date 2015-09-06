@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.RootApplication;
-import ch.yannick.intern.items.WaffenTyp;
 import ch.yannick.intern.items.Armor;
-import ch.yannick.intern.personnage.Personnage;
+import ch.yannick.intern.items.WaffenTyp;
 import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.personnage.Personnage;
 
 public class DataManager {
 

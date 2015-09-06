@@ -19,13 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.yannick.context.R;
-import ch.yannick.intern.dice.Dice;
-import ch.yannick.intern.dice.Choice;
-import ch.yannick.intern.dice.DicePossibilities;
 import ch.yannick.display.views.DiceAdapter;
 import ch.yannick.display.views.DiceDisplayer;
 import ch.yannick.display.views.ValueChangeListener;
 import ch.yannick.display.views.ValueControler;
+import ch.yannick.intern.dice.Choice;
+import ch.yannick.intern.dice.Dice;
+import ch.yannick.intern.dice.DicePossibilities;
 
 public class Frag_Displayer extends Fragment{
 	@SuppressWarnings("unused")

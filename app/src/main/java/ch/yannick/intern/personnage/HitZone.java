@@ -12,7 +12,7 @@ public enum HitZone implements AdapterUsable {
 
     private int striId, layoutId;
     private int[] treffer;
-    private HitZone(int id, int[] treffer, int layoutId){
+    HitZone(int id, int[] treffer, int layoutId){
         striId = id;
         this.treffer = treffer;
         this.layoutId = layoutId;

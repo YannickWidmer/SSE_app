@@ -16,14 +16,14 @@ public class Weapon {
 
     private static String LOG = "Weapon";
 
-    protected WaffenTyp mType;
-    protected boolean isLoaded = true;
-    protected String name;
-	protected Long id;
+    private WaffenTyp mType;
+    private boolean isLoaded = true;
+    private String name;
+	private Long id;
     // The weapon has it's own defined actions with defined properties independently of the Hero wearing it those are the BAse Actions.
     // The resolved actions are those which the Hero really uses. There might be more actions than the base actions depending on the Heroes talents.
-    protected Map<Action,ActionData> base_actions, resolved_actions;
-   	protected int mWeight;
+    private Map<Action,ActionData> base_actions, resolved_actions;
+   	private int mWeight;
     private int mMana;
 
     public Weapon(Long id, String name, WaffenTyp type){
@@ -144,12 +144,12 @@ public class Weapon {
         return base_actions.get(action);
     }
 
-    public void setWeight(int weight){
-        mWeight = weight;
-    }
-
     public int getWeight(){
         return mWeight;
+    }
+
+    public void setWeight(int weight){
+        mWeight = weight;
     }
 
     private void setAction(Action test,Attribute first, Attribute second,int value,int fatigue,
@@ -253,12 +253,12 @@ public class Weapon {
         return isLoaded;
     }
 
-    public void setMana(int mana){
-        mMana = mana;
-    }
-
     public int getMana(){
         return mMana;
+    }
+
+    public void setMana(int mana){
+        mMana = mana;
     }
 
     public class ActionData{

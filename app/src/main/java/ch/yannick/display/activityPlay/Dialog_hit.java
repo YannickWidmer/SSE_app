@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ToggleButton;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
-import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.display.views.ValueControler;
+import ch.yannick.intern.personnage.HitZone;
 
 public class Dialog_hit extends MyBaseActivity implements OnClickListener {
 
@@ -21,7 +20,7 @@ public class Dialog_hit extends MyBaseActivity implements OnClickListener {
 
 		int[] ids = new int[]{R.id.head,R.id.chest,R.id.arms,R.id.legs};
 	 	for(int i:ids)
-			((Button) findViewById(i)).setOnClickListener(this);
+			findViewById(i).setOnClickListener(this);
 
 	}
 

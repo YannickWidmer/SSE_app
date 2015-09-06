@@ -30,16 +30,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/degats" />
 
-            <ch.yannick.views.DiceDisplayer
+            <ch.yannick.display.views.DiceDisplayer
                 android:id="@+id/degats_dice"
-                yannick:showNumber = "true"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="10" />
+                android:layout_weight="10"
+                yannick:showNumber = "true" />
             
-            <ImageView android:src="@drawable/throuhshield" android:adjustViewBounds = "true" 
-			    android:layout_width="0dp"  android:layout_height="match_parent"
-                      android:layout_weight="1"/>
+            <ImageView android:layout_width="0dp" android:layout_height="match_parent"
+			    android:layout_weight="1"  android:adjustViewBounds = "true"
+                      android:src="@drawable/throuhshield"/>
             <TextView android:id="@+id/penetration" style="@style/BaseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -48,10 +48,10 @@
 
     <fragment
         android:id="@+id/display"
+        class="ch.yannick.display.activityPlay.Frag_Displayer"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        class="ch.yannick.activityPlay.Frag_Displayer"
         tools:layout="@layout/frag_displayer" />
 
 </LinearLayout>

@@ -17,19 +17,19 @@ import java.util.List;
 import java.util.Map;
 
 import ch.yannick.context.R;
-import ch.yannick.intern.dice.Dice;
 import ch.yannick.intern.dice.Choice;
+import ch.yannick.intern.dice.Dice;
 
 public class DiceDisplayer extends View{
     private static float textShift = 1.3f;
+	private static Map<Dice,Bitmap> diceBitMaps;
+    private static String LOG = "DiceDisplayer";
 	private boolean showingNumber = true;
 	private Paint paint,redPaint;
 	private String text;
 	private int height,width, textSize;
     private List<Dice> dices;
 	private Map<Dice,Bitmap> diceBitMapsScaled;
-	private static Map<Dice,Bitmap> diceBitMaps;
-    private static String LOG = "DiceDisplayer";
     private boolean silent = true;
 
 	public DiceDisplayer(Context c, AttributeSet attr){
@@ -193,7 +193,11 @@ public class DiceDisplayer extends View{
         requestLayout();
     }
 	
-	public void setDices(Map<Dice,Integer> diceMap){
+    public List<Dice> getDices() {
+        return dices;
+    }
+
+	private void setDices(Map<Dice, Integer> diceMap){
         dices = new ArrayList<>();
         for(Dice d:Dice.values()){
             if(diceMap.containsKey(d)){
@@ -204,10 +208,6 @@ public class DiceDisplayer extends View{
 		invalidate();
 		requestLayout();
 	}
-
-    public List<Dice> getDices() {
-        return dices;
-    }
 
     public void addDice(Dice d) {
         dices.add(d);

@@ -1,7 +1,7 @@
 package ch.yannick.intern.state;
 
-import ch.yannick.display.activityMental.Vector;
 import ch.yannick.context.R;
+import ch.yannick.display.activityMental.Vector;
 
 /**
  * Created by Yannick on 05.07.2015.
@@ -22,18 +22,16 @@ public enum MentalState {
     SHOCK(new Vector(-50,-10),50,20,R.string.shock);
 
 
+    public final static int halfWidth = 60, halfHeight = 50;
     private static String LOG = "MentalState";
+    private int gravity, radius, stringId;
+    private Vector position;
     MentalState(Vector vec,int gravity, int radius, int stringId){
         this.position = vec;
         this.gravity = gravity;
         this.radius = radius;
         this.stringId = stringId;
     }
-
-
-    private int gravity, radius, stringId;
-    private Vector position;
-    public final static int halfWidth = 60, halfHeight = 50;
 
     public static MentalState getState(Vector vec){
         MentalState res = NEUTRAL;

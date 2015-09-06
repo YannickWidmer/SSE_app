@@ -20,18 +20,18 @@
             android:padding="@dimen/view_padding"
             android:text="@string/now" />
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/stamina_now"
             style="@style/BaseTextWhite"
-            app:lower_bound="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_row="0" />
+            android:layout_row="0"
+            app:lower_bound="0" />
 
         <Button
-            style="@style/BaseTextWhite"
             android:id="@+id/now_fill"
+            style="@style/BaseTextWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="2"
@@ -40,8 +40,8 @@
             android:text="@string/fill" />
 
         <Button
-            style="@style/BaseTextWhite"
             android:id="@+id/now_empty"
+            style="@style/BaseTextWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="3"
@@ -58,18 +58,18 @@
             android:padding="@dimen/view_padding"
             android:text="@string/used" />
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/stamina_used"
-            app:lower_bound="0"
             style="@style/BaseTextWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_row="1" />
+            android:layout_row="1"
+            app:lower_bound="0" />
 
         <Button
-            style="@style/BaseTextWhite"
             android:id="@+id/used_empty"
+            style="@style/BaseTextWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="2"
@@ -86,18 +86,18 @@
             android:padding="@dimen/view_padding"
             android:text="@string/max" />
 
-        <ch.yannick.views.ValueControler
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/stamina_max"
-            app:lower_bound="0"
             style="@style/BaseTextWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_row="2" />
+            android:layout_row="2"
+            app:lower_bound="0" />
 
         <Button
-            style="@style/BaseTextWhite"
             android:id="@+id/max_compute"
+            style="@style/BaseTextWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="2"

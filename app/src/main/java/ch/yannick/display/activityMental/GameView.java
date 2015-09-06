@@ -141,7 +141,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         dDraw(canv);
     }
 
-    public void dDraw(Canvas canv){
+    private void dDraw(Canvas canv){
         //canv.drawBitmap(background, 0, 0, null);
         canv.drawARGB(200,200,200,1);
         canv.drawColor(Color.TRANSPARENT);
@@ -178,7 +178,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         canv.drawCircle(x, -y, radius, paint);
     }
 
-    public void resume() {
+    private void resume() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 1;//(backgroundWith)/width;
         background = BitmapFactory.decodeResource(getResources(),R.drawable.mentalmap);

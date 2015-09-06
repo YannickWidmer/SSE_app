@@ -235,12 +235,7 @@ public class State {
         return mentalPosition;
     }
 
-    public void setMentalState(Vector position){
-        this.mentalPosition = position;
-        computeMentalState();
-    }
-
-    public void computeMentalState(){
+    private void computeMentalState(){
         mentalState = MentalState.getState(mentalPosition);
     }
 
@@ -248,15 +243,20 @@ public class State {
         return mentalState;
     }
 
+    public void setMentalState(Vector position){
+        this.mentalPosition = position;
+        computeMentalState();
+    }
+
     public int getWeight() {
         return equipement.getWeight();
     }
 
-    public int getResolvedEnhancer(Action act){
+    private int getResolvedEnhancer(Action act){
         return Resolver.getAvatarEnhancer(p, equipement, mentalState, act);
     }
 
-    public int getResolvedFatigue(Action act){
+    private int getResolvedFatigue(Action act){
         return Resolver.getFatigue(p, equipement, mentalState, act);
     }
 

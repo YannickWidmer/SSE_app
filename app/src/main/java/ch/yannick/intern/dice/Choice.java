@@ -3,8 +3,6 @@ package ch.yannick.intern.dice;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.yannick.intern.dice.Dice;
-
 public class Choice {
 	private Map<Dice,Integer> dices;
 	private int sum,rest;
@@ -20,7 +18,7 @@ public class Choice {
 		setDices(diceChoice,sum);
 	}
 
-    public void setDices(Map<Dice,Integer> diceChoice,int sum){
+    private void setDices(Map<Dice, Integer> diceChoice, int sum){
         this.dices = diceChoice;
         this.sum = sum;
 

@@ -20,10 +20,10 @@ import java.util.ArrayList;
 
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
-import ch.yannick.intern.personnage.HitZone;
-import ch.yannick.intern.items.Armor;
 import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.display.views.ValueControler;
+import ch.yannick.intern.items.Armor;
+import ch.yannick.intern.personnage.HitZone;
 
 public class Frag_ArmorDetail extends Fragment {
 

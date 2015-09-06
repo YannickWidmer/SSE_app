@@ -8,10 +8,10 @@ import android.view.View;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
+import ch.yannick.display.views.ValueControler;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
-import ch.yannick.display.views.ValueControler;
 
 public class Dialog_fatigue extends MyBaseActivity {
     private static String LOG = "Dialog fatigue";

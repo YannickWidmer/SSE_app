@@ -9,12 +9,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:baselineAligned="false"
+        android:orientation="horizontal"
         tools:context=".Act_Play">
 
-        <fragment class="ch.yannick.activityPlay.Frag_PlayControl"
-            android:id="@+id/play"
+        <fragment android:id="@+id/play"
+            class="ch.yannick.display.activityPlay.Frag_PlayControl"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -25,21 +25,21 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal" />
 
-        <fragment class="ch.yannick.activityPlay.Frag_Displayer"
-            android:id="@+id/display"
-            android:layout_weight="1"
+        <fragment android:id="@+id/display"
+            class="ch.yannick.display.activityPlay.Frag_Displayer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             tools:layout="@layout/frag_displayer" />
     </LinearLayout>
 
-    <fragment class="ch.yannick.activityPlay.Frag_PlayAttributes"
-        android:id="@+id/attributes"
+    <fragment android:id="@+id/attributes"
+        class="ch.yannick.display.activityPlay.Frag_PlayAttributes"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#7ffdc210"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
-        android:background="#7ffdc210"
         tools:layout="@layout/frag_play_attributes" />
 </android.support.v4.widget.DrawerLayout>

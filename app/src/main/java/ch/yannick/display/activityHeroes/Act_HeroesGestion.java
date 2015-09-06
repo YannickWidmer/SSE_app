@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import ch.yannick.display.activityMain.Inter_ListCarrier;
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
+import ch.yannick.display.activityMain.Inter_ListCarrier;
 
 /*
  * This Activity contains either the heroes list in portrait mode, or the list and the
@@ -18,8 +18,8 @@ import ch.yannick.context.R;
 
 public class Act_HeroesGestion extends MyBaseActivity implements Inter_ListCarrier{
 	
-	private boolean isDualPane;
 	private static final String LOG="Act:HeroesGestion";
+	private boolean isDualPane;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){

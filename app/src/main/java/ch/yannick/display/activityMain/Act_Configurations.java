@@ -9,13 +9,13 @@ import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
+import ch.yannick.context.MyBaseActivity;
+import ch.yannick.context.R;
+import ch.yannick.context.RootApplication;
 import ch.yannick.display.activityArmor.Act_Armures;
 import ch.yannick.display.activityArsenal.Act_Arsenal;
 import ch.yannick.display.activityHeroes.Act_HeroesGestion;
 import ch.yannick.display.activityPlay.Act_Play;
-import ch.yannick.context.MyBaseActivity;
-import ch.yannick.context.R;
-import ch.yannick.context.RootApplication;
 import ch.yannick.intern.personnage.Personnage;
 
 public class Act_Configurations extends MyBaseActivity {

@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:baselineAligned="false"
+    android:orientation="horizontal"
     tools:context=".Act_HeroesGestion">
 	
-	<fragment class="ch.yannick.activityHeroes.Frag_HeroesList"
-	    android:id="@+id/List"
-		android:layout_weight="1"
+	<fragment android:id="@+id/List"
+	    class="ch.yannick.display.activityHeroes.Frag_HeroesList"
 		android:layout_width="0px"
-		android:layout_height="match_parent"/>
+		android:layout_height="match_parent"
+		android:layout_weight="1"/>
 		
 </LinearLayout>

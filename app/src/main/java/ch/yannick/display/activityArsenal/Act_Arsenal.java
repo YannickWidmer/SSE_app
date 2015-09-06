@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import ch.yannick.display.activityMain.Inter_ListCarrier;
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
+import ch.yannick.display.activityMain.Inter_ListCarrier;
 
 
 public class Act_Arsenal extends MyBaseActivity implements Inter_ListCarrier {

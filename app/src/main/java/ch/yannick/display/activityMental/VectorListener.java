@@ -5,6 +5,6 @@ package ch.yannick.display.activityMental;
  */
 public interface VectorListener {
 
-    public void onGetingVector(Vector v);
-    public String  done();
+    void onGetingVector(Vector v);
+    String  done();
 }

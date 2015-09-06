@@ -9,15 +9,15 @@ import ch.yannick.display.technical.AdapterUsable;
 public enum Race implements AdapterUsable {
     HUMAN(R.string.human,2,31,46,33),GARAN(R.string.garan,3,46,24,40),LEMUR(R.string.lemur,1,21,28,29),PFEILOR(R.string.pfeilor,4,60,15,15);
 
-    private Race(int stringId, int baseFatigue, int fatigueCoeff, int movementCoeff, int fightCoeff){
+    private int stringId, baseFatigue,fatigueCoeff,movementCoeff,fightCoeff;
+
+    Race(int stringId, int baseFatigue, int fatigueCoeff, int movementCoeff, int fightCoeff){
         this.stringId = stringId;
         this.baseFatigue = baseFatigue;
         this.fatigueCoeff = fatigueCoeff;
         this.movementCoeff = movementCoeff;
         this.fightCoeff = fightCoeff;
     }
-
-    private int stringId, baseFatigue,fatigueCoeff,movementCoeff,fightCoeff;
 
     public int getStringId(){
         return stringId;

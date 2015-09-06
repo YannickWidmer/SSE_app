@@ -6,11 +6,12 @@ import ch.yannick.intern.personnage.HitZone;
 public class Armor {
 
     private static String LOG = "Weapon";
-
-    protected HitZone mPart;
-    protected String mName;
-	protected Long mId;
-    protected int mProtection, mWeight, mWeatherProtection;
+    int mWeight;
+    private HitZone mPart;
+    private String mName;
+	private Long mId;
+    private int mProtection;
+    private int mWeatherProtection;
 
     public Armor(Long id, String name){
         mId = id;
@@ -40,18 +41,6 @@ public class Armor {
         mName = name;
     }
 
-    public void setPart(HitZone part){
-        mPart = part;
-    }
-
-    public void setProtection(int protection){
-        mProtection = protection;
-    }
-
-    public void setWeight(int weight){
-        mWeight = weight;
-    }
-
     // getters
 	public String getName(){
 		return mName;
@@ -61,19 +50,31 @@ public class Armor {
         return mProtection;
     }
 
+    public void setProtection(int protection){
+        mProtection = protection;
+    }
+
     public int getWeight(){
         return mWeight;
+    }
+
+    public void setWeight(int weight){
+        mWeight = weight;
     }
 
     public HitZone getPart(){
         return mPart;
     }
 
-    public void setWeatherProtection(int protection){
-        mWeatherProtection = protection;
+    public void setPart(HitZone part){
+        mPart = part;
     }
 
     public int getWeatherProtection(){
         return mWeatherProtection;
+    }
+
+    public void setWeatherProtection(int protection){
+        mWeatherProtection = protection;
     }
 }

@@ -9,30 +9,30 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:padding="@dimen/view_padding"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center" >
+        android:gravity="center"
+        android:padding="@dimen/view_padding" >
 
-        <ch.yannick.views.ValueControler
-            style="@style/WhiteButton"
-            app:lower_bound="0"
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/hit_value"
+            style="@style/WhiteButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:lower_bound="0" />
         <ToggleButton
             android:id="@+id/direct"
-            android:background="@drawable/check_shield"
-            android:textOn=""
-            android:textOff=""
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ch.yannick.views.ValueControler
+            android:layout_height="wrap_content"
+            android:background="@drawable/check_shield"
+            android:textOff=""
+            android:textOn="" />
+        <ch.yannick.display.views.ValueControler
             android:id="@+id/pierce_value"
             style="@style/WhiteButton"
-            app:lower_bound="0"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:lower_bound="0" />
     </LinearLayout>
 
     <LinearLayout
