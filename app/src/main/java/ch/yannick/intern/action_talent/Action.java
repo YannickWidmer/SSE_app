@@ -16,11 +16,13 @@ public enum Action implements AdapterUsable {
     TWOHANDEDATTACK(R.string.two_hand_attack,true,Attribute.FORCE,Attribute.AGILLITY,4),
     DEFEND(R.string.defend,Attribute.AGILLITY,Attribute.SPEED,2),
     LOAD(R.string.load, Attribute.AGILLITY,Attribute.FORCE,3),
-    ESQUIV(R.string.esquiv,Attribute.AGILLITY,Attribute.ACUITY,0),
     RUN(R.string.run,Attribute.SPEED,Attribute.AGILLITY,0),
     MANAATTACK(R.string.mana_attack,Attribute.MAGIC,Attribute.AGILLITY,1),
     FILLMANA(R.string.fill_mana,Attribute.MAGIC,Attribute.ASTUTENESS,1),
     USEMANA(R.string.use_mana,Attribute.ASTUTENESS,Attribute.MAGIC,1),
+
+    WEATHERTEST(R.string.cold_sleep,Attribute.PHYSIQUE,Attribute.PHYSIQUE,0),
+    ESQUIV(R.string.esquiv,Attribute.AGILLITY,Attribute.ACUITY,0),
     OTHER(R.string.other,Attribute.FORCE,Attribute.FORCE,0),
     // Talents
     STEAL(R.string.steal,Attribute.AGILLITY,Attribute.SPEED,0),

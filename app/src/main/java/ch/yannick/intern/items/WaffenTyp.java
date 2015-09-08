@@ -10,7 +10,7 @@ import ch.yannick.intern.action_talent.Action;
 
 // This list must agree with the llist weapon_types in strings
 public enum WaffenTyp implements AdapterUsable {
-    BAREHANDS(R.string.bare_hands,false,new Action[]{Action.ESQUIV,Action.RUN,Action.OTHER}),
+    BAREHANDS(R.string.bare_hands,false,new Action[]{Action.ESQUIV,Action.RUN,Action.WEATHERTEST,Action.OTHER}),
     SWORD(R.string.sword,false, new Action[]{Action.ATTACK,Action.DEFEND}),
     BISWORD(R.string.twohanded,true, new Action[]{Action.ATTACK,Action.DEFEND}),
     ONEAHALFSWORD(R.string.one_a_half_sword,false,new Action[]{Action.ATTACK,Action.TWOHANDEDATTACK ,Action.DEFEND}),

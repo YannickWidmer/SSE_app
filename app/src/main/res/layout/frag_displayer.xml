@@ -5,31 +5,25 @@
     android:orientation="vertical"
     android:padding="10dp" >
 
-    <LinearLayout
-        android:id="@+id/degats"
+
+    <ch.yannick.display.views.FlowLayout
+        android:id="@+id/damage_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/degats"/>
-            <ch.yannick.display.views.DiceDisplayer  android:id="@+id/degats_dice"  style="@style/BaseText" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/view_padding" />
-            <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="+"/>
-            <TextView android:id="@+id/degats_value" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/penetration"/>
-        <TextView android:id="@+id/penetration" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
-        </LinearLayout>
-
-    </LinearLayout>
+        android:orientation="horizontal">
+        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/degats"/>
+        <ch.yannick.display.views.DiceDisplayer  android:id="@+id/damage_dice"  style="@style/BaseText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:padding="@dimen/view_padding" />
+        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="+"/>
+        <TextView android:id="@+id/degats_value" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
+        <ImageView
+            android:id="@+id/damage_shield"
+            android:layout_width="@dimen/huge_text"
+            android:layout_height="@dimen/huge_text"
+            android:background="@drawable/check_shield"/>
+        <TextView android:id="@+id/damage_direct_text" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/direct"/>
+        <TextView android:id="@+id/damage_penetration" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
+    </ch.yannick.display.views.FlowLayout>
 
     <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -50,7 +44,6 @@
     <ListView android:id="@+id/listView"
     android:layout_width="match_parent"
     android:layout_height="0px"
-  	android:layout_weight="5"
-  	android:choiceMode="singleChoice"
-    android:listSelector="@drawable/epee_noire"/>
+  	android:layout_weight="1"
+  	android:choiceMode="singleChoice"/>
 </LinearLayout>

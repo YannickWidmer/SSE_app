@@ -92,7 +92,7 @@ public class Frag_Displayer extends Fragment{
 
         hideDegats();
 
-        degats = (DiceDisplayer)getView().findViewById(R.id.degats_dice);
+        degats = (DiceDisplayer)getView().findViewById(R.id.damage_dice);
 
         mAlterControler = ((ValueControler)v.findViewById(R.id.alter));
         mAlterControler.setListener(new ValueChangeListener() {
@@ -115,18 +115,24 @@ public class Frag_Displayer extends Fragment{
 	}
 
     public void hideDegats(){
-        getView().findViewById(R.id.degats).setVisibility(View.GONE);
+        getView().findViewById(R.id.damage_layout).setVisibility(View.GONE);
     }
 
     public void setDegats(List<Dice> dices, int enhancer,int penetration,boolean direct){
-        getView().findViewById(R.id.degats).setVisibility(View.VISIBLE);
         degats.setDices(dices);
         degats.setNumber(enhancer);
         ((TextView)getView().findViewById(R.id.degats_value)).setText("" + enhancer);
-        if(direct)
-            ((TextView)getView().findViewById(R.id.penetration)).setText(R.string.direct);
-        else
-            ((TextView)getView().findViewById(R.id.penetration)).setText(""+penetration);
+        if(direct) {
+            getView().findViewById(R.id.damage_direct_text).setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.damage_penetration).setVisibility(View.GONE);
+        }
+        else {
+            ((TextView)getView().findViewById(R.id.damage_penetration)).setText(""+penetration);
+            getView().findViewById(R.id.damage_direct_text).setVisibility(View.GONE);
+            getView().findViewById(R.id.damage_penetration).setVisibility(View.VISIBLE);
+
+        }
+        getView().findViewById(R.id.damage_layout).setVisibility(View.VISIBLE);
     }
 	
 	public void setSkill(int value){

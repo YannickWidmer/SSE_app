@@ -376,11 +376,13 @@ public class SQLDBManager extends SQLiteOpenHelper {
     public synchronized ArrayList<Armor> getAllArmor(){
         ArrayList<Armor> list= new ArrayList<>();
         db = getReadableDatabase();
-        Cursor c = db.query(TABLE_ARMOR,new String[]{KEY_ID, KEY_NAME, KEY_PROTECTION,KEY_WEIGHT,KEY_BODYPART},null,null,null,null,null);
-
+        Cursor c = db.query(TABLE_ARMOR,new String[]{KEY_ID, KEY_NAME, KEY_PROTECTION,KEY_HEAT,KEY_WEIGHT,KEY_BODYPART},null,null,null,null,null);
+        Armor temp;
         if(c.moveToFirst()){
             do{
-                list.add(new Armor(getLong(c,KEY_ID),getString(c,KEY_NAME), HitZone.valueOf(getString(c, KEY_BODYPART)),get(c, KEY_PROTECTION),get(c, KEY_WEIGHT)));
+                temp = new Armor(getLong(c,KEY_ID),getString(c,KEY_NAME), HitZone.valueOf(getString(c, KEY_BODYPART)),get(c, KEY_PROTECTION),get(c, KEY_WEIGHT));
+                temp.setWeatherProtection(get(c,KEY_HEAT));
+                list.add(temp);
             }while(c.moveToNext());
         }
         db.close();

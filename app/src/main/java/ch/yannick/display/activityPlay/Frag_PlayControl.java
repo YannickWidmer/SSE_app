@@ -31,19 +31,21 @@ import ch.yannick.display.technical.ColoredHolder;
 import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.display.views.JaugeView;
 import ch.yannick.intern.action_talent.Action;
+import ch.yannick.intern.items.WaffenTyp;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
 
 public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClickListener {
 	private static final String LOG = "frag:Control";
-	private static final int act_end = 0, react_end = 2, new_round = 3, mental = 4;
+	private static final int act_end = 0, react_end = 2, new_round = 3, mental = 4, hit = 5;
 	private State st;
     private Frag_PlayAttributes mAttr;
+    private ListView mLeftList,mMiddleList, mRightList;
     private Frag_Displayer mDisplayer;
     private LinearLayout mLeftWeaponLayout, mRightWeaponLayout;
     private TextView mWeaponLeftName, mWeaponRightName;
-    private JaugeView healthJauge, staminaJauge;
+    private JaugeView healthJauge, staminaJauge, leftManaJauge, rightManaJauge;
     private View loaded_left,unloaded_left, loaded_right, unLoaded_right;
     private EnumAdapter<Action> mAdapterLeft,mAdapterRight, freeAction;
     private ArrayList<Action> mActionArrayLeft, mActionArrayRight, mActionArrayFree;
@@ -85,7 +87,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity().getApplication(), Dialog_stamina.class);
                 intent.putExtra("id", st.getId());
-                startActivityForResult(intent, R.id.stamina);
+                startActivityForResult(intent, R.id.health);
             }
         });
 
@@ -94,9 +96,11 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity().getApplication(), Dialog_health.class);
                 intent.putExtra("id",st.getId());
-                startActivityForResult(intent, R.id.health);
+                startActivityForResult(intent, R.id.stamina);
             }
         });
+
+
 
         mLeftWeaponLayout = (LinearLayout) v.findViewById(R.id.weapon_left);
         mRightWeaponLayout = (LinearLayout) v.findViewById(R.id.weapon_right);
@@ -104,6 +108,8 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         mWeaponLeftName = (TextView) v.findViewById(R.id.weapon_left_name);
         mWeaponRightName = (TextView) v.findViewById(R.id.weapon_right_name);
 
+        leftManaJauge = (JaugeView) v.findViewById(R.id.mana_jauge_left);
+        rightManaJauge  = (JaugeView) v.findViewById(R.id.mana_jauge_right);
         loaded_left = getView().findViewById(R.id.loaded_left);
         unloaded_left = getView().findViewById(R.id.unloaded_left);
         loaded_right =  getView().findViewById(R.id.loaded_right);
@@ -136,20 +142,31 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         mAdapterRight = new EnumAdapter<>(getActivity(), mActionArrayRight, R.layout.row_centered_text);
         freeAction = new EnumAdapter<>(getActivity(),mActionArrayFree,R.layout.row_centered_text);
 
-        ((ListView)v.findViewById(R.id.left_actions)).setAdapter(mAdapterLeft);
-        ((ListView)v.findViewById(R.id.left_actions)).setOnItemClickListener(this);
-        ((ListView)v.findViewById(R.id.right_actions)).setAdapter(mAdapterRight);
-        ((ListView)v.findViewById(R.id.right_actions)).setOnItemClickListener(this);
-        ((ListView)v.findViewById(R.id.middle_actions)).setAdapter(freeAction);
-        ((ListView)v.findViewById(R.id.middle_actions)).setOnItemClickListener(this);
+        mLeftList = ((ListView)v.findViewById(R.id.left_actions));
+        mLeftList.setAdapter(mAdapterLeft);
+        mLeftList.setOnItemClickListener(this);
+        mRightList = ((ListView)v.findViewById(R.id.right_actions));
+        mRightList.setAdapter(mAdapterRight);
+        mRightList.setOnItemClickListener(this);
+        mMiddleList = ((ListView)v.findViewById(R.id.middle_actions));
+        mMiddleList.setAdapter(freeAction);
+        mMiddleList.setOnItemClickListener(this);
         refresh();
 	}
 
+    // Accesed by the Button hit. This opens the Dialog where the player can enter the damage he got and where he was hit, such that
+    // the effective damage is calculated and then removed from the health bar.
     private void hit() {
 		Intent intent = new Intent(getActivity().getApplication(), Dialog_hit.class);
-		startActivityForResult(intent,R.id.degats);
+		startActivityForResult(intent,hit);
 	}
 
+
+    /* This is accesed via the act and react buttons, this is what the player will do every time when its his turn or he has the ocasion to react.
+     * The possible actions are displayed, those which from the State object should not be allowed are grayed out but still
+     * clickable if for some reason the master should still allow these actions.
+     * Once the action is chosen the method act(action,react) is called.
+     */
 	private void act(final boolean reaction) {
 		if(st.canAct(0,reaction)){
             List<ColoredHolder<Action>> actionsColored = new ArrayList<>();
@@ -166,8 +183,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                 @Override
                 public void onClick(DialogInterface dialog, int position) {
                     Action action = actionAdapter.getItem(position).getObject();
-                    act(action,reaction);
-                    refresh();
+                    act(action, reaction);
                     dialog.dismiss();
                 }
             });
@@ -185,6 +201,11 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 		}
 	}
 
+    /* This method is called when act(reaction) is called and an action is chosen. This method first check if the action can only
+    * be acomplished with one weapon or if there is a choice. In case there are multiple posiibilities it opens a list dialog with the different
+    * choices, the choices which should not be possible considering the State are greeyed out but still clickable in case the master should
+    * still allow these. Once the choice is made the method fatigue is called.
+     */
     private void act(final Action act,final boolean reaction){
         final List<ColoredHolder<Limb>> coloredPossiblities = new ArrayList<>();
 
@@ -211,6 +232,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
             builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
+                    refresh();
                     dialog.dismiss();
                 }
             });
@@ -220,7 +242,16 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
             fatigue(coloredPossiblities.get(0).getObject(),act,reaction);
     }
 
+    /* This method is the last of the three methods when act is triggered. This method opens the fatigue dialog such that the player might
+     * adjust the fatigue for this action or reaction, most of the time he shoud just click ok. Further more this method also makes changes
+     * which might arrise from the action. This is change the load state of a range weapon,
+     */
     private void fatigue(Limb which, Action action, boolean reaction){
+        if(st.getWeapon(which).getType() == WaffenTyp.RANGEWEAPON && action.isAttack())
+            st.getWeapon(which).setLoad(false);
+        if(st.getWeapon(which).getType() == WaffenTyp.RANGEWEAPON && action == Action.LOAD)
+            st.getWeapon(which).setLoad(true);
+
         Intent intent;
         intent = new Intent(getActivity().getApplication(), Dialog_fatigue.class);
         intent.putExtra("id",st.getId());
@@ -269,7 +300,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 	  super.onActivityResult(requestCode, resultCode, data);
 	  	if(resultCode == Activity.RESULT_OK){
 	  		switch(requestCode) {
-                case R.id.degats:
+                case hit:
                     Log.d(LOG, "bodyPart " + data.getIntExtra("bodyPart", -1)
                             + " hit " + data.getIntExtra("hit", 0)
                             + " direct " + data.getBooleanExtra("direct", false)
@@ -306,7 +337,9 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 	
 	private void refresh(){
         mLeftWeaponLayout.setVisibility(View.GONE);
+        mLeftList.setVisibility(View.GONE);
         mRightWeaponLayout.setVisibility(View.GONE);
+        mRightList.setVisibility(View.GONE);
         if(st.hasWeapon(Limb.LEFTHAND)) {
             mWeaponLeftName.setText(st.getWeapon(Limb.LEFTHAND).getName());
             mActionArrayLeft.clear();
@@ -320,7 +353,9 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                     unloaded_left.setVisibility(View.VISIBLE);
                 }
             }
+            leftManaJauge.setVisibility(st.getWeapon(Limb.LEFTHAND).getType()== WaffenTyp.MANAWEAPON?View.VISIBLE:View.GONE);
             mLeftWeaponLayout.setVisibility(View.VISIBLE);
+            mLeftList.setVisibility(View.VISIBLE);
         }
         if(st.hasWeapon(Limb.RIGHTHAND)){
             mWeaponRightName.setText(st.getWeapon(Limb.RIGHTHAND).getName());
@@ -335,7 +370,9 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                     unLoaded_right.setVisibility(View.VISIBLE);
                 }
             }
+            rightManaJauge.setVisibility(st.getWeapon(Limb.RIGHTHAND).getType()== WaffenTyp.MANAWEAPON?View.VISIBLE:View.GONE);
             mRightWeaponLayout.setVisibility(View.VISIBLE);
+            mRightList.setVisibility(View.VISIBLE);
         }
 
         mActionArrayFree.clear();

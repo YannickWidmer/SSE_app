@@ -91,15 +91,15 @@ public class JaugeView extends View {
         if(sum == 0)
             sum=1;
 
-        canv.drawCircle(left, top + mHeight / 2, mHeight/2, firstColor);
-        canv.drawCircle(left + mWidth, top + mHeight / 2, mHeight / 2, thirdColor);
+        canv.drawCircle(left, top + mHeight / 2, mHeight/2,firstValue!=0?firstColor:thirdColor);
+        canv.drawCircle(left + mWidth, top + mHeight / 2, mHeight / 2, firstValue!=sum?thirdColor:firstColor);
 
         canv.drawRect(left, top, left + mWidth * firstValue / sum, top + mHeight, firstColor);
         canv.drawRect(left + mWidth * firstValue / sum,
                 top, left + mWidth * (firstValue+secondValue) / sum, top + mHeight, secondColor);
         canv.drawRect(left + mWidth * (firstValue + secondValue) / sum, top, left + mWidth, top + mHeight, thirdColor);
-        canv.drawCircle(left + mWidth * (firstValue + secondValue) / sum, top + mHeight / 2, mHeight / 2, thirdColor);
-        canv.drawCircle(left + mWidth * firstValue / sum, top + mHeight / 2, mHeight / 2, firstColor);
+        //canv.drawCircle(left + mWidth * (firstValue + secondValue) / sum, top + mHeight / 2, mHeight / 2, thirdColor);
+        //canv.drawCircle(left + mWidth * firstValue / sum, top + mHeight / 2, mHeight / 2, firstColor);
 
         canv.drawText("" + firstValue, left, top + mHeight - 5, textPaint);
         canv.drawText(""+sum,left+mWidth-textSize/(sum<10?3:1),top+mHeight-5,textPaint);

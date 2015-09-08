@@ -1,11 +1,15 @@
 package ch.yannick.intern.state;
 
+import android.util.Log;
+
 import java.util.Map;
 
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.EffectType;
 import ch.yannick.intern.action_talent.Talent;
+import ch.yannick.intern.items.Armor;
 import ch.yannick.intern.items.Equipement;
+import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Personnage;
 
@@ -14,8 +18,10 @@ import ch.yannick.intern.personnage.Personnage;
  * This class takes care of the talents of the Hero, State uses it to get any value which might be object of a talent.
  */
 public class Resolver {
+    private static String LOG ="Resolver";
 
     public static int getAvatarEnhancer(Personnage personnage, Equipement equipement, MentalState ms,Action act){
+        
         int weight = equipement.getWeight();
         int fight = personnage.getRasse().getFightCoeff();
         int move = personnage.getRasse().getMovementCoeff();
@@ -27,6 +33,12 @@ public class Resolver {
             case RUN:
                 res += -Math.max(0, (weight - 100 - move) / move);
                 break;
+            case WEATHERTEST:
+                res -= personnage.getAttr(Attribute.PHYSIQUE);
+                for(Armor arm:equipement.getAllArmor()) {
+                    res += arm.getWeatherProtection();
+                    Log.d(LOG,"Weather from "+arm.getName()+" "+arm.getWeatherProtection());
+                }
             default:
                 if(act.isFightAction())
                     res -= Math.max(0, ((weight - 8 * fight) / fight) / 2);
