@@ -1,6 +1,7 @@
 package ch.yannick.intern.action_talent;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import ch.yannick.intern.state.Resolver;
  */
 public class Talent {
     public static HashMap<String,Talent> values;
+    public static HashMap<String,ArrayList<Talent>> talentGroups;
 
     private EffectType mEffect;
     private int mStringId;
@@ -98,37 +100,49 @@ public class Talent {
     public static void init(InputStream ip){
         values = new HashMap<>();
 
-        values.put(Action.STEAL.name(), new Talent(R.string.steal,Action.STEAL,WaffenTyp.BAREHANDS));
-        values.put(Action.MAKEFIRE.name(),new Talent(R.string.make_fire,Action.MAKEFIRE,WaffenTyp.BAREHANDS));
-        values.put(Action.COOK.name(),new Talent(R.string.cook,Action.COOK,WaffenTyp.BAREHANDS));
-        values.put(Action.BUTCHER.name(),new Talent(R.string.butcher,Action.BUTCHER,WaffenTyp.BAREHANDS));
-        values.put(Action.FISHING.name(), new Talent(R.string.fishing,Action.FISHING,WaffenTyp.BAREHANDS));
-        values.put(Action.CLIMB.name(),new Talent(R.string.climb,Action.CLIMB,WaffenTyp.BAREHANDS));
-        values.put(Action.SWIM.name(),new Talent(R.string.swim,Action.SWIM,WaffenTyp.BAREHANDS));
-        values.put(Action.THROW.name(), new Talent(R.string.th_row,Action.THROW,WaffenTyp.BAREHANDS));
-        values.put(Action.MAKEMUSIC.name(), new Talent(R.string.make_music,Action.MAKEMUSIC,WaffenTyp.BAREHANDS));
-        values.put(Action.SING.name(),new Talent(R.string.sing,Action.SING,WaffenTyp.BAREHANDS));
+        values.put(Action.STEAL.name(), new Talent(R.string.steal, Action.STEAL, WaffenTyp.BAREHANDS));
+        values.put(Action.MAKEFIRE.name(), new Talent(R.string.make_fire, Action.MAKEFIRE, WaffenTyp.BAREHANDS));
+        values.put(Action.COOK.name(), new Talent(R.string.cook, Action.COOK, WaffenTyp.BAREHANDS));
+        values.put(Action.BUTCHER.name(), new Talent(R.string.butcher, Action.BUTCHER, WaffenTyp.BAREHANDS));
+        values.put(Action.FISHING.name(), new Talent(R.string.fishing, Action.FISHING, WaffenTyp.BAREHANDS));
+        values.put(Action.CLIMB.name(), new Talent(R.string.climb, Action.CLIMB, WaffenTyp.BAREHANDS));
+        values.put(Action.SWIM.name(), new Talent(R.string.swim, Action.SWIM, WaffenTyp.BAREHANDS));
+        values.put(Action.THROW.name(), new Talent(R.string.th_row, Action.THROW, WaffenTyp.BAREHANDS));
+        values.put(Action.MAKEMUSIC.name(), new Talent(R.string.make_music, Action.MAKEMUSIC, WaffenTyp.BAREHANDS));
+        values.put(Action.SING.name(), new Talent(R.string.sing, Action.SING, WaffenTyp.BAREHANDS));
 
-        values.put(Resolver.Value.HEALTH.name(), new Talent(R.string.health,Resolver.Value.HEALTH,new int[]{1,2,3,4,5,6,7,8,9,10}));
-        values.put(Resolver.Value.STAMINA.name(), new Talent(R.string.stamina,Resolver.Value.STAMINA,new int[]{1,2,3,4,5,6,7,8,9,10}));
+        values.put(Resolver.Value.HEALTH.name(), new Talent(R.string.health, Resolver.Value.HEALTH, new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
+        values.put(Resolver.Value.STAMINA.name(), new Talent(R.string.stamina, Resolver.Value.STAMINA, new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
 
         HashMap<MentalState,int[]> temp = new HashMap<>();
         temp.put(MentalState.FOCUSED,new int[]{0,0,0,1,1,1,2,2,3,3});
         temp.put(MentalState.IMMERSED,new int[]{0,1,1,2,2,3,4,5,5,5});
         temp.put(MentalState.ECSTASY,new int[]{1,2,3,3,4,5,5,6,6,7});
-        values.put(Action.CONJURE.name(),new Talent(R.string.conjure,Action.CONJURE,WaffenTyp.BAREHANDS,temp));
+        values.put(Action.CONJURE.name(), new Talent(R.string.conjure, Action.CONJURE, WaffenTyp.BAREHANDS, temp));
 
         temp = new HashMap<>();
         temp.put(MentalState.FRENETIC,new int[]{0,0,0,1,1,1,2,2,3,3});
         temp.put(MentalState.AGRESSIVE,new int[]{0,1,1,2,2,3,4,5,5,5});
         temp.put(MentalState.BERSERK,new int[]{1,2,3,3,4,5,5,6,6,7});
-        values.put("Two Hand Destroyer",new Talent(R.string.twohand_destroyer,Action.ATTACK,WaffenTyp.BISWORD,temp,EffectType.ACTIONENHANCER));
+        values.put("Two Hand Destroyer", new Talent(R.string.twohand_destroyer, Action.ATTACK, WaffenTyp.BISWORD, temp, EffectType.ACTIONENHANCER));
+
+        temp = new HashMap<>();
+        temp.put(MentalState.CONCENTRATED,new int[]{0,0,0,1,1,1,2,2,3,3});
+        temp.put(MentalState.METAPHASE,new int[]{0,1,1,2,2,3,4,5,5,5});
+        temp.put(MentalState.SYNESTHESIA,new int[]{1,2,3,3,4,5,5,6,6,7});
+        values.put("Two sword Dance", new Talent(R.string.twohsword_dance, Action.ATTACK, WaffenTyp.TWOSWORDS, temp, EffectType.ACTIONENHANCER));
+
+        temp = new HashMap<>();
+        temp.put(MentalState.CONCENTRATED,new int[]{0,0,0,1,1,1,2,2,3,3});
+        temp.put(MentalState.METAPHASE,new int[]{0,1,1,2,2,3,4,5,5,5});
+        temp.put(MentalState.SYNESTHESIA,new int[]{1,2,3,3,4,5,5,6,6,7});
+        values.put("Pole master", new Talent(R.string.pole_master, Action.ATTACK, WaffenTyp.TWOSWORDS, temp, EffectType.ACTIONENHANCER));
 
         temp = new HashMap<>();
         temp.put(MentalState.FRENETIC,new int[]{0,0,0,1,1,1,2,2,3,3});
         temp.put(MentalState.AGRESSIVE,new int[]{0,1,1,2,2,3,4,5,5,5});
         temp.put(MentalState.BERSERK,new int[]{1,2,3,3,4,5,5,6,6,7});
-        values.put("Two Hand Fury",new Talent(R.string.fury,Action.ATTACK,WaffenTyp.BISWORD,temp,EffectType.ATTACKDAMAGE));
+        values.put("Bisword Fury", new Talent(R.string.fury, Action.ATTACK, WaffenTyp.BISWORD, temp, EffectType.ATTACKDAMAGE));
     }
 
     public static boolean hasTalent(String name){ return values.containsKey(name);}

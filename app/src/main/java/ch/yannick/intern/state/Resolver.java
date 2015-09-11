@@ -21,7 +21,7 @@ public class Resolver {
     private static String LOG ="Resolver";
 
     public static int getAvatarEnhancer(Personnage personnage, Equipement equipement, MentalState ms,Action act){
-        
+
         int weight = equipement.getWeight();
         int fight = personnage.getRasse().getFightCoeff();
         int move = personnage.getRasse().getMovementCoeff();
@@ -85,7 +85,7 @@ public class Resolver {
         int armor= equipement.getProtection(where);
         if(!direct)
             damage -= Math.max(0,armor-pierce);
-        return damage;
+        return Math.max(damage,0);
     }
 
     public enum Value{

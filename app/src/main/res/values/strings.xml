@@ -25,6 +25,7 @@
     <string name="STR_SS">acuity</string>
     <string name="STR_KB">physique</string>
     <string name="STR_AU">stamina</string>
+    <string name="STR_WI">will</string>
     <string name="STR_MA">magic</string>
 
     <!-- Play -->
@@ -157,4 +158,9 @@
     <string name="foots">foots</string>
     <string name="twohand_destroyer">Two Hand Destroyer</string>
     <string name="cold_sleep">sleep outside</string>
+    <string name="two_swords">two swords</string>
+    <string name="pole_weapon">pole weapon</string>
+    <string name="keep_distance">keep distance</string>
+    <string name="twohsword_dance">two sword dance</string>
+    <string name="pole_master">pole master</string>
 </resources>

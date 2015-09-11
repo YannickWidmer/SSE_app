@@ -143,4 +143,21 @@
     <string name="reset_mental">mental reseten</string>
     <string name="show_dice_eyes">Würfel Zahlen</string>
     <string name="fury">furieux</string>
+    <string name="bare_hands">von hand</string>
+    <string name="cold_sleep">wetter resistenz</string>
+    <string name="fill_mana">mana füllen</string>
+    <string name="foots">füsse</string>
+    <string name="keep_distance">distanz halten</string>
+    <string name="left_hand">linke Hand</string>
+    <string name="mana_attack">mana Angriff</string>
+    <string name="mana_weapon">mana Waffe</string>
+    <string name="pole_master">Stangen Waffen Meister</string>
+    <string name="pole_weapon">Stangen waffe</string>
+    <string name="right_hand">rechte Hand</string>
+    <string name="shoot">Schiessen</string>
+    <string name="two_swords">zwei Handwaffen</string>
+    <string name="twohand_destroyer">Bihänder Meister</string>
+    <string name="twohsword_dance">Zweischwerter Tanz</string>
+    <string name="use_mana">mana brauchen</string>
+    <string name="STR_WI">Wille</string>
 </resources>

@@ -46,9 +46,9 @@ public class SQLDBManager extends SQLiteOpenHelper {
     private static final String KEY_NAME = "name", KEY_ID="id";
     
     // Personage Table Columns names
-    private static final String  KEY_KA = "kraft", KEY_GK = "geschicklichkeit", KEY_GW = "vitesse",
-    		KEY_SZ = "saga", KEY_CH = "charme", KEY_SS = "Acuite", KEY_KB = "koebau", KEY_AU = "ausdauer", KEY_MA = "magie",
-            KEY_RACE = "race";
+    private static final String  KEY_KA = "force", KEY_GK = "agility", KEY_GW = "speed",
+    		KEY_SZ = "saga", KEY_CH = "charme", KEY_SS = "Acuity", KEY_KB = "constitution", KEY_AU = "endurance",
+            KEY_WI = "will", KEY_MA = "magic", KEY_RACE = "race";
 
     // weapon Table Columns names
     private static final String KEY_TYPE= "type";
@@ -85,6 +85,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
                 + KEY_SS + " INTEGER,"
                 + KEY_KB + " INTEGER,"
                 + KEY_AU + " INTEGER,"
+                + KEY_WI + " INTEGER,"
                 + KEY_MA + " INTEGER" 
                 + ");";
 
@@ -159,7 +160,8 @@ public class SQLDBManager extends SQLiteOpenHelper {
     	c.put(KEY_GW, ""+attr.get(R.id.KEY_GW));
     	c.put(KEY_KA, ""+attr.get(R.id.KEY_KA));
     	c.put(KEY_KB, ""+attr.get(R.id.KEY_KB));
-    	c.put(KEY_MA, ""+attr.get(R.id.KEY_MA));
+        c.put(KEY_WI, ""+attr.get(R.id.KEY_WI));
+        c.put(KEY_MA, ""+attr.get(R.id.KEY_MA));
     	c.put(KEY_SS, ""+attr.get(R.id.KEY_SS));
     	c.put(KEY_SZ, ""+attr.get(R.id.KEY_SZ));
         c.put(KEY_RACE, p.getRasse().name());
@@ -195,17 +197,17 @@ public class SQLDBManager extends SQLiteOpenHelper {
     
     public synchronized Personnage getPersonnage(Long id) throws Exception{
     	db = getReadableDatabase();
-    	Cursor cursor = db.query(TABLE_PERSONAGE, new String[]{ KEY_ID, KEY_NAME, KEY_RACE, KEY_KA, KEY_GK,KEY_GW, KEY_SZ, KEY_CH, KEY_SS, KEY_KB, KEY_AU, KEY_MA}, KEY_ID + "=?",
+    	Cursor cursor = db.query(TABLE_PERSONAGE, new String[]{ KEY_ID, KEY_NAME, KEY_RACE, KEY_KA, KEY_GK,KEY_GW, KEY_SZ, KEY_CH, KEY_SS, KEY_KB, KEY_AU, KEY_WI, KEY_MA}, KEY_ID + "=?",
     			new String[]{String.valueOf(id) }, null,null,null,null);
  
     	if(cursor.moveToFirst()){
 			Log.d(LOG,"adding Pers to list with id:"+cursor.getLong(0)+" Name:"+cursor.getString(1));
 			Log.d(LOG, "Attrs" + get(cursor, KEY_KA) + get(cursor, KEY_GK) + get(cursor, KEY_GW) + get(cursor, KEY_SZ) +
-                    get(cursor, KEY_CH) + get(cursor, KEY_SS) + get(cursor, KEY_KB) + get(cursor, KEY_AU) + get(cursor, KEY_MA));
+                    get(cursor, KEY_CH) + get(cursor, KEY_SS) + get(cursor, KEY_KB) + get(cursor, KEY_AU) +get(cursor,KEY_WI)+ get(cursor, KEY_MA));
 				 
     		Personnage p = new Personnage(cursor.getString(1),cursor.getLong(0));
     		p.setAttr(get(cursor,KEY_KA),get(cursor,KEY_GK),get(cursor,KEY_GW),get(cursor,KEY_SZ),
-    				get(cursor,KEY_CH),get(cursor,KEY_SS),get(cursor,KEY_KB),get(cursor,KEY_AU),get(cursor,KEY_MA));
+    				get(cursor,KEY_CH),get(cursor,KEY_SS),get(cursor,KEY_KB),get(cursor,KEY_AU),get(cursor,KEY_WI),get(cursor,KEY_MA));
             p.setRasse(Race.valueOf(getString(cursor,KEY_RACE)));
     		cursor.close();
 

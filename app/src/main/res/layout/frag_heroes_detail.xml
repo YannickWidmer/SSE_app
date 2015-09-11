@@ -45,201 +45,207 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/view_padding">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <!-- KRAFT -->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="@dimen/view_padding">
+                    android:text="@string/STR_KA" />
 
-                    <!-- KRAFT -->
-                    <TextView
-                        style="@style/BaseText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/STR_KA" />
+                <TextView
+                    android:id="@+id/KEY_KA"
+                    style="@style/ValueWithBackground" />
 
-                    <TextView
-                        android:id="@+id/KEY_KA"
-                        style="@style/ValueWithBackground" />
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_KA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
+                <!-- Geschicklichkeit -->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/STR_GK" />
 
-                    <ch.yannick.display.views.ValueControler
-                        android:id="@+id/controler_KA"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text"
-                        app:lower_bound="0"
-                        app:show_number="false" />
-                    <!-- Geschicklichkeit -->
-                    <TextView
-                        style="@style/BaseText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/STR_GK" />
+                <TextView
+                    android:id="@+id/KEY_GK"
+                    style="@style/ValueWithBackground" />
 
-                    <TextView
-                        android:id="@+id/KEY_GK"
-                        style="@style/ValueWithBackground" />
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_GK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
 
-                    <ch.yannick.display.views.ValueControler
-                        android:id="@+id/controler_GK"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text"
-                        app:lower_bound="0"
-                        app:show_number="false" />
+                <!-- Geschwindigkeit -->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/STR_GW" />
 
-                    <!-- Geschwindigkeit -->
-                    <TextView
-                        style="@style/BaseText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/STR_GW" />
+                <TextView
+                    android:id="@+id/KEY_GW"
+                    style="@style/ValueWithBackground" />
 
-                    <TextView
-                        android:id="@+id/KEY_GW"
-                        style="@style/ValueWithBackground" />
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_GW"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
+                <!-- Sagazitàt-->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/STR_SZ" />
 
-                    <ch.yannick.display.views.ValueControler
-                        android:id="@+id/controler_GW"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text"
-                        app:lower_bound="0"
-                        app:show_number="false" />
-                    <!-- Sagazitàt-->
-                    <TextView
-                        style="@style/BaseText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/STR_SZ" />
+                <TextView
+                    android:id="@+id/KEY_SZ"
+                    style="@style/ValueWithBackground" />
 
-                    <TextView
-                        android:id="@+id/KEY_SZ"
-                        style="@style/ValueWithBackground" />
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_SZ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
 
-                    <ch.yannick.display.views.ValueControler
-                        android:id="@+id/controler_SZ"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text"
-                        app:lower_bound="0"
-                        app:show_number="false" />
-                </LinearLayout>
+                <!-- Will-->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/STR_WI" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="@dimen/view_padding">
+                <TextView
+                    android:id="@+id/KEY_WI"
+                    style="@style/ValueWithBackground" />
 
-
-                    <!-- Sinnesschàrfe -->
-                    <TextView
-                        style="@style/BaseText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/STR_SS" />
-
-                    <TextView
-                        android:id="@+id/KEY_SS"
-                        style="@style/ValueWithBackground" />
-
-                    <ch.yannick.display.views.ValueControler
-                        android:id="@+id/controler_SS"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text"
-                        app:lower_bound="0"
-                        app:show_number="false" />
-
-                    <!-- Körperbau -->
-                    <TextView
-                        style="@style/BaseText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/STR_KB" />
-
-                    <TextView
-                        android:id="@+id/KEY_KB"
-                        style="@style/ValueWithBackground" />
-
-                    <ch.yannick.display.views.ValueControler
-                        android:id="@+id/controler_KB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text"
-                        app:lower_bound="0"
-                        app:show_number="false" />
-
-                    <!-- Ausdauer -->
-                    <TextView
-                        style="@style/BaseText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/STR_AU" />
-
-                    <TextView
-                        android:id="@+id/KEY_AU"
-                        style="@style/ValueWithBackground" />
-
-                    <ch.yannick.display.views.ValueControler
-                        android:id="@+id/controler_AU"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text"
-                        app:lower_bound="0"
-                        app:show_number="false" />
-
-                    <!-- Charme -->
-                    <TextView
-                        style="@style/BaseText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/STR_CH" />
-
-                    <TextView
-                        android:id="@+id/KEY_CH"
-                        style="@style/ValueWithBackground" />
-
-                    <ch.yannick.display.views.ValueControler
-                        android:id="@+id/controler_CH"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/big_text"
-                        app:lower_bound="0"
-                        app:show_number="false" />
-                </LinearLayout>
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_WI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
             </LinearLayout>
 
-        <!-- Magie -->
-
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/view_padding">
+
+
+                <!-- Sinnesschàrfe -->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/STR_SS" />
+
+                <TextView
+                    android:id="@+id/KEY_SS"
+                    style="@style/ValueWithBackground" />
+
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_SS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
+
+                <!-- Körperbau -->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/STR_KB" />
+
+                <TextView
+                    android:id="@+id/KEY_KB"
+                    style="@style/ValueWithBackground" />
+
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_KB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
+
+                <!-- Ausdauer -->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/STR_AU" />
+
+                <TextView
+                    android:id="@+id/KEY_AU"
+                    style="@style/ValueWithBackground" />
+
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_AU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
+
+                <!-- Charme -->
+                <TextView
+                    style="@style/BaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/STR_CH" />
+
+                <TextView
+                    android:id="@+id/KEY_CH"
+                    style="@style/ValueWithBackground" />
+
+                <ch.yannick.display.views.ValueControler
+                    android:id="@+id/controler_CH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/big_text"
+                    app:lower_bound="0"
+                    app:show_number="false" />
+            <!-- Magie -->
+
+            <TextView
+                style="@style/BaseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-        <TextView
-            style="@style/BaseText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/STR_MA" />
+                android:text="@string/STR_MA" />
 
-        <TextView
-            android:id="@+id/KEY_MA"
-            style="@style/ValueWithBackground"/>
+            <TextView
+                android:id="@+id/KEY_MA"
+                style="@style/ValueWithBackground"/>
 
-        <ch.yannick.display.views.ValueControler
-            android:id="@+id/controler_MA"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/big_text"
-            android:layout_gravity="center_horizontal"
-            app:lower_bound="0"
-            app:show_number="false" />
-                </LinearLayout>
+            <ch.yannick.display.views.ValueControler
+                android:id="@+id/controler_MA"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/big_text"
+                android:layout_gravity="center_horizontal"
+                app:lower_bound="0"
+                app:show_number="false" />
         </LinearLayout>
-
+        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

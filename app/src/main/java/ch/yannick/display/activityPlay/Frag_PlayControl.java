@@ -85,7 +85,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         healthJauge.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplication(), Dialog_stamina.class);
+                Intent intent = new Intent(getActivity().getApplication(), Dialog_health.class);
                 intent.putExtra("id", st.getId());
                 startActivityForResult(intent, R.id.health);
             }
@@ -94,7 +94,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         staminaJauge.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity().getApplication(), Dialog_health.class);
+                Intent intent = new Intent(getActivity().getApplication(), Dialog_stamina.class);
                 intent.putExtra("id",st.getId());
                 startActivityForResult(intent, R.id.stamina);
             }

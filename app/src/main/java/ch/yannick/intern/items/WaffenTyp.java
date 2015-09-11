@@ -14,6 +14,8 @@ public enum WaffenTyp implements AdapterUsable {
     SWORD(R.string.sword,false, new Action[]{Action.ATTACK,Action.DEFEND}),
     BISWORD(R.string.twohanded,true, new Action[]{Action.ATTACK,Action.DEFEND}),
     ONEAHALFSWORD(R.string.one_a_half_sword,false,new Action[]{Action.ATTACK,Action.TWOHANDEDATTACK ,Action.DEFEND}),
+    TWOSWORDS(R.string.two_swords,true,new Action[]{Action.ATTACK,Action.TWOHANDEDATTACK,Action.DEFEND}),
+    POLEWEAPON(R.string.pole_weapon,true,new Action[]{Action.ATTACK,Action.DEFEND,Action.KEEPDISTANCE}),
     RANGEWEAPON(R.string.range_weapon,true, new Action[]{Action.SHOOT,Action.LOAD}),
     SHIELD(R.string.shield,false, new Action[]{Action.DEFEND}),
     MANAWEAPON(R.string.mana_weapon,false, new Action[]{Action.FILLMANA,Action.USEMANA,Action.MANAATTACK});

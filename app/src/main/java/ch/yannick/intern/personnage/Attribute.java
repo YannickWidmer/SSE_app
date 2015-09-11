@@ -15,6 +15,7 @@ public enum Attribute implements AdapterUsable {
     ACUITY(R.string.STR_SS,R.id.KEY_SS,R.id.controler_SS),
     PHYSIQUE(R.string.STR_KB,R.id.KEY_KB,R.id.controler_KB),
     STAMINA(R.string.STR_AU,R.id.KEY_AU,R.id.controler_AU),
+    WILL(R.string.STR_WI,R.id.KEY_WI,R.id.controler_WI),
     MAGIC(R.string.STR_MA,R.id.KEY_MA,R.id.controler_MA);
 
     private int id,controler, string;

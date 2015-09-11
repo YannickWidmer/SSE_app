@@ -44,7 +44,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
     private double totalDuration = 0;
     private double currentTime = 0;
     private double scale = 0;
-    private Paint black,red,blue, title;
+    private Paint black,red,blue,withe, title;
 
     private String message="";
 
@@ -77,6 +77,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         black = new Paint(Paint.ANTI_ALIAS_FLAG);
         black.setStyle(Paint.Style.STROKE);
         black.setColor(Color.BLACK);
+        withe = new Paint(Paint.ANTI_ALIAS_FLAG);
+        withe.setStyle(Paint.Style.STROKE);
+        withe.setColor(Color.argb(255,255,255,255));
+
         red = new Paint();
         red.setColor(Color.RED);
         red.setStrokeWidth(10);
@@ -93,13 +97,41 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         title.setColor(Color.CYAN);
 
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
+        /*BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(getResources(),R.drawable.mentalmap,options);
         backgroundWith = options.outWidth;
         BitmapFactory.decodeResource(getResources(),R.drawable.mentalstate,options);
-        stateSize = options.outWidth;
+        stateSize = options.outWidth;*/
 
+    }
+
+    private void resume() {
+        //BitmapFactory.Options options = new BitmapFactory.Options();
+        //options.inSampleSize = (backgroundWith)/width;
+        background = BitmapFactory.decodeResource(getResources(),R.drawable.mentalmap);
+        Matrix m = new Matrix();
+        Log.d(LOG,"scaling "+((float) width) / background.getWidth());
+        Log.d(LOG, "scaling " +  ((float) width) / ((float) backgroundWith));
+
+        m.setScale(((float) width) / (float) background.getWidth(), ((float) height) / background.getHeight());
+        background = Bitmap.createBitmap(background, 0, 0,background.getWidth(), background.getHeight(),m,true);
+        //brightStates = new Bitmap[MentalState.values().length];
+
+        //Bitmap temp = BitmapFactory.decodeResource(getResources(),R.drawable.mentalstate);
+        /*for(MentalState ms:MentalState.values()){
+            m.reset();
+            m.postScale((float) scale * ms.getRadius() / stateSize, (float) scale * ms.getRadius()/stateSize);
+            brightStates[i] = Bitmap.createBitmap(temp, 0, 0, temp.getWidth(), temp.getHeight(), m, false);
+            ++i;
+        }*/
+        //temp.recycle();
+        scale = width/MentalState.halfWidth/2;
+        Canvas canvas = holder.lockCanvas();
+        if(canvas != null){
+            dDraw(canvas);
+            holder.unlockCanvasAndPost(canvas);
+        }
     }
 
     public void setListener(VectorListener listener){
@@ -138,20 +170,21 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public void onDraw(Canvas canv){
+        //super.onDraw(canv);
         dDraw(canv);
     }
 
     private void dDraw(Canvas canv){
-        //canv.drawBitmap(background, 0, 0, null);
-        canv.drawARGB(200,200,200,1);
-        canv.drawColor(Color.TRANSPARENT);
+        canv.drawBitmap(background, 0, 0, null);
+        //canv.drawARGB(200,200,200,1);
+        //canv.drawColor(Color.TRANSPARENT);
         canv.translate(width / 2, height / 2);
 
         for(MentalState ms:MentalState.values()){
-            drawVector(canv,ms.getPosition(),black,ms.getRadius(),getResources().getString(ms.getStringId()));
+            drawVector(canv,ms.getPosition(),withe,ms.getRadius(),getResources().getString(ms.getStringId()));
         }
         drawVector(canv, currentPositionVector, red, mentalSize,"");
-        drawVector(canv, touchPosition, black, (int) currentTime * 10, "");
+        drawVector(canv, touchPosition, withe, (int) currentTime * 10, "");
 
         canv.drawText(message, 0, 0, title);
     }
@@ -176,36 +209,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
         canv.drawCircle(x, -y , mentalSize, paint);
         canv.drawText(name, x, -y, blue);
         canv.drawCircle(x, -y, radius, paint);
-    }
-
-    private void resume() {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 1;//(backgroundWith)/width;
-        background = BitmapFactory.decodeResource(getResources(),R.drawable.mentalmap);
-        Matrix m = new Matrix();
-        Log.d(LOG,""+height);
-        Log.d(LOG,""+width);
-        Log.d(LOG,"backWith "+background.getWidth()+ " backHeight "+background.getHeight());
-        Log.d(LOG,"scaled height "+width*background.getHeight()/height+ " scaled width " + height*background.getWidth()/width);
-        Log.d(LOG,""+((float)backgroundWith)/width);
-        m.postScale(((float) backgroundWith) / width, ((float) backgroundWith) / width);
-        background = Bitmap.createBitmap(background, 0, 0,height*background.getWidth()/width, background.getHeight(), m, false);
-        brightStates = new Bitmap[MentalState.values().length];
-        int i =0;
-        Bitmap temp = BitmapFactory.decodeResource(getResources(),R.drawable.mentalstate);
-        this.scale = width/MentalState.halfWidth/2;
-        /*for(MentalState ms:MentalState.values()){
-            m.reset();
-            m.postScale((float) scale * ms.getRadius() / stateSize, (float) scale * ms.getRadius()/stateSize);
-            brightStates[i] = Bitmap.createBitmap(temp, 0, 0, temp.getWidth(), temp.getHeight(), m, false);
-            ++i;
-        }*/
-        temp.recycle();
-        Canvas canvas = holder.lockCanvas();
-        if(canvas != null){
-            dDraw(canvas);
-            holder.unlockCanvasAndPost(canvas);
-        }
     }
 
     private synchronized void pause() {
@@ -233,6 +236,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
             currentPosition = (int) (currentTime/eachDuration);
         else {
             currentPosition = path.length - 1;
+        }
+        if(currentTime>totalDuration*1.5){
             message = listener.done();
             return false;
         }

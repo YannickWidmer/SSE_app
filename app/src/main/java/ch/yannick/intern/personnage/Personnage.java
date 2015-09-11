@@ -36,7 +36,7 @@ public class Personnage {
 	
 	public void setAttr(Integer force,Integer agilite,Integer vitesse,
 			Integer sagacite,Integer charme,Integer acuite,Integer constitution,
-			Integer endurance, Integer magie){
+			Integer endurance,Integer will, Integer magie){
 		attr.put(R.id.KEY_KA,force);
 		attr.put(R.id.KEY_GK,agilite);
 		attr.put(R.id.KEY_GW,vitesse);
@@ -45,6 +45,7 @@ public class Personnage {
 		attr.put(R.id.KEY_SS,acuite);
 		attr.put(R.id.KEY_KB, constitution);
 		attr.put(R.id.KEY_AU, endurance);
+		attr.put(R.id.KEY_WI,will);
 		attr.put(R.id.KEY_MA, magie);
 	}
 

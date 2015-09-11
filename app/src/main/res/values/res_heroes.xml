@@ -10,25 +10,6 @@
 	<integer name="KEY_SS">8</integer>
 	<integer name="KEY_KB">9</integer>
 	<integer name="KEY_AU">10</integer>
-	<integer name="KEY_MA">11</integer>
-    
-	<integer name="minus_KA">500</integer>
-	<integer name="plus_KA">501</integer>
-	<integer name="minus_GK">502</integer>
-	<integer name="plus_GK">503</integer>
-	<integer name="minus_GW">504</integer>
-	<integer name="plus_GW">505</integer>
-	<integer name="minus_SZ">506</integer>
-	<integer name="plus_SZ">507</integer>
-	<integer name="minus_CH">508</integer>
-	<integer name="plus_CH">509</integer>
-	<integer name="minus_SS">510</integer>
-	<integer name="plus_SS">511</integer>
-	<integer name="minus_KB">512</integer>
-	<integer name="plus_KB">513</integer>
-	<integer name="minus_AU">514</integer>
-	<integer name="plus_AU">515</integer>
-	<integer name="minus_MA">516</integer>
-	<integer name="plus_MA">517</integer>
-    
+	<integer name="KEY_WI">11</integer>
+	<integer name="KEY_MA">12</integer>
 </resources>

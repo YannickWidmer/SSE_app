@@ -39,7 +39,7 @@ public enum MentalState {
         double tempDistance = 0;
         for(MentalState ms:MentalState.values()){
             tempDistance = vec.distance(ms.position);
-            if(tempDistance < distance){
+            if(tempDistance < distance && tempDistance < ms.radius){
                 distance = tempDistance;
                 res = ms;
             }

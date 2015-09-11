@@ -15,6 +15,7 @@ public enum Action implements AdapterUsable {
     SHOOT(R.string.shoot,Attribute.AGILLITY,Attribute.ACUITY,1),
     TWOHANDEDATTACK(R.string.two_hand_attack,true,Attribute.FORCE,Attribute.AGILLITY,4),
     DEFEND(R.string.defend,Attribute.AGILLITY,Attribute.SPEED,2),
+    KEEPDISTANCE(R.string.keep_distance,Attribute.ACUITY,Attribute.AGILLITY,2),
     LOAD(R.string.load, Attribute.AGILLITY,Attribute.FORCE,3),
     RUN(R.string.run,Attribute.SPEED,Attribute.AGILLITY,0),
     MANAATTACK(R.string.mana_attack,Attribute.MAGIC,Attribute.AGILLITY,1),
@@ -83,11 +84,15 @@ public enum Action implements AdapterUsable {
         fightActions.add(SHOOT);
         fightActions.add(TWOHANDEDATTACK);
         fightActions.add(DEFEND);
+        fightActions.add(LOAD);
+        fightActions.add(MANAATTACK);
+        fightActions.add(KEEPDISTANCE);
 
         attackActions = new ArrayList<Action>();
         attackActions.add(ATTACK);
         attackActions.add(SHOOT);
         attackActions.add(TWOHANDEDATTACK);
+        attackActions.add(MANAATTACK);
 
         mouvementActions = new ArrayList<>();
         mouvementActions.add(RUN);

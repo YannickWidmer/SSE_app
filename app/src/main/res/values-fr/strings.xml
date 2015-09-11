@@ -132,4 +132,21 @@
     <string name="reset_mental">initialiser état mental</string>
     <string name="show_dice_eyes">Nombre des dés</string>
     <string name="fury">Fury</string>
+    <string name="bare_hands">main nues</string>
+    <string name="cold_sleep">intempérie</string>
+    <string name="fill_mana">remplir de mana</string>
+    <string name="foots">pieds</string>
+    <string name="keep_distance">tenir à distance</string>
+    <string name="left_hand">main gauche</string>
+    <string name="mana_attack">attaque mana</string>
+    <string name="mana_weapon">armes mana</string>
+    <string name="pole_master">Maître d\'hast</string>
+    <string name="pole_weapon">Arme d\'hast</string>
+    <string name="right_hand">main droite</string>
+    <string name="shoot">Tirer</string>
+    <string name="two_swords">deux épées</string>
+    <string name="twohand_destroyer">Maître de Bâtarde</string>
+    <string name="twohsword_dance">Dance à deux épées</string>
+    <string name="use_mana">servir mana</string>
+    <string name="STR_WI">Volonté</string>
 </resources>
