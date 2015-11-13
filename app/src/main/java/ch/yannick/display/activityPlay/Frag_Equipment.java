@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.intern.action_talent.Action;
@@ -55,6 +56,13 @@ public class Frag_Equipment extends Fragment {
             @Override
             public void onClick(View v) {
                 arm(Limb.RIGHTHAND);
+            }
+        });
+
+        ((Button)v.findViewById(R.id.weapon_both)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bothButton();
             }
         });
 
@@ -142,6 +150,51 @@ public class Frag_Equipment extends Fragment {
         builder.create().show();
     }
 
+    private void bothButton(){
+        if(st.hasWeapon(Limb.LEFTHAND) && st.hasWeapon(Limb.RIGHTHAND)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.main_weapon);
+            builder.setNegativeButton(st.getWeapon(Limb.LEFTHAND).getName(), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    st.combine(Limb.LEFTHAND);
+                    refresh();
+                    dialog.dismiss();
+                }
+            });
+            builder.setPositiveButton(st.getWeapon(Limb.RIGHTHAND).getName(), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    st.combine(Limb.RIGHTHAND);
+                    refresh();
+                    dialog.dismiss();
+                }
+            });
+
+            builder.create().show();
+        }
+        if(st.hasWeapon(Limb.BOTHHANDS)){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(R.string.remove);
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    st.removeWeapon(Limb.BOTHHANDS);
+                    refresh();
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+
+            builder.create().show();
+        }
+    }
+
     private void refresh(){
         for(HitZone bp : HitZone.values()){
             mEquippedAdapterMap.get(bp).notifyDataSetChanged();
@@ -153,21 +206,26 @@ public class Frag_Equipment extends Fragment {
         ((TextView)v.findViewById(R.id.protection_arms)).setText("" + st.getProtection(HitZone.ARMS));
         ((TextView)v.findViewById(R.id.protection_legs)).setText("" + st.getProtection(HitZone.LEGS));
         ((TextView)v.findViewById(R.id.weight)).setText("" + st.getWeight());
-        ((TextView)v.findViewById(R.id.base_fatigue)).setText("" + st.getFatigue(Action.ATTACK,Limb.BAREHANDS));
+        ((TextView)v.findViewById(R.id.base_fatigue)).setText("" + st.getFatigue(Action.ATTACK, Limb.BAREHANDS));
         ((TextView)v.findViewById(R.id.mouvement_fatigue)).setText("" + st.getFatigue(Action.RUN,Limb.BAREHANDS));
-        ((TextView)v.findViewById(R.id.esquiv)).setText("" + st.getSkillEnhancer(Action.ESQUIV,Limb.BAREHANDS));
+        ((TextView)v.findViewById(R.id.esquiv)).setText("" + st.getSkillEnhancer(Action.ESQUIV, Limb.BAREHANDS));
         ((TextView)v.findViewById(R.id.run)).setText("" + st.getSkillEnhancer(Action.RUN,Limb.BAREHANDS));
         ((TextView)v.findViewById(R.id.fight)).setText("" + st.getSkillEnhancer(Action.ATTACK,Limb.BAREHANDS));
+        ((Button)v.findViewById(R.id.weapon_left)).setText(R.string.left_hand);
+        ((Button)v.findViewById(R.id.weapon_right)).setText(R.string.right_hand);
+        ((Button)v.findViewById(R.id.weapon_both)).setText("");
         if(st.hasWeapon(Limb.LEFTHAND)){
             ((Button)v.findViewById(R.id.weapon_left)).setText(""+st.getWeapon(Limb.LEFTHAND).getName());
-        }else{
-            ((Button)v.findViewById(R.id.weapon_left)).setText(R.string.left_hand);
         }
         if(st.hasWeapon(Limb.RIGHTHAND)){
             ((Button)v.findViewById(R.id.weapon_right)).setText(""+st.getWeapon(Limb.RIGHTHAND));
-        }else{
-            ((Button)v.findViewById(R.id.weapon_right)).setText(R.string.right_hand);
         }
-    }
+        if(st.hasWeapon(Limb.BOTHHANDS)){
+            ((Button)v.findViewById(R.id.weapon_both)).setText(""+st.getWeapon(Limb.BOTHHANDS));
+        }
+        if(st.hasWeapon(Limb.LEFTHAND)&& st.hasWeapon(Limb.RIGHTHAND)){
+            ((Button)v.findViewById(R.id.weapon_both)).setText(R.string.combine);
+        }
+        ((RootApplication)getActivity().getApplication()).react("nothing special", MyBaseActivity.JUST_REFRESH,0); }
 
 }

@@ -261,6 +261,11 @@ public class State {
     }
 
     public int getResolvedValue(Resolver.Value value){
-        return Resolver.getValue(equipement,p,mentalState,value);
+        return Resolver.getValue(equipement, p, mentalState, value);
+    }
+
+    public void combine(Limb limb) {
+        equipement.combine(limb);
+        equipement.getWeapon(Limb.BOTHHANDS).setTalents(p.getTalents(),mentalState);
     }
 }

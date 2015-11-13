@@ -163,9 +163,10 @@ public class Talent {
         if(mEffects != null)
             return mEffects[Math.min(level,mEffects.length-1)];
         if(mMentalEffects!= null){
-            if(mMentalEffects.containsKey(mentalState))
-                return mMentalEffects.get(mentalState)[Math.min(level,mEffects.length-1)];
-            else
+            if(mMentalEffects.containsKey(mentalState)) {
+                int[] effects = mMentalEffects.get(mentalState);
+                return effects[Math.min(level, effects.length - 1)];
+            }else
                 return 0;
         }
         return level;

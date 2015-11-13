@@ -30,7 +30,8 @@ public class Act_Play extends MyBaseActivity {
 
 	@Override
 	public void react(String res, int Flag) {
-		Log.d(LOG, "Does nothing onReact");	
+		Log.d(LOG, "Does nothing onReact");
+		((Frag_PlayControl)getFragmentManager().findFragmentById(R.id.play)).refresh();
 	}
 	
 }

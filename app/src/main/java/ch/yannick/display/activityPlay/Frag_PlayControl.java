@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ch.yannick.context.R;
@@ -335,7 +336,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 	  	refresh();
 	}
 	
-	private void refresh(){
+	protected void refresh(){
         mLeftWeaponLayout.setVisibility(View.GONE);
         mLeftList.setVisibility(View.GONE);
         mRightWeaponLayout.setVisibility(View.GONE);
@@ -356,7 +357,24 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
             leftManaJauge.setVisibility(st.getWeapon(Limb.LEFTHAND).getType()== WaffenTyp.MANAWEAPON?View.VISIBLE:View.GONE);
             mLeftWeaponLayout.setVisibility(View.VISIBLE);
             mLeftList.setVisibility(View.VISIBLE);
+        }else if(st.hasWeapon(Limb.BOTHHANDS)) {
+            mWeaponLeftName.setText(st.getWeapon(Limb.BOTHHANDS).getName());
+            mActionArrayLeft.clear();
+            mActionArrayLeft.addAll(st.getActions(Limb.BOTHHANDS));
+            loaded_left.setVisibility(View.GONE);
+            unloaded_left.setVisibility(View.GONE);
+            if(st.getWeapon(Limb.BOTHHANDS).getType().isLoadable()){
+                if(st.getWeapon(Limb.BOTHHANDS).getIsLoaded()){
+                    loaded_left.setVisibility(View.VISIBLE);
+                }else{
+                    unloaded_left.setVisibility(View.VISIBLE);
+                }
+            }
+            leftManaJauge.setVisibility(st.getWeapon(Limb.BOTHHANDS).getType()== WaffenTyp.MANAWEAPON?View.VISIBLE:View.GONE);
+            mLeftWeaponLayout.setVisibility(View.VISIBLE);
+            mLeftList.setVisibility(View.VISIBLE);
         }
+
         if(st.hasWeapon(Limb.RIGHTHAND)){
             mWeaponRightName.setText(st.getWeapon(Limb.RIGHTHAND).getName());
             mActionArrayRight.clear();
@@ -383,6 +401,10 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 		staminaJauge.setValues(st.getStaminaNow(), st.getStaminaUsed(),
                 st.getStaminaMax() - st.getStaminaNow() - st.getStaminaUsed());
 
+        Collections.sort(mActionArrayFree);
+        Collections.sort(mActionArrayLeft);
+        Collections.sort(mActionArrayRight);
+
         ((TextView) getView().findViewById(R.id.mental_state)).setText(st.getMentalState().getStringId());
         ((TextView) getView().findViewById(R.id.race)).setText(st.getRace().getStringId());
     }
@@ -391,7 +413,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
     // Actions in listviews
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mDisplayer.setModif(0);
+        mDisplayer.setSplit(1);
         mDisplayer.setAlter(0);
         mDisplayer.hideDegats();
 
@@ -400,7 +422,10 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         switch(parent.getId()) {
             case R.id.left_actions:
                 action = mActionArrayLeft.get(position);
-                which = Limb.LEFTHAND;
+                if(st.hasWeapon(Limb.BOTHHANDS))
+                    which = Limb.BOTHHANDS;
+                else
+                    which = Limb.LEFTHAND;
                 break;
             case R.id.right_actions:
                 action = mActionArrayRight.get(position);

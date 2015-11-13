@@ -160,4 +160,15 @@
     <string name="twohsword_dance">Zweischwerter Tanz</string>
     <string name="use_mana">mana brauchen</string>
     <string name="STR_WI">Wille</string>
+    <string name="both_hands">beide Hände</string>
+    <string name="combine">Kombinieren</string>
+    <string name="main_weapon">Haupt Waffe</string>
+    <string name="rest">Rest</string>
+    <string name="split">teilen</string>
+    <string name="hero_created">neuer held</string>
+    <string name="hero_saved">held gespeichert</string>
+    <string name="weapon_created">Waffe erstellt</string>
+    <string name="weapon_saved">Waffe gespeichert</string>
+    <string name="armor_created">Rüstung erstellt</string>
+    <string name="armor_saved">Rüstung gespeichert</string>
 </resources>

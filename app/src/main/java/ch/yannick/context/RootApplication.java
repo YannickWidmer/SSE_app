@@ -70,22 +70,22 @@ public class RootApplication extends Application {
 		if(mCurrentActivity != null){
             switch (Flag){
                 case MyBaseActivity.INSERTWEAPON:
-                    Toast.makeText(this,"new weapon created",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.weapon_created,Toast.LENGTH_SHORT).show();
 					break;
                 case MyBaseActivity.UPDATEWEAPON:
-                    Toast.makeText(this,"weapon saved",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.weapon_saved,Toast.LENGTH_SHORT).show();
                     break;
                 case MyBaseActivity.INSERTARMOR:
-                    Toast.makeText(this,"new armor created",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.armor_created,Toast.LENGTH_SHORT).show();
                     break;
                 case MyBaseActivity.UPDATEARMOR:
-                    Toast.makeText(this,"armor saved",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.armor_saved,Toast.LENGTH_SHORT).show();
                     break;
                 case MyBaseActivity.INSERTPERSONNAGE:
-                    Toast.makeText(this,"new hero created",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.hero_created,Toast.LENGTH_SHORT).show();
                     break;
                 case MyBaseActivity.UPDATEPERSONNAGE:
-                    Toast.makeText(this,"hero saved",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,R.string.hero_saved,Toast.LENGTH_SHORT).show();
                     break;
             }
 

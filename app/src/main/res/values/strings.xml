@@ -163,4 +163,15 @@
     <string name="keep_distance">keep distance</string>
     <string name="twohsword_dance">two sword dance</string>
     <string name="pole_master">pole master</string>
+    <string name="split">split</string>
+    <string name="rest">rest</string>
+    <string name="both_hands">both hands</string>
+    <string name="combine">combine</string>
+    <string name="main_weapon">main weapon</string>
+    <string name="weapon_saved">weapon saved</string>
+    <string name="weapon_created">weapon created</string>
+    <string name="armor_saved">armor saved</string>
+    <string name="armor_created">armor created</string>
+    <string name="hero_created">hero created</string>
+    <string name="hero_saved">hero saved</string>
 </resources>

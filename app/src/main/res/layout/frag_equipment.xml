@@ -77,6 +77,14 @@
                 android:text="@string/left_arm"/>
             <Button
                 style="@style/BaseTextWhite"
+                android:id="@+id/weapon_both"
+                android:layout_below="@+id/weapon_left"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/both_hands"/>
+            <Button
+                style="@style/BaseTextWhite"
                 android:id="@+id/weapon_right"
                 android:layout_below="@+id/arms"
                 android:layout_alignParentRight="true"

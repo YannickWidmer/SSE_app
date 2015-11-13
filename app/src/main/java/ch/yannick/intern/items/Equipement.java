@@ -73,21 +73,14 @@ public class Equipement {
     public void setWeapon(Weapon w, Limb limb){
         if(limb == Limb.ALL)
             return;
+        mWeapons.remove(Limb.BOTHHANDS);
+        if(w.getType().isTwohanded()) {
+            limb = Limb.BOTHHANDS;
+            mWeapons.remove(Limb.LEFTHAND);
+            mWeapons.remove(Limb.RIGHTHAND);
+        }
 
         mWeapons.put(limb, w);
-
-        // Check if there are two weapons of which one is two handed
-        Limb otherLimb = Limb.ALL;
-        if(limb == Limb.LEFTHAND) {
-            otherLimb = Limb.RIGHTHAND;
-        }
-        if(limb == Limb.RIGHTHAND) {
-            otherLimb = Limb.LEFTHAND;
-        }
-        if(otherLimb != Limb.ALL && mWeapons.containsKey(otherLimb) &&
-                (w.getType().isTwohanded() || mWeapons.get(otherLimb).getType().isTwohanded())) {
-            mWeapons.remove(otherLimb);
-        }
     }
 
     public boolean hasWeapon(Limb which){
@@ -135,5 +128,16 @@ public class Equipement {
         for(Weapon weapon:mWeapons.values())
             weight += weapon.getWeight();
         return weight;
+    }
+
+    public void combine(Limb limb) {
+        if(mWeapons.containsKey(Limb.LEFTHAND)&& mWeapons.containsKey(Limb.RIGHTHAND)){
+            Limb other = Limb.LEFTHAND;
+            if(limb == Limb.LEFTHAND)
+                other = Limb.RIGHTHAND;
+            mWeapons.put(Limb.BOTHHANDS,mWeapons.get(limb).combine(mWeapons.get(other)));
+            mWeapons.remove(Limb.LEFTHAND);
+            mWeapons.remove(Limb.RIGHTHAND);
+        }
     }
 }

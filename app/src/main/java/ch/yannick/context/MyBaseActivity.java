@@ -8,7 +8,7 @@ public abstract class MyBaseActivity extends Activity {
 	http://stackoverflow.com/questions/11411395/how-to-get-current-foreground-activity-context-in-android
 	*/
 	  // Flags
-    public static final int INSERTPERSONNAGE=0, INSERTWEAPON=1,
+    public static final int JUST_REFRESH = -1,INSERTPERSONNAGE=0, INSERTWEAPON=1,
     						UPDATEPERSONNAGE=3, UPDATEWEAPON = 4,
                             INSERTARMOR = 5, UPDATEARMOR = 6;//Flags
 

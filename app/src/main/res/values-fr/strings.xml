@@ -107,7 +107,7 @@
     <string name="base">base</string>
     <string name="conjure">conjurer</string>
     <string name="delirium">délire</string>
-    <string name="ecstasy">ecstase</string>
+    <string name="ecstasy">ekstase</string>
     <string name="endurance">endurance</string>
     <string name="fear">peur</string>
     <string name="frenetic">frenetic</string>
@@ -149,4 +149,15 @@
     <string name="twohsword_dance">Dance à deux épées</string>
     <string name="use_mana">servir mana</string>
     <string name="STR_WI">Volonté</string>
+    <string name="both_hands">deux mains</string>
+    <string name="combine">combiner</string>
+    <string name="main_weapon">arm principale</string>
+    <string name="rest">rest</string>
+    <string name="split">diviser</string>
+    <string name="hero_created">nouveau héro</string>
+    <string name="hero_saved">héro enregistré</string>
+    <string name="weapon_created">nouvelle arme</string>
+    <string name="weapon_saved">arme enregistré</string>
+    <string name="armor_created">armure crée</string>
+    <string name="armor_saved">armure enregistrée</string>
 </resources>

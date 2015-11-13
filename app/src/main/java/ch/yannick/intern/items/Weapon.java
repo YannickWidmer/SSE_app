@@ -16,7 +16,7 @@ public class Weapon {
 
     private static String LOG = "Weapon";
 
-    private WaffenTyp mType;
+    private WaffenTyp mType, mCombinedType;
     private boolean isLoaded = true;
     private String name;
 	private Long id;
@@ -33,14 +33,7 @@ public class Weapon {
         base_actions = new HashMap<>();
         resolved_actions = new HashMap<>();
         for(Action action:type.getActions()) {
-            ActionData actionData = new ActionData();
-            actionData.firstAttribute = action.getFirstAttribute();
-            actionData.secondAttribute = action.getSecondAttribute();
-            actionData.fatigue = action.getFatigue();
-            if (action.isAttack()) {
-                actionData.schadenWuerfel = new ArrayList<>();
-            }
-            base_actions.put(action, actionData);
+            base_actions.put(action, new ActionData(action));
         }
     }
 
@@ -57,29 +50,37 @@ public class Weapon {
             return; // nothing to do.
 
         if(base_actions.containsKey(toCopy)){
-            ActionData weaponData = base_actions.get(toCopy);
-            actionData = new ActionData();
-            actionData.firstAttribute = weaponData.firstAttribute;
-            actionData.secondAttribute = weaponData.secondAttribute;
-            actionData.fatigue = weaponData.fatigue;
-            actionData.enhancer = weaponData.enhancer;
-            actionData.modifier = weaponData.modifier;
-            if (toCopy.isAttack()) {
-                actionData.schadenWuerfel = new ArrayList<>(weaponData.schadenWuerfel);
-                actionData.schaden = weaponData.schaden;
-            }
-
+            actionData = new ActionData(base_actions.get(toCopy));
         }else{
-            actionData = new ActionData();
-            actionData.firstAttribute = toCopy.getFirstAttribute();
-            actionData.secondAttribute = toCopy.getSecondAttribute();
-            actionData.fatigue = toCopy.getFatigue();
-            if (newAction.isAttack()) {
-                actionData.schadenWuerfel = new ArrayList<>();
-            }
-            resolved_actions.put(toCopy,actionData);
+            actionData = new ActionData(newAction);
         }
         resolved_actions.put(newAction,actionData);
+    }
+
+    public Weapon combine(Weapon toCombine){
+        Weapon res = new Weapon(null,getName() +"-"+toCombine.getName(),mType);
+        res.mCombinedType = toCombine.mType;
+        res.setWeight(mWeight + toCombine.mWeight);
+        for(Action action:toCombine.getBase_actions()){
+            // for each check if the main Weapn can the action or is weaker
+            // than the tobe combined and in this case put the information from to be combined
+            if(!canAction(action) || base_actions.get(action).enhancer< toCombine.base_actions.get(action).enhancer)
+                res.base_actions.put(action,new ActionData(toCombine.base_actions.get(action)));
+        }
+        ActionData data;
+        switch(mType){
+            case SWORD:
+                if(toCombine.mType == WaffenTyp.SWORD){
+                    data = new ActionData(res.base_actions.get(Action.ATTACK));
+                    data.enhancer +=4;
+                    data.fatigue  +=1;
+                    res.mType = WaffenTyp.TWOSWORDS;
+                    res.base_actions.put(Action.TWOHANDEDATTACK,data);
+                }else if(toCombine.mType == WaffenTyp.SHIELD){
+                    res.base_actions.get(Action.DEFEND).enhancer +=4;
+                }
+        }
+        return res;
     }
 
     public void setTalents(Map<Talent,Integer> talents,MentalState mentalState) {
@@ -92,8 +93,13 @@ public class Weapon {
 
 
         Action action;
+        boolean typeMatch;
         for(Map.Entry<Talent,Integer> e: talents.entrySet()) {
-            if (e.getKey().getEffect().isAction() && e.getKey().getWeaponType() == mType) {
+            if(mCombinedType != null)
+                typeMatch =  e.getKey().getWeaponType() == mType ||  e.getKey().getWeaponType() == mCombinedType;
+            else
+                typeMatch =  e.getKey().getWeaponType() == mType;
+            if (e.getKey().getEffect().isAction() && typeMatch) {
                 action = e.getKey().getAction();
                 switch (e.getKey().getEffect()) {
                     case ACTIONMODIFIER:
@@ -276,6 +282,30 @@ public class Weapon {
             modifier = 0;
             firstAttribute = Attribute.ACUITY;
             secondAttribute = Attribute.ACUITY;
+        }
+
+        public ActionData(Action action){
+            fatigue =0;
+            enhancer = 0;
+            modifier = 0;
+            firstAttribute = action.getFirstAttribute();
+            secondAttribute = action.getSecondAttribute();
+            fatigue = action.getFatigue();
+            if (action.isAttack()) {
+                schadenWuerfel = new ArrayList<>();
+            }
+        }
+
+        public ActionData(ActionData copy){
+            fatigue =copy.fatigue;
+            enhancer = copy.enhancer;
+            modifier = copy.modifier;
+            firstAttribute = copy.firstAttribute;
+            secondAttribute = copy.secondAttribute;
+            schaden = copy.schaden;
+            penetration = copy.penetration;
+            if(copy.schadenWuerfel != null)
+                schadenWuerfel = new ArrayList<>(copy.schadenWuerfel);
         }
     }
 }

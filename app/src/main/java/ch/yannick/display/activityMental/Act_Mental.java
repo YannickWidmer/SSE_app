@@ -15,7 +15,7 @@ public class Act_Mental extends MyBaseActivity implements VectorListener {
 
     private AsyncPathComputer task;
     private static String LOG = "Act_Mental";
-    private static int pathLength = 100, maxSpeed = 1/10;
+    private static int pathLength = 80, maxSpeed = 1/10;
     private Vector position, touchPosition;
     private static double forceScale = 0.001f;
     private int processPosition = 0; // 0 initial, 1 speed touched Waiting 2 done show State

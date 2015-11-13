@@ -43,7 +43,8 @@ public class Frag_PlayAttributes extends Fragment implements OnClickListener {
 		ToggleButton b;
 		for (Attribute attr : Attribute.values()) {
             b = (ToggleButton) v.findViewById(attr.getId());
-            b.setOnClickListener(this);
+            Log.d(LOG," ToggleButton for " + attr.name());
+			b.setOnClickListener(this);
             b.setText(b.getText() + ":" + st.getSkill(attr));
             b.setTextOn(b.getText());
             b.setTextOff(b.getText());
@@ -57,13 +58,13 @@ public class Frag_PlayAttributes extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		compute();
-        mDisplayer.setModif(0);
         mDisplayer.setAlter(0);
+        mDisplayer.setModif(0);
+		mDisplayer.setSplit(1);
 		mDisplayer.refresh();
 	}
 
     public void setSelection(List<Attribute> attributes) {
-
         View frag = getView();
         for (Attribute attribute : Attribute.values()) {
             ((ToggleButton) frag.findViewById(attribute.getId())).setChecked(attributes.contains(attribute));

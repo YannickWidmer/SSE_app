@@ -7,6 +7,7 @@ import ch.yannick.context.R;
  */
 public enum Limb {
     LEFTHAND(R.string.left_hand), RIGHTHAND(R.string.right_hand),
+    BOTHHANDS(R.string.both_hands),
     FOOTS(R.string.foots), BAREHANDS(R.string.bare_hands),ALL(0);
 
 

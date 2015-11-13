@@ -99,6 +99,7 @@ public enum Action implements AdapterUsable {
         mouvementActions.add(ESQUIV);
         mouvementActions.add(CLIMB);
         mouvementActions.add(SWIM);
+        mouvementActions.add(THROW);
     }
 }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -28,19 +29,29 @@
     <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-    
         <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/skill"/>
         <TextView android:id="@+id/skill" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp"/>
         <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="+"/>
         <ch.yannick.display.views.ValueControler  android:id="@+id/alter" android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:padding="5dp" />
-
-		<TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/modif"/>
-        <ch.yannick.display.views.ValueControler android:id="@+id/modif" android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:padding="5dp"/>
-
+        <TextView style="@style/BaseText" android:id="@+id/modif"
+            android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" />
     </LinearLayout>
-	
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+       <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp"
+            android:text="@string/split"/>
+        <ch.yannick.display.views.ValueControler android:id="@+id/split"
+            app:lower_bound="1"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:padding="5dp"/>
+        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp"
+            android:text="@string/rest"/>
+        <TextView style="@style/BaseText" android:id="@+id/rest"
+            android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" />
+    </LinearLayout>
+
     <ListView android:id="@+id/listView"
     android:layout_width="match_parent"
     android:layout_height="0px"

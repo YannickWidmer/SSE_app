@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
     <ToggleButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,9 +83,19 @@
     <ToggleButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/KEY_WI"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/checkperg"
+        android:textOff="@string/STR_WI"
+        android:textOn="@string/STR_WI" />
+
+    <ToggleButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/KEY_MA"
         android:layout_gravity="center_horizontal|top"
         android:background="@drawable/checkperg"
         android:textOff="@string/STR_MA"
         android:textOn="@string/STR_MA" />
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
