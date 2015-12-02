@@ -13,32 +13,14 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="627f94e2-68ba-4e6a-ad41-1f2683e16a1c" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Yannick\AndroidstudioProjects\SSE\app\src\main\res\values\res_heroes.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityMental/Act_Mental.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityMental/Act_Mental.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Act_Play.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Act_Play.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/action_talent/Action.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/action_talent/Action.java" />
+      <change type="DELETED" beforePath="C:\Users\Yannick\AndroidstudioProjects\SSE\.idea\libraries\snakeyaml_android_1_8_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Yannick\AndroidstudioProjects\SSE\.idea\libraries\support_annotations_21_0_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Yannick\AndroidstudioProjects\SSE\.idea\libraries\support_v4_21_0_3.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/items/Equipement.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/items/Equipement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_Displayer.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_Displayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_Equipment.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_Equipment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_PlayAttributes.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_PlayAttributes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_PlayControl.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_PlayControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/personnage/Limb.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/personnage/Limb.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/context/MyBaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/context/MyBaseActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/context/RootApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/context/RootApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/state/State.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/state/State.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/action_talent/Talent.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/action_talent/Talent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/items/Weapon.java" afterPath="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/items/Weapon.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_displayer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_displayer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_equipment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_equipment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_play_attributes.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_play_attributes.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-de/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-de/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-fr/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SSE.iws" />
@@ -97,19 +79,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RootApplication.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RootApplication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ch/yannick/context/RootApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6360856">
+            <state vertical-scroll-proportion="0.0">
               <caret line="91" column="56" selection-start-line="91" selection-start-column="56" selection-end-line="91" selection-end-column="56" />
-              <folding>
-                <element signature="e#1663#1686#0" expanded="true" />
-                <element signature="e#1817#1838#0" expanded="true" />
-                <element signature="e#1983#2005#0" expanded="true" />
-                <element signature="e#2150#2170#0" expanded="true" />
-                <element signature="e#2320#2341#0" expanded="true" />
-                <element signature="e#2491#2510#0" expanded="true" />
-              </folding>
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.25297618">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -147,7 +132,7 @@
       <file leaf-file-name="GameView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityMental/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.896552">
+            <state vertical-scroll-proportion="0.0">
               <caret line="150" column="20" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="23" />
               <folding />
             </state>
@@ -157,7 +142,7 @@
       <file leaf-file-name="Act_Mental.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityMental/Act_Mental.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.8275862">
+            <state vertical-scroll-proportion="0.0">
               <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
               <folding />
             </state>
@@ -1822,7 +1807,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/items/Equipement.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/action_talent/Action.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Frag_PlayControl.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityPlay/Act_Play.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityMental/Act_Mental.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ch/yannick/intern/items/Weapon.java" />
@@ -1830,6 +1814,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ch/yannick/context/MyBaseActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_weapon.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ch/yannick/context/RootApplication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -1837,10 +1822,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="y" value="40" />
-    <option name="width" value="1378" />
-    <option name="height" value="735" />
+    <option name="x" value="-8" />
+    <option name="y" value="32" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -1865,7 +1850,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1887,9 +1874,15 @@
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+              <option name="myItemId" value="SSE" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1902,101 +1895,13 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SSE" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SSE" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yannick" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SSE" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yannick" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="display" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SSE" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yannick" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="context" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SSE" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2213,8 +2118,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="40" width="1378" height="735" extended-state="0" />
-    <editor active="false" />
+    <frame x="-8" y="32" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32871974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2223,16 +2128,14 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37784523" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16262975" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38581315" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37989777" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22913505" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3252595" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22844176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.249226" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2243,6 +2146,8 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37784523" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3252595" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -2543,17 +2448,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="161" column="107" selection-start-line="161" selection-start-column="107" selection-end-line="161" selection-end-column="107" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3607#3608#0" expanded="false" />
-            <element signature="e#3668#3669#0" expanded="false" />
-            <element signature="e#3891#3892#0" expanded="false" />
-            <element signature="e#3952#3953#0" expanded="false" />
-            <element signature="e#5323#5324#0" expanded="false" />
-            <element signature="e#5370#5371#0" expanded="false" />
-            <element signature="e#5408#5409#0" expanded="false" />
-            <element signature="e#5455#5456#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2561,19 +2455,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="416" column="31" selection-start-line="416" selection-start-column="31" selection-end-line="416" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2558#2559#0" expanded="false" />
-            <element signature="e#2575#2576#0" expanded="false" />
-            <element signature="e#4747#4748#0" expanded="false" />
-            <element signature="e#4789#4790#0" expanded="false" />
-            <element signature="e#4940#4941#0" expanded="false" />
-            <element signature="e#4981#4982#0" expanded="false" />
-            <element signature="e#5134#5135#0" expanded="false" />
-            <element signature="e#5171#5172#0" expanded="false" />
-            <element signature="e#8285#8286#0" expanded="false" />
-            <element signature="e#8341#8342#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2597,13 +2478,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.43272728">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityMental/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.896552">
+        <state vertical-scroll-proportion="0.0">
           <caret line="150" column="20" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="23" />
           <folding />
         </state>
@@ -2611,7 +2491,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ch/yannick/display/activityMental/Act_Mental.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8275862">
+        <state vertical-scroll-proportion="0.0">
           <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
           <folding />
         </state>
@@ -2645,15 +2525,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6360856">
           <caret line="228" column="110" selection-start-line="228" selection-start-column="110" selection-end-line="228" selection-end-column="110" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="40" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2690,16 +2561,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ch/yannick/context/RootApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6360856">
+        <state vertical-scroll-proportion="0.0">
           <caret line="91" column="56" selection-start-line="91" selection-start-column="56" selection-end-line="91" selection-end-column="56" />
-          <folding>
-            <element signature="e#1663#1686#0" expanded="true" />
-            <element signature="e#1817#1838#0" expanded="true" />
-            <element signature="e#1983#2005#0" expanded="true" />
-            <element signature="e#2150#2170#0" expanded="true" />
-            <element signature="e#2320#2341#0" expanded="true" />
-            <element signature="e#2491#2510#0" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25297618">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
