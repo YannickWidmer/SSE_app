@@ -30,12 +30,12 @@ public class State {
 
     private static String LOG= "State";
 
-    private Personnage p;
-    private int liveNow,liveMax,staminaMax,staminaNow,staminaUsed;
-	private Equipement equipement;
+    protected Personnage p;
+    protected int liveNow,liveMax,staminaMax,staminaNow,staminaUsed;
+	protected Equipement equipement;
 
     private Vector mentalPosition;
-    private MentalState mentalState;
+    protected MentalState mentalState;
 
     public State(Personnage p){
 		this.p = p;
@@ -44,8 +44,8 @@ public class State {
         mentalPosition = new Vector(0,0);
         computeMentalState();
 
-        liveNow=liveMax = getResolvedValue(Resolver.Value.HEALTH);
-        staminaNow = staminaMax = getResolvedValue(Resolver.Value.STAMINA);
+        liveNow=liveMax = Resolver.getValue(this, Resolver.Value.HEALTH);
+        staminaNow = staminaMax = Resolver.getValue(this,Resolver.Value.STAMINA);
         this.newRound();
 	}
 
@@ -156,7 +156,7 @@ public class State {
     }
 
     public int getSkillEnhancer(Action act, Limb which){
-        int base = getResolvedEnhancer(act);
+        int base = Resolver.getAvatarEnhancer(this, act);
         if(equipement.hasWeapon(which))
             return equipement.getWeapon(which).getEnhancer(act)+base;
         return base;
@@ -191,7 +191,7 @@ public class State {
     }
 
     public int getFatigue(Action act,Limb which) {
-        int base = getResolvedFatigue(act);
+        int base = Resolver.getFatigue(this, act);
         if(equipement.hasWeapon(which) && equipement.getWeapon(which).canAction(act)) {
             return base + equipement.getWeapon(which).getFatigue(act);
         }
@@ -216,7 +216,7 @@ public class State {
 
     public void setWeapon(Weapon w, Limb which){
         equipement.setWeapon(w, which);
-        w.setTalents(p.getTalents(),mentalState);
+        w.setTalents(p.getTalents(), mentalState);
     }
 
     public void removeWeapon(Limb which) {
@@ -250,18 +250,6 @@ public class State {
 
     public int getWeight() {
         return equipement.getWeight();
-    }
-
-    private int getResolvedEnhancer(Action act){
-        return Resolver.getAvatarEnhancer(p, equipement, mentalState, act);
-    }
-
-    private int getResolvedFatigue(Action act){
-        return Resolver.getFatigue(p, equipement, mentalState, act);
-    }
-
-    public int getResolvedValue(Resolver.Value value){
-        return Resolver.getValue(equipement, p, mentalState, value);
     }
 
     public void combine(Limb limb) {

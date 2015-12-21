@@ -30,7 +30,6 @@
     <!-- Play -->
     <string name="play">Starten</string>
     <string name="modif">änderung</string>
-    <string name="skill">Talent</string>
     <string name="act">Agieren</string>
     <string name="react">Reagieren</string>
     <string name="takehit">Treffer</string>
@@ -171,4 +170,5 @@
     <string name="weapon_saved">Waffe gespeichert</string>
     <string name="armor_created">Rüstung erstellt</string>
     <string name="armor_saved">Rüstung gespeichert</string>
+    <string name="skill">Kompetenz</string>
 </resources>

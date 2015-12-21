@@ -42,4 +42,13 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         tools:layout="@layout/frag_play_attributes" />
+    <fragment android:id="@+id/modifs"
+        class="ch.yannick.display.activityPlay.Frag_modif"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="#7ffdc210"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        tools:layout="@layout/frag_talent_boni" />
 </android.support.v4.widget.DrawerLayout>

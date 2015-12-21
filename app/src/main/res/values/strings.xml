@@ -31,7 +31,6 @@
     <!-- Play -->
     <string name="play">Start</string>
     <string name="modif">modif</string>
-    <string name="skill">skill</string>
     <string name="act">act</string>
     <string name="react">react</string>
     <string name="takehit">hit</string>
@@ -174,4 +173,11 @@
     <string name="armor_created">armor created</string>
     <string name="hero_created">hero created</string>
     <string name="hero_saved">hero saved</string>
+    <string name="value">value</string>
+    <string name="type">type</string>
+    <string name="variable">variable</string>
+    <string name="enhancer">enhancer</string>
+    <string name="talent">talent</string>
+    <string name="modif_dialog_title">Talents and Equipment influence</string>
+    <string name="skill">skill</string>
 </resources>

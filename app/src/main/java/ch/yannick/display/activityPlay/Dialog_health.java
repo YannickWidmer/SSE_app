@@ -35,7 +35,7 @@ public class Dialog_health extends MyBaseActivity{
         findViewById(R.id.max_compute).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                max.setValue(st.getResolvedValue(Resolver.Value.HEALTH));
+                max.setValue(Resolver.getValue(st,Resolver.Value.HEALTH));
             }
         });
 

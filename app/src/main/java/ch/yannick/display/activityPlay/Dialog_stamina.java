@@ -66,7 +66,7 @@ public class Dialog_stamina extends MyBaseActivity {
         findViewById(R.id.max_compute).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                max.setValue(st.getResolvedValue(Resolver.Value.STAMINA));
+                max.setValue(Resolver.getValue(st,Resolver.Value.STAMINA));
             }
         });
 	}

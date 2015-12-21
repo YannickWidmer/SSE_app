@@ -52,7 +52,6 @@
     <string name="save">enregistrer</string>
     <string name="settings">paramétres</string>
     <string name="shield">bouclier</string>
-    <string name="skill">talent</string>
     <string name="stamina">endurance</string>
     <string name="sword">épée</string>
     <string name="takehit">domage</string>
@@ -160,4 +159,5 @@
     <string name="weapon_saved">arme enregistré</string>
     <string name="armor_created">armure crée</string>
     <string name="armor_saved">armure enregistrée</string>
+    <string name="skill"> habileté</string>
 </resources>

@@ -57,32 +57,6 @@ public class Weapon {
         resolved_actions.put(newAction,actionData);
     }
 
-    public Weapon combine(Weapon toCombine){
-        Weapon res = new Weapon(null,getName() +"-"+toCombine.getName(),mType);
-        res.mCombinedType = toCombine.mType;
-        res.setWeight(mWeight + toCombine.mWeight);
-        for(Action action:toCombine.getBase_actions()){
-            // for each check if the main Weapn can the action or is weaker
-            // than the tobe combined and in this case put the information from to be combined
-            if(!canAction(action) || base_actions.get(action).enhancer< toCombine.base_actions.get(action).enhancer)
-                res.base_actions.put(action,new ActionData(toCombine.base_actions.get(action)));
-        }
-        ActionData data;
-        switch(mType){
-            case SWORD:
-                if(toCombine.mType == WaffenTyp.SWORD){
-                    data = new ActionData(res.base_actions.get(Action.ATTACK));
-                    data.enhancer +=4;
-                    data.fatigue  +=1;
-                    res.mType = WaffenTyp.TWOSWORDS;
-                    res.base_actions.put(Action.TWOHANDEDATTACK,data);
-                }else if(toCombine.mType == WaffenTyp.SHIELD){
-                    res.base_actions.get(Action.DEFEND).enhancer +=4;
-                }
-        }
-        return res;
-    }
-
     public void setTalents(Map<Talent,Integer> talents,MentalState mentalState) {
         //First remove all action which where added by previus talents
         resolved_actions.clear();
@@ -91,14 +65,11 @@ public class Weapon {
         for(Action action:base_actions.keySet())
                 copyActionData(action,action);
 
-
         Action action;
         boolean typeMatch;
         for(Map.Entry<Talent,Integer> e: talents.entrySet()) {
-            if(mCombinedType != null)
-                typeMatch =  e.getKey().getWeaponType() == mType ||  e.getKey().getWeaponType() == mCombinedType;
-            else
-                typeMatch =  e.getKey().getWeaponType() == mType;
+            typeMatch =  e.getKey().getWeaponType() == mType
+                    ||  (mCombinedType != null && e.getKey().getWeaponType() == mCombinedType);
             if (e.getKey().getEffect().isAction() && typeMatch) {
                 action = e.getKey().getAction();
                 switch (e.getKey().getEffect()) {
@@ -124,6 +95,32 @@ public class Weapon {
                 }
             }
         }
+    }
+
+    public Weapon combine(Weapon toCombine){
+        Weapon res = new Weapon(null,getName() +"-"+toCombine.getName(),mType);
+        res.mCombinedType = toCombine.mType;
+        res.setWeight(mWeight + toCombine.mWeight);
+        for(Action action:toCombine.getBase_actions()){
+            // for each check if the main Weapn can the action or is weaker
+            // than the tobe combined and in this case put the information from to be combined
+            if(!canAction(action) || base_actions.get(action).enhancer< toCombine.base_actions.get(action).enhancer)
+                res.base_actions.put(action,new ActionData(toCombine.base_actions.get(action)));
+        }
+        ActionData data;
+        switch(mType){
+            case SWORD:
+                if(toCombine.mType == WaffenTyp.SWORD){
+                    data = new ActionData(res.base_actions.get(Action.ATTACK));
+                    data.enhancer +=4;
+                    data.fatigue  +=1;
+                    res.mType = WaffenTyp.TWOSWORDS;
+                    res.base_actions.put(Action.TWOHANDEDATTACK,data);
+                }else if(toCombine.mType == WaffenTyp.SHIELD){
+                    res.base_actions.get(Action.DEFEND).enhancer +=4;
+                }
+        }
+        return res;
     }
 
 
