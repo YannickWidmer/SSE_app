@@ -46,7 +46,7 @@ public class Frag_modif extends Fragment {
         ((TextView)v.findViewById(R.id.esquiv_talent)).setText(""+Resolver.getAvatarEnhancer(st, Action.ESQUIV));
         ((TextView)v.findViewById(R.id.esquiv_fatigue)).setText(""+Resolver.getFatigue(st, Action.ESQUIV));
 
-        //((TextView)findViewById(R.id.combat_skill)).setText(Resolver.getBaseSkill(st, Action.ATTACK, Limb.BAREHANDS));
+        //((TextView)findViewById(R.id.combat_skill)).setText(Resolver.getBaseSkill(st, Action.ATTACK, Limb.GENERAL));
         ((TextView)v.findViewById(R.id.combat_weigth)).setText(""+Resolver.getEquipementModification(st, Action.ATTACK));
         //((TextView)findViewById(R.id.combat_talent)).setText(""+Resolver.getAvatarEnhancer(st, Action.A));
         ((TextView)v.findViewById(R.id.combat_fatigue)).setText("x + "+Resolver.getFatigue(st, Action.ATTACK));

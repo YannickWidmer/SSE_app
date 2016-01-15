@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
 import ch.yannick.display.technical.EnumAdapter;
-import ch.yannick.intern.items.WaffenTyp;
+import ch.yannick.intern.usables.UsableType;
 
 
 public class Dialog_newWeapon extends MyBaseActivity implements AdapterView.OnItemClickListener {
-    private EnumAdapter<WaffenTyp> adapter;
+    private EnumAdapter<UsableType> adapter;
     private int mPosition =0;
 
 	@Override
@@ -24,10 +24,10 @@ public class Dialog_newWeapon extends MyBaseActivity implements AdapterView.OnIt
 		setContentView(R.layout.dialog_new_weapon);
 
 
-        ArrayList<WaffenTyp> typeList=new ArrayList<>();
+        ArrayList<UsableType> typeList=new ArrayList<>();
 
-        for(WaffenTyp wt: WaffenTyp.values()) {
-			if(wt != WaffenTyp.BAREHANDS)
+        for(UsableType wt: UsableType.values()) {
+			if(wt != UsableType.GENERAL)
 				typeList.add(wt);
 		}
 

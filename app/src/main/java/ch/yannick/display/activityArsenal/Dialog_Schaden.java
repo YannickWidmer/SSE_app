@@ -16,7 +16,7 @@ import ch.yannick.display.views.DiceDisplayer;
 import ch.yannick.display.views.ValueControler;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.dice.Dice;
-import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.usables.Weapon;
 
 /**
  * Created by Yannick on 14.03.2015.

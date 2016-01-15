@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.display.activityMain.Inter_ListCarrier;
-import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.usables.Weapon;
 
 /*
  * This fragment contains the -list of Weapons in the DB. It can be embedded

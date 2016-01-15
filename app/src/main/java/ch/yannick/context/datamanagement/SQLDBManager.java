@@ -15,8 +15,8 @@ import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.dice.Dice;
 import ch.yannick.intern.items.Armor;
-import ch.yannick.intern.items.WaffenTyp;
-import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.usables.UsableType;
+import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Personnage;
@@ -38,7 +38,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
             TABLE_PERSONAGE = "personages";
     private static final String TABLE_TALENTS = "talents";
     private static final String TABLE_WEAPONS="weapons";
-    private static final String TABLE_SCHADEN="schaden";
+    private static final String TABLE_SCHADEN="resultValue";
     private static final String TABLE_WEAPON_ACTION="weapon_action";
     private static final String TABLE_ARMOR = "armor";
  
@@ -60,7 +60,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
     private static final String KEY_ATTRIBUTE1="first_attribute",
             KEY_ATTRIBUTE2="second_attribute",KEY_WEIGHT="weight",
             KEY_FATIGUE="fatigue",  KEY_PENETRATION="penetration", KEY_DIRECT="isDirect",
-            KEY_SCHADEN="schaden", KEY_ENHANCER = "enhancer";
+            KEY_SCHADEN="resultValue", KEY_ENHANCER = "enhancer";
 
     // armor table columns
     private static final String KEY_BODYPART="body_part", KEY_PROTECTION="protection", KEY_HEAT = "heat_protection";
@@ -249,7 +249,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
     	deleteEntry(TABLE_SCHADEN,id);
         for(Action action:w.getBase_actions()){
             if(action.isAttack()){
-                for(Dice dice:w.getData(action).schadenWuerfel) {
+                for(Dice dice:w.getData(action).resultDice) {
                     c = new ContentValues();
                     c.put(KEY_ID,id);
                     c.put(KEY_ACTION,action.name());
@@ -286,7 +286,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
     	if(cursor.moveToFirst()){
     		do{
     			Log.d(LOG,"adding Weapon to list with id:"+cursor.getLong(0)+" Name:"+cursor.getString(1)+" type:"+ cursor.getInt(2));
-                list.add(new Weapon(cursor.getLong(0), cursor.getString(1), WaffenTyp.valueOf(cursor.getString(2))));
+                list.add(new Weapon(cursor.getLong(0), cursor.getString(1), UsableType.valueOf(cursor.getString(2))));
     		}while(cursor.moveToNext());
     	}
 
@@ -306,7 +306,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
 					c.getInt(3)+")");
 
 
-            w =  new Weapon(getLong(c,KEY_ID),getString(c,KEY_NAME),WaffenTyp.valueOf(getString(c,KEY_TYPE)));
+            w =  new Weapon(getLong(c,KEY_ID),getString(c,KEY_NAME), UsableType.valueOf(getString(c, KEY_TYPE)));
             w.setWeight(get(c,KEY_WEIGHT));
 			c.close();
 

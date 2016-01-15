@@ -1,0 +1,81 @@
+<Talents>
+    <Talent name="STEAL"  show_name="@string/action_steal"  description="@string/talent_steal_description"
+        effect_type="LUCKMODIFIER" weapon_type="GENERAL" />
+
+    <Talent name="MAKEFIRE"  show_name="@string/action_make_fire" description="@string/talent_makefire_description"
+        weapon_type="GENERAL" effect_type="LUCKMODIFIER" />
+
+    <Talent name="COOK"  show_name="@string/action_cook" description="@string/talent_cook_description"
+        weapon_type="GENERAL" effect_type="LUCKMODIFIER"/>
+
+    <Talent name="BUTCHER" show_name="@string/action_butcher" description="@string/talent_butcher_description"
+        weapon_type="GENERAL" effect_type="LUCKMODIFIER" />
+
+    <Talent name="FISHING" show_name="@string/action_fishing" description="@string/talent_fishing_description"
+        weapon_type="GENERAL" effect_type="LUCKMODIFIER" />
+
+    <Talent name="CLIMB" show_name="@string/action_climb" description="@string/talent_climb_description"
+        weapon_type="GENERAL" effect_type="LUCKMODIFIER"/>
+
+    <Talent name="SWIM" show_name="@string/action_swim"  description="@string/talent_swim_description"
+        weapon_type="GENERAL" effect_type="LUCKMODIFIER" />
+
+    <Talent name="THROW" show_name="@string/action_throw" description="@string/talent_throw_description"
+        weapon_type="GENERAL"  effect_type="LUCKMODIFIER" />
+
+    <Talent name="MUSIC" show_name="@string/action_make_music" description="@string/talent_make_music_description"
+        action="MAKEMUSIC" effect_type="LUCKMODIFIER" weapon_type="GENERAL" />
+
+    <Talent name="SING"  show_name="@string/action_sing" description="@string/talent_sing_description"
+        effect_type="LUCKMODIFIER" weapon_type="GENERAL" />
+
+    <Talent name="TWOHANDATTACK" show_name="@string/talent_twohand_destroyer" description="@string/talent_twohand_destroyer_description"
+        effect_type="SKILLMODIFIER"  weapon_type="BISWORD">
+        <MentalEffect
+            FRENETIC = "0,0,0,1,1,1,2,2,3,3"
+            AGRESSIVE = "0,1,1,2,2,3,4,5,5,5"
+            BERSERK = "1,2,3,3,4,5,5,6,6,7"/>
+    </Talent>
+
+    <Talent name="CONJURE" show_name="@string/action_conjure" description="@string/talent_conjure_description"
+        weapon_type="GENERAL" effect_type="SKILLMODIFIER" >
+        <MentalEffect
+            FOCUSED = "0,0,0,1,1,1,2,2,3,3"
+            IMMERSED = "0,1,1,2,2,3,4,5,5,5"
+            ECSTASY = "1,2,3,3,4,5,5,6,6,7"/>
+    </Talent>
+
+    <Talent name="TWOSWORDSATTACK" show_name="@string/talent_two_sword_dance" description="@string/talent_two_sword_dance_description"
+        weapon_type="TWOSWORDS" effect_type="SKILLMODIFIER" action = "ATTACK">
+        <MentalEffect
+            CONCENTRATED = "0,0,0,1,1,1,2,2,3,3"
+            METAPHASE = "0,1,1,2,2,3,4,5,5,5"
+            SYNESTHESIA = "1,2,3,3,4,5,5,6,6,7"/>
+    </Talent>
+
+    <Talent name="POLEATTACK" show_name="@string/talent_pole_master" description="@string/talent_pole_master_description"
+        weapon_type="POLEWEAPON" effect_type="SKILLMODIFIER" action = "ATTACK">
+        <MentalEffect
+            CONCENTRATED = "0,0,0,1,1,1,2,2,3,3"
+            METAPHASE = "0,1,1,2,2,3,4,5,5,5"
+            SYNESTHESIA = "1,2,3,3,4,5,5,6,6,7"/>
+    </Talent>
+
+    <Talent name = "TWOHANDDAMAGE" show_name="@string/talent_fury" description="@string/talent_fury_description"
+        weapon_type="BISWORD" effect_type="RESULTMODIFIER" action= "TWOHANDEDATTACK">
+        <MentalEffect
+            FRENETIC = "0,0,0,1,1,1,2,2,3,3"
+            AGRESSIVE = "1,2,3,3,4,5,5,6,6,7"
+            BERSERK = "1,2,3,3,4,5,5,6,6,7"/>
+    </Talent>
+
+    <Talent name = "HEALTH" show_name="@string/health" description="@string/talent_health_description"
+        effect_type="VALUE"  resolver_value = "HEALTH">
+        <Effect value = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"/>
+    </Talent>
+
+    <Talent name = "STAMINA" show_name="@string/talent_endurance" description="@string/talent_endurance_description"
+        effect_type="VALUE"  resolver_value = "STAMINA">
+        <Effect value = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"/>
+    </Talent>
+</Talents>

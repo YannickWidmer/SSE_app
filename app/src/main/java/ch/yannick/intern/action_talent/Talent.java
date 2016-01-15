@@ -1,12 +1,19 @@
 package ch.yannick.intern.action_talent;
 
+import android.util.Log;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import ch.yannick.context.R;
-import ch.yannick.intern.items.WaffenTyp;
+import ch.yannick.context.RootApplication;
+import ch.yannick.intern.usables.UsableType;
 import ch.yannick.intern.state.MentalState;
 import ch.yannick.intern.state.Resolver;
 
@@ -14,138 +21,185 @@ import ch.yannick.intern.state.Resolver;
  * Created by Yannick on 18.07.2015.
  */
 public class Talent {
+    private static final String LOG = "Talent";
+    private static  boolean isReady = false;
     public static HashMap<String,Talent> values;
-    public static HashMap<String,ArrayList<Talent>> talentGroups;
 
     private EffectType mEffect;
-    private int mStringId;
+    private int mStringId, mDescriptionId;
     private Action mAction, remadeAction;
-    private WaffenTyp mWeaponType;
+    private UsableType mUsableType;
     private Resolver.Value mValue;
 
     // The effects value, depending if it depends on the Mental state or not
     private int[] mEffects;
     private Map<MentalState,int[]> mMentalEffects;
+
     // If the Talent changes the usual action
-    private int mFatigueModifier, mEnhancerModifier, mDegatsModifier;
+    private int mFatigueModifier;
 
-    public Talent(int stringID,Action act, WaffenTyp wt){
+
+    private Talent(int stringID,int descriptionId, Action act, UsableType wt, EffectType effectType){
         this.mAction = act;
-        mWeaponType = wt;
-        mStringId = stringID;
-        mEffect = EffectType.ACTIONMODIFIER;
-    }
-
-    public Talent(int stringID,Action action, WaffenTyp wt,int[] effects){
-        mEffects = effects;
-        mWeaponType = wt;
-        mStringId = stringID;
-        mAction = action;
-        mEffect = EffectType.ACTIONMODIFIER;
-    }
-
-    public Talent(int stringID,Action action,WaffenTyp wt, Map<MentalState,int[]> mentalEffects){
-        mAction = action;
-        mWeaponType = wt;
-        mStringId = stringID;
-        mMentalEffects = mentalEffects;
-        mEffect = EffectType.ACTIONMODIFIER;
-    }
-
-    public Talent(int stringID,Action act, WaffenTyp wt, EffectType effectType){
-        this.mAction = act;
-        mWeaponType = wt;
+        mUsableType = wt;
         mStringId = stringID;
         mEffect = effectType;
     }
 
-    public Talent(int stringID, Action action, WaffenTyp wt,int[] effects,EffectType effectType){
-        mEffects = effects;
-        mStringId = stringID;
-        mWeaponType = wt;
-        mAction = action;
-        mEffect = effectType;
-    }
-
-    public Talent(int stringID,Action action,WaffenTyp wt, Map<MentalState,int[]> mentalEffects, EffectType effectType){
-        mAction = action;
-        mWeaponType = wt;
-        mStringId = stringID;
-        mMentalEffects = mentalEffects;
-        mEffect = effectType;
-    }
-
-    public Talent(int stringID, Action newAction, Action toReplace, WaffenTyp wt, int fatigueSupplement, int enhancer, int degatsSupplement){
+    private Talent(int stringID,int descriptionId, Action newAction, Action oldAction, UsableType wt, int fatigueSupplement){
         mFatigueModifier = fatigueSupplement;
-        mEnhancerModifier = enhancer;
         mStringId = stringID;
-        mDegatsModifier = degatsSupplement;
         mEffect = EffectType.ACTIONREMAKE;
     }
 
-    public Talent(int stringID, Resolver.Value value, int[] effects){
+
+    private Talent(int stringID,int descriptionId, Resolver.Value value){
         mEffect = EffectType.VALUE;
         mStringId = stringID;
         mValue = value;
-        this.mEffects = effects;
     }
 
-    public Talent(int stringID, Resolver.Value value, Map<MentalState,int[]> mentalEffects){
-        mEffect = EffectType.VALUE;
-        mValue = value;
-        mStringId = stringID;
+    private void setEffet(int[] effects){
+        mEffects = effects;
+    }
+
+    private void setEffet(Map<MentalState,int[]> mentalEffects){
         mMentalEffects = mentalEffects;
     }
 
-    public static void init(InputStream ip){
-        values = new HashMap<>();
 
-        values.put(Action.STEAL.name(), new Talent(R.string.steal, Action.STEAL, WaffenTyp.BAREHANDS));
-        values.put(Action.MAKEFIRE.name(), new Talent(R.string.make_fire, Action.MAKEFIRE, WaffenTyp.BAREHANDS));
-        values.put(Action.COOK.name(), new Talent(R.string.cook, Action.COOK, WaffenTyp.BAREHANDS));
-        values.put(Action.BUTCHER.name(), new Talent(R.string.butcher, Action.BUTCHER, WaffenTyp.BAREHANDS));
-        values.put(Action.FISHING.name(), new Talent(R.string.fishing, Action.FISHING, WaffenTyp.BAREHANDS));
-        values.put(Action.CLIMB.name(), new Talent(R.string.climb, Action.CLIMB, WaffenTyp.BAREHANDS));
-        values.put(Action.SWIM.name(), new Talent(R.string.swim, Action.SWIM, WaffenTyp.BAREHANDS));
-        values.put(Action.THROW.name(), new Talent(R.string.th_row, Action.THROW, WaffenTyp.BAREHANDS));
-        values.put(Action.MAKEMUSIC.name(), new Talent(R.string.make_music, Action.MAKEMUSIC, WaffenTyp.BAREHANDS));
-        values.put(Action.SING.name(), new Talent(R.string.sing, Action.SING, WaffenTyp.BAREHANDS));
-
-        values.put(Resolver.Value.HEALTH.name(), new Talent(R.string.health, Resolver.Value.HEALTH, new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
-        values.put(Resolver.Value.STAMINA.name(), new Talent(R.string.stamina, Resolver.Value.STAMINA, new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}));
-
-        HashMap<MentalState,int[]> temp = new HashMap<>();
-        temp.put(MentalState.FOCUSED,new int[]{0,0,0,1,1,1,2,2,3,3});
-        temp.put(MentalState.IMMERSED,new int[]{0,1,1,2,2,3,4,5,5,5});
-        temp.put(MentalState.ECSTASY,new int[]{1,2,3,3,4,5,5,6,6,7});
-        values.put(Action.CONJURE.name(), new Talent(R.string.conjure, Action.CONJURE, WaffenTyp.BAREHANDS, temp));
-
-        temp = new HashMap<>();
-        temp.put(MentalState.FRENETIC,new int[]{0,0,0,1,1,1,2,2,3,3});
-        temp.put(MentalState.AGRESSIVE,new int[]{0,1,1,2,2,3,4,5,5,5});
-        temp.put(MentalState.BERSERK,new int[]{1,2,3,3,4,5,5,6,6,7});
-        values.put("Two Hand Destroyer", new Talent(R.string.twohand_destroyer, Action.ATTACK, WaffenTyp.BISWORD, temp, EffectType.ACTIONENHANCER));
-
-        temp = new HashMap<>();
-        temp.put(MentalState.CONCENTRATED,new int[]{0,0,0,1,1,1,2,2,3,3});
-        temp.put(MentalState.METAPHASE,new int[]{0,1,1,2,2,3,4,5,5,5});
-        temp.put(MentalState.SYNESTHESIA,new int[]{1,2,3,3,4,5,5,6,6,7});
-        values.put("Two sword Dance", new Talent(R.string.twohsword_dance, Action.ATTACK, WaffenTyp.TWOSWORDS, temp, EffectType.ACTIONENHANCER));
-
-        temp = new HashMap<>();
-        temp.put(MentalState.CONCENTRATED,new int[]{0,0,0,1,1,1,2,2,3,3});
-        temp.put(MentalState.METAPHASE,new int[]{0,1,1,2,2,3,4,5,5,5});
-        temp.put(MentalState.SYNESTHESIA,new int[]{1,2,3,3,4,5,5,6,6,7});
-        values.put("Pole master", new Talent(R.string.pole_master, Action.ATTACK, WaffenTyp.TWOSWORDS, temp, EffectType.ACTIONENHANCER));
-
-        temp = new HashMap<>();
-        temp.put(MentalState.FRENETIC,new int[]{0,0,0,1,1,1,2,2,3,3});
-        temp.put(MentalState.AGRESSIVE,new int[]{0,1,1,2,2,3,4,5,5,5});
-        temp.put(MentalState.BERSERK,new int[]{1,2,3,3,4,5,5,6,6,7});
-        values.put("Bisword Fury", new Talent(R.string.fury, Action.ATTACK, WaffenTyp.BISWORD, temp, EffectType.ATTACKDAMAGE));
+    public static boolean isReady(){
+        return isReady;
     }
 
-    public static boolean hasTalent(String name){ return values.containsKey(name);}
+    public static void init(InputStream ip,XmlPullParser parser, RootApplication app){
+
+        values = new HashMap<>();
+
+        try {
+            parser.setInput(ip, null);
+            parser.nextTag();
+            //parser.require(XmlPullParser.START_TAG, null, "Talents");
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                if (parser.getEventType() != XmlPullParser.START_TAG) {
+                    continue;
+                }
+                String name = parser.getName();
+                Log.d(LOG,"event start "+(parser.getEventType()== XmlPullParser.START_TAG) + " name "+name);
+                // Starts by looking for the Talent tag
+                if (name.equals("Talent")) {
+                    readEntry(parser,app);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                ip.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        isReady = true;
+    }
+
+    public static void readEntry(XmlPullParser parser, RootApplication application) throws IOException, XmlPullParserException {
+        String name= null;
+        UsableType weaponType = null;
+        Resolver.Value value = null;
+        EffectType effectType = null;
+        Action action = null, newAction = null;
+        Integer stringId = null, descriptionId = null, fatigueModifier = null;
+        Talent talent = null;
+        int attributeCount = parser.getAttributeCount();
+        for(int i = 0;i<attributeCount;++i) {
+            Log.d(LOG,"attribute "+parser.getAttributeName(i) + " value "+parser.getAttributeValue(i));
+
+            switch(parser.getAttributeName(i)) {
+                case "name":
+                    name = parser.getAttributeValue(i);
+                    break;
+                case "description":
+                    descriptionId = application.getStringResource(parser.getAttributeValue(i));
+                    Log.d(LOG,"Stringvalue check"+ application.getResources().getString(descriptionId));
+                    break;
+                case "show_name":
+                    stringId = application.getStringResource(parser.getAttributeValue(i));
+                    Log.d(LOG,"Stringvalue check"+ application.getResources().getString(stringId));
+                    break;
+                case "effect_type":
+                    effectType = EffectType.valueOf(parser.getAttributeValue(i));
+                    break;
+                case "action":
+                    action = Action.valueOf(parser.getAttributeValue(i));
+                    break;
+                case "new_action":
+                    newAction = Action.valueOf(parser.getAttributeValue(i));
+                    break;
+                case "weapon_type":
+                    weaponType = UsableType.valueOf(parser.getAttributeValue(i));
+                    break;
+                case "resolver_value":
+                    value = Resolver.Value.valueOf(parser.getAttributeValue(i));
+                    break;
+                case "fatigue_modifier":
+                    fatigueModifier = Integer.valueOf(parser.getAttributeValue(i));
+            }
+        }
+        if(action == null) {
+            try {
+                action = Action.valueOf(name);
+            }catch(Exception e){}
+        }
+
+        switch (effectType){
+            case RESULTMODIFIER:
+            case LUCKMODIFIER:
+            case SKILLMODIFIER:
+                talent = new Talent(stringId, descriptionId,action,weaponType,effectType);
+                break;
+            case ACTIONREMAKE:
+                talent = new Talent(stringId,descriptionId, newAction, action, weaponType, fatigueModifier);
+                break;
+            case VALUE:
+                talent = new Talent(stringId,descriptionId,value);
+                break;
+        }
+
+        if(!parser.isEmptyElementTag() && parser.next() == XmlPullParser.START_TAG){
+            switch (parser.getName()){
+                case "Effect":
+                    int numOfAttributes = parser.getAttributeCount();
+                    for(int i = 0;i<numOfAttributes;++i){
+                        if(parser.getAttributeName(i).equals("VALUES")){
+                            talent.setEffet(parseStringArray(parser.getAttributeValue(i)));
+                        }
+                    }
+                    break;
+                case "MentalEffect":
+                    int num_of_attributes = parser.getAttributeCount();
+                    HashMap<MentalState,int[]> temp = new HashMap<>();
+                    for(int i = 0;i<num_of_attributes;++i){
+                        temp.put(MentalState.valueOf(parser.getAttributeName(i)),parseStringArray(parser.getAttributeValue(i)));
+                    }
+                    talent.setEffet(temp);
+                    break;
+            }
+        }
+
+        values.put(name,talent);
+    }
+
+    private static int[] parseStringArray(String s){
+        List<String> items = Arrays.asList(s.split("\\s*,\\s*"));
+        int [] res = new int[items.size()];
+        for(int i = 0;i<items.size();++i){
+            res[i] = Integer.valueOf(items.get(i));
+        }
+        return res;
+    }
 
     public static Talent getTalent(String name){
         return values.get(name);
@@ -182,8 +236,8 @@ public class Talent {
 
     public Action actionToCopy(){ return remadeAction;}
 
-    public WaffenTyp getWeaponType(){
-        return mWeaponType;
+    public UsableType getUsableType(){
+        return mUsableType;
     }
 
     public Resolver.Value getValue(){return mValue;}

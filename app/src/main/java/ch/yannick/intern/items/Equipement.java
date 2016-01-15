@@ -13,6 +13,8 @@ import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.MentalState;
+import ch.yannick.intern.usables.UsableType;
+import ch.yannick.intern.usables.Weapon;
 
 /**
  * Created by Yannick on 19.08.2015.
@@ -25,7 +27,7 @@ public class Equipement {
     public Equipement(){
         mArmor = new ArrayList<>();
         mWeapons = new HashMap<>();
-        Weapon bare = new Weapon(null,"barehands", WaffenTyp.BAREHANDS);
+        Weapon bare = new Weapon(null,"barehands", UsableType.GENERAL);
         mWeapons.put(Limb.BAREHANDS,bare);
     }
 

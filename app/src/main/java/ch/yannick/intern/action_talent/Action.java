@@ -1,105 +1,206 @@
 package ch.yannick.intern.action_talent;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.util.Log;
 
-import ch.yannick.context.R;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ch.yannick.context.RootApplication;
 import ch.yannick.display.technical.AdapterUsable;
 import ch.yannick.intern.personnage.Attribute;
 
 /**
  * Created by Yannick on 02.03.2015.
  */
-public enum Action implements AdapterUsable {
-    ATTACK(R.string.attack,Attribute.AGILLITY,Attribute.FORCE,2),
-    SHOOT(R.string.shoot,Attribute.AGILLITY,Attribute.ACUITY,1),
-    TWOHANDEDATTACK(R.string.two_hand_attack,true,Attribute.FORCE,Attribute.AGILLITY,4),
-    DEFEND(R.string.defend,Attribute.AGILLITY,Attribute.SPEED,2),
-    KEEPDISTANCE(R.string.keep_distance,Attribute.ACUITY,Attribute.AGILLITY,2),
-    LOAD(R.string.load, Attribute.AGILLITY,Attribute.FORCE,3),
-    RUN(R.string.run,Attribute.SPEED,Attribute.AGILLITY,0),
-    MANAATTACK(R.string.mana_attack,Attribute.MAGIC,Attribute.AGILLITY,1),
-    FILLMANA(R.string.fill_mana,Attribute.MAGIC,Attribute.ASTUTENESS,1),
-    USEMANA(R.string.use_mana,Attribute.ASTUTENESS,Attribute.MAGIC,1),
+public class Action implements AdapterUsable {
+    private static Map<String,Action> mValues = new HashMap();
+    private static Map<String,List<Action>> mFlagActions = new HashMap<>();
 
-    WEATHERTEST(R.string.cold_sleep,Attribute.PHYSIQUE,Attribute.PHYSIQUE,0),
-    ESQUIV(R.string.esquiv,Attribute.AGILLITY,Attribute.ACUITY,0),
-    OTHER(R.string.other,Attribute.FORCE,Attribute.FORCE,0),
-    // Talents
-    STEAL(R.string.steal,Attribute.AGILLITY,Attribute.SPEED,0),
-    CONJURE(R.string.conjure,Attribute.MAGIC,Attribute.ASTUTENESS,1),
-    MAKEFIRE(R.string.make_fire,Attribute.ASTUTENESS,Attribute.AGILLITY,1),
-    COOK(R.string.cook,Attribute.AGILLITY,Attribute.STAMINA,1),
-    BUTCHER(R.string.butcher,Attribute.FORCE,Attribute.STAMINA,2),
-    FISHING(R.string.fishing,Attribute.AGILLITY,Attribute.STAMINA,0),
-    CLIMB(R.string.climb,Attribute.FORCE,Attribute.AGILLITY,2),
-    SWIM(R.string.swim,Attribute.STAMINA,Attribute.PHYSIQUE,3),
-    THROW(R.string.th_row,Attribute.AGILLITY,Attribute.ACUITY,1),
-    MAKEMUSIC(R.string.make_music,Attribute.ASTUTENESS,Attribute.AGILLITY,1),
-    SING(R.string.sing,Attribute.CHARM,Attribute.ASTUTENESS,0);
-    private int id, mFatigue;
-    private boolean onlyTwoHanded;
+    private static final String LOG = "Action";
+    private static  boolean isReady = false;
+
+    private int mStringId, mFatigue;
+    private String mName;
     // The standard Attributes, these might be changed for weapons.
     private Attribute mFirst,mSecond;
-    Action(int id, Attribute first, Attribute second, int fatigue){
-        this.id = id;
-        onlyTwoHanded = false;
+
+    // If the action has a Result, like a quantity of production or damage
+    private boolean hasResult = false;
+    private int resultNameId;
+
+    Action(String name,int stringId, Attribute first, Attribute second, int fatigue){
+        this.mStringId = stringId;
         mFirst = first;
         mSecond = second;
         mFatigue = fatigue;
+        mName = name;
     }
-    Action(int id, boolean onlyTwoHanded, Attribute first, Attribute second, int fatigue){
-        this.id = id;
-        this.onlyTwoHanded = onlyTwoHanded;
-        mFirst = first;
-        mSecond = second;
-        mFatigue = fatigue;
-    }
+
     public int getStringId(){
-        return id;
+        return mStringId;
     }
-    public boolean takesBothHands(){
-        return onlyTwoHanded;
-    }
+
     public Attribute getFirstAttribute(){
         return mFirst;
     }
+
     public Attribute getSecondAttribute(){
         return mSecond;
     }
+
     public int getFatigue(){return mFatigue;}
 
-    public boolean isFightAction(){
-        return fightActions.contains(this);
+    public boolean is(String flag){
+        return mFlagActions.containsKey(flag) && mFlagActions.get(flag).contains(this);
     }
-    public boolean isMouvementAction(){
-        return mouvementActions.contains(this);
+
+    public static Action valueOf(String name){
+        return mValues.get(name);
     }
-    public boolean isAttack() {return attackActions.contains(this);}
 
-    private static List<Action> attackActions, fightActions, mouvementActions;
-    static{
-        fightActions = new ArrayList<Action>();
-        fightActions.add(ATTACK);
-        fightActions.add(SHOOT);
-        fightActions.add(TWOHANDEDATTACK);
-        fightActions.add(DEFEND);
-        fightActions.add(LOAD);
-        fightActions.add(MANAATTACK);
-        fightActions.add(KEEPDISTANCE);
+    public static boolean isReady(){
+        return isReady;
+    }
 
-        attackActions = new ArrayList<Action>();
-        attackActions.add(ATTACK);
-        attackActions.add(SHOOT);
-        attackActions.add(TWOHANDEDATTACK);
-        attackActions.add(MANAATTACK);
+    public String getName() {
+        return mName;
+    }
 
-        mouvementActions = new ArrayList<>();
-        mouvementActions.add(RUN);
-        mouvementActions.add(ESQUIV);
-        mouvementActions.add(CLIMB);
-        mouvementActions.add(SWIM);
-        mouvementActions.add(THROW);
+    public boolean hasResult(){
+        return hasResult;
+    }
+
+    public int getResultName(){
+        return resultNameId;
+    }
+
+    public static void init(InputStream ip,XmlPullParser parser, RootApplication app){
+        String flag = null;
+        // To add results according to flags at the end of init we need this map which is filled in the Flags entry populated with flags
+        Map<String,String> flagResults = new HashMap<>();
+        try {
+            parser.setInput(ip, null);
+            parser.nextTag();
+            //parser.require(XmlPullParser.START_TAG, null, "Talents");
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                if(parser.getEventType() == XmlPullParser.END_TAG && parser.getName().equals(flag)){
+                    flag = null;
+                }else if (parser.getEventType() != XmlPullParser.START_TAG) {
+                    continue;
+                }
+                String name = parser.getName();
+                Log.d(LOG, "event start " + (parser.getEventType() == XmlPullParser.START_TAG) + " name " + name);
+                // Starts by looking for the Action tag
+                if (name.equals("Action")) {
+                    readEntry(parser,app,flag);
+                }else if(name.equals("Flags")){
+                    while(parser.next() != XmlPullParser.END_TAG || !parser.getName().equals("Flags")){
+                        readFlag(parser,flagResults);
+                    }
+                }else{ // it is a group which is handled with tags
+                    flag = name;
+                    if(!mFlagActions.containsKey(flag))
+                        mFlagActions.put(flag,new ArrayList<Action>());
+                }
+            }
+
+            // All actions have been created and now we fille the missing results which are implicit by flags
+            for(Map.Entry<String,String> entry: flagResults.entrySet())
+                for(Action act:mFlagActions.get(entry.getKey())){
+                    act.hasResult = true;
+                    act.resultNameId =  app.getStringResource(entry.getValue());
+                }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                ip.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        isReady = true;
+    }
+
+    public static void readFlag(XmlPullParser parser, Map<String,String> flagResults){
+        String name = null;
+        String result = null;
+        int attributeCount = parser.getAttributeCount();
+        for(int i = 0;i<attributeCount;++i) {
+            Log.d(LOG, "attribute " + parser.getAttributeName(i) + " value " + parser.getAttributeValue(i));
+
+            switch (parser.getAttributeName(i)) {
+                case "name":
+                    name = parser.getAttributeValue(i);
+                    break;
+                case "result":
+                    result = parser.getAttributeValue(i);
+            }
+        }
+        mFlagActions.put(name,new ArrayList<Action>());
+        if(result != null)
+            flagResults.put(name,result);
+    }
+
+    public static void readEntry(XmlPullParser parser, RootApplication application, String flag) throws IOException, XmlPullParserException {
+        String name= null;
+        Integer stringId = null, fatigue = null;
+        Attribute[] attributes = null;
+        String[] flags = null;
+        int attributeCount = parser.getAttributeCount();
+        for(int i = 0;i<attributeCount;++i) {
+            Log.d(LOG,"attribute "+parser.getAttributeName(i) + " value "+parser.getAttributeValue(i));
+
+            switch(parser.getAttributeName(i)) {
+                case "name":
+                    name = parser.getAttributeValue(i);
+                    break;
+                case "show_name":
+                    stringId = application.getStringResource(parser.getAttributeValue(i));
+                    Log.d(LOG,"Stringvalue check"+ application.getResources().getString(stringId));
+                    break;
+                case "attributes":
+                    attributes = parseStringAttributeArray(parser.getAttributeValue(i));
+                    break;
+                case "fatigue":
+                    fatigue = Integer.valueOf(parser.getAttributeValue(i));
+                    break;
+                case "flags":
+                    flags = parser.getAttributeValue(i).split("\\s*,\\s*");
+                    break;
+            }
+        }
+        if(name == null || stringId == null || attributes == null || fatigue == null)
+            Log.w(LOG,"This entry misses attributes");
+        else {
+            Action action = new Action(name, stringId, attributes[0], attributes[1], fatigue);
+            mValues.put(name,action);
+            if(flag != null)
+                mFlagActions.get(flag).add(action);
+            if(flags != null)
+                for(String f:flags)
+                    mFlagActions.get(f).add(action);
+        }
+
+    }
+
+    private static Attribute[] parseStringAttributeArray(String s){
+        List<String> items = Arrays.asList(s.split("\\s*,\\s*"));
+        Attribute[] res = new Attribute[items.size()];
+        for(int i = 0;i<items.size();++i){
+            res[i] = Attribute.valueOf(items.get(i));
+        }
+        return res;
     }
 }
 

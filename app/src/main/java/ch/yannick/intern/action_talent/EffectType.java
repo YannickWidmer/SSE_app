@@ -8,18 +8,18 @@ public enum EffectType {
     /*
     *Talents with this effect change the luck of the corresponding Action
      */
-    ACTIONMODIFIER(true),
+    LUCKMODIFIER(true),
     /*
     * Talents with this effect change the Skill of the corresponding Action
       */
-    ACTIONENHANCER(true),
+    SKILLMODIFIER(true),
     /*
     * Talents with this effect change the damage dealed of the corresponding Attack Action, not the dices only the constant
     */
-    ATTACKDAMAGE(true),
+    RESULTMODIFIER(true),
     /*
     *Talents with this effect Add an action to a weapon and change its fatigue and its skill, there might be a Talent of the
-    * type ACTIONMODIFIER combined with this one, if this is the case it is important that the REMAKE has to be learned first.
+    * type LUCKMODIFIER combined with this one, if this is the case it is important that the REMAKE has to be learned first.
     */
     ACTIONREMAKE(true),
     /*

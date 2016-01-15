@@ -28,7 +28,7 @@ import ch.yannick.display.views.FlowLayout;
 import ch.yannick.display.views.ValueChangeListener;
 import ch.yannick.display.views.ValueControler;
 import ch.yannick.intern.action_talent.Action;
-import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.Attribute;
 
 public class Frag_WeaponDetail extends Fragment{

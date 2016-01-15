@@ -22,8 +22,8 @@ import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.items.Armor;
-import ch.yannick.intern.items.WaffenTyp;
-import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.usables.UsableType;
+import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
@@ -116,7 +116,7 @@ public class Frag_Equipment extends Fragment {
 
     private void arm(final Limb which) {
         final ArrayList<Weapon> waffenListe = ((RootApplication)getActivity().getApplication()).getDataManager().getAllWeapon();
-        waffenListe.add(new Weapon(0l,getResources().getString(R.string.remove), WaffenTyp.SWORD));
+        waffenListe.add(new Weapon(0l,getResources().getString(R.string.remove), UsableType.SWORD));
         final ArrayAdapter<Weapon> adapter = new ArrayAdapter<Weapon>(getActivity(),R.layout.row_dialog,android.R.id.text1,waffenListe);
         //Initialize the Alert Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

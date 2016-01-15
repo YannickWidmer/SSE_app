@@ -34,8 +34,6 @@
     <string name="act">act</string>
     <string name="react">react</string>
     <string name="takehit">hit</string>
-    <string name="defend">defend</string>
-    <string name="move">move</string>
     <string name="health">health</string> 
     <string name="stamina">stamina</string>
     <string name="next_round">next round</string>
@@ -46,24 +44,16 @@
     <string name="weapon_right">right weapon</string>
     <string name="weapon_left">left weapon</string>
     <string name="backpack">backpack</string>
+
     <!-- Arsenal -->
     <string name="arsenal">arsenal</string>
     <string name="menu_new_weapon">add Weapon</string>
-    <!-- Any changes here must be syncronized with the list of ints in Weapon -->
-    <string name="sword">sword</string>
-    <string name="twohanded">twohanded sword</string>
-    <string name="range_weapon">range weapon</string>
-    <string name="shield">shield</string>
 
-    <string name="attack">attack</string>
+    <string name="direct">direct</string>
+
     <string name="plus">+</string>
-    <string name="defense">defense</string>
-    <string name="load">load</string>
-    <string name="fatigue">fatigue</string>
-    <string name="degats">damage</string>
     <string name="addDice">add dice</string>
     <string name="removeDice">remove dice</string>
-    <string name="penetration">penetration</string>
     <string name="other">other</string>
     <string name="head">head</string>
     <string name="chest">chest</string>
@@ -72,14 +62,9 @@
     <string name="left_arm">Left Arm</string>
     <string name="chose_weapon">change weapon</string>
     <string name="change_type">Change type</string>
-    <string name="esquiv">esquiv</string>
     <string name="attribute">Attribute</string>
     <string name="save">save</string>
     <string name="chose_action">action</string>
-    <string name="bear_hands">bear hands</string>
-    <string name="one_a_half_sword">long sword</string>
-    <string name="two_hand_attack">twohanded attack</string>
-    <string name="direct">direct</string>
     <string name="remove">remove</string>
     <string name="now">now:</string>
     <string name="fill">fill</string>
@@ -110,12 +95,11 @@
     <string name="weather_protection">weather protection</string>
     <string name="right_arm">right arm</string>
     <string name="equipement">equipement</string>
-    <string name="fight">fight</string>
-    <string name="run">run</string>
     <string name="base">base</string>
     <string name="mouvement">movement</string>
     <string name="malus">malus</string>
     <string name="mental_neutral">neutral</string>
+
     <string name="agressive">agressive</string>
     <string name="frenetic">brutal</string>
     <string name="berserk" translatable="false">berserker</string>
@@ -128,40 +112,13 @@
     <string name="metaphase" translatable="false">metaphase</string>
     <string name="SYNESTHESIA">synesthesia</string>
     <string name="shock">shock</string>
-    <string name="endurance">endurance</string>
-    <string name="steal">steal</string>
-    <string name="conjure">conjure</string>
     <string name="talents">talents</string>
     <string name="base_fatigue">base fatigue</string>
-    <string name="make_fire">make fire</string>
-    <string name="cook">cooking</string>
-    <string name="butcher">butchering</string>
-    <string name="fishing">fishing</string>
-    <string name="climb">climb</string>
-    <string name="swim">swim</string>
-    <string name="th_row">throw</string>
-    <string name="make_music">make music</string>
-    <string name="sing">sing</string>
-    <string name="combat">combat</string>
     <string name="reset_mental">reset mental</string>
     <string name="show_dice_eyes">Dice values</string>
-    <string name="fury">fury</string>
-    <string name="bare_hands">bare hand</string>
-    <string name="mana_weapon">mana weapon</string>
-    <string name="shoot">shoot</string>
-    <string name="mana_attack">mana attack</string>
-    <string name="fill_mana">fill mana</string>
-    <string name="use_mana">use mana</string>
     <string name="left_hand">left hand</string>
     <string name="right_hand">right hand</string>
     <string name="foots">foots</string>
-    <string name="twohand_destroyer">Two Hand Destroyer</string>
-    <string name="cold_sleep">sleep outside</string>
-    <string name="two_swords">two swords</string>
-    <string name="pole_weapon">pole weapon</string>
-    <string name="keep_distance">keep distance</string>
-    <string name="twohsword_dance">two sword dance</string>
-    <string name="pole_master">pole master</string>
     <string name="split">split</string>
     <string name="rest">rest</string>
     <string name="both_hands">both hands</string>
@@ -180,4 +137,80 @@
     <string name="talent">talent</string>
     <string name="modif_dialog_title">Talents and Equipment influence</string>
     <string name="skill">skill</string>
+
+
+    <!-- Actions -->
+    <string name="action_steal">steal</string>
+    <string name="talent_steal_description">stealing handbags</string>
+    <string name="action_conjure">conjure</string>
+    <string name="talent_conjure_description">conjure</string>
+    <string name="action_make_fire">make fire</string>
+    <string name="talent_makefire_description">make fire</string>
+    <string name="action_cook">cooking</string>
+    <string name="talent_cook_description">cooking</string>
+    <string name="action_butcher">butchering</string>
+    <string name="talent_butcher_description">butchering</string>
+    <string name="action_fishing">fishing</string>
+    <string name="talent_fishing_description">fishing</string>
+    <string name="action_climb">climb</string>
+    <string name="talent_climb_description">climb</string>
+    <string name="action_swim">swim</string>
+    <string name="talent_swim_description">swim</string>
+    <string name="action_throw">throw</string>
+    <string name="talent_throw_description">throw</string>
+    <string name="action_make_music">make music</string>
+    <string name="talent_make_music_description">make music</string>
+    <string name="action_sing">sing</string>
+    <string name="talent_sing_description">sing</string>
+
+    <string name="action_defend">defend</string>
+    <string name="action_keep_distance">keep distance</string>
+    <string name="action_move">move</string>
+    <string name="action_attack">attack</string>
+    <string name="action_esquiv">esquiv</string>
+    <string name="action_fight">fight</string>
+    <string name="action_run">run</string>
+    <string name="action_shoot">shoot</string>
+    <string name="action_two_hand_attack">twohanded attack</string>
+    <string name="action_load">load</string>
+
+    <string name="action_cold_sleep">sleep outside</string>
+    <string name="action_fill_mana">fill mana</string>
+
+
+    <!-- Talents -->
+    <string name="talent_endurance">endurance</string>
+    <string name="talent_endurance_description">endurance</string>
+    <string name="talent_fury">fury</string>
+    <string name="talent_fury_description">fury</string>
+    <string name="talent_twohand_destroyer">Two Hand Destroyer</string>
+    <string name="talent_twohand_destroyer_description">Two Hand Destroyer</string>
+    <string name="talent_two_sword_dance">two sword dance</string>
+    <string name="talent_two_sword_dance_description">two sword dance</string>
+    <string name="talent_pole_master">pole master</string>
+    <string name="talent_pole_master_description">pole master</string>
+    <string name="talent_health_description">health</string>
+
+
+    <string name="talent_keep_distance">keep distance</string>
+    <string name="talent_combat">combat</string>
+
+    <!-- Weapon type -->
+    <string name="sword">sword</string>
+    <string name="bare_hands">bare hand</string>
+    <string name="two_swords">two swords</string>
+    <string name="pole_weapon">pole weapon</string>
+    <string name="bear_hands">bear hands</string>
+    <string name="one_a_half_sword">long sword</string>
+    <string name="range_weapon">range weapon</string>
+    <string name="shield">shield</string>
+
+    <string name="mana_weapon">mana weapon</string>
+
+    <!-- Weapon/Action Attributes -->
+    <string name="degats">damage</string>
+    <string name="penetration">penetration</string>
+    <string name="twohanded">twohanded sword</string>
+    <string name="fatigue">fatigue</string>
+
 </resources>

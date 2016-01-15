@@ -5,13 +5,18 @@ package ch.yannick.context;
 
 import android.app.Activity;
 import android.app.Application;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.util.LongSparseArray;
+import android.util.Xml;
 import android.widget.Toast;
 
+import org.xmlpull.v1.XmlPullParser;
+
 import ch.yannick.context.datamanagement.DataManager;
+import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.Talent;
-import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.Personnage;
 import ch.yannick.intern.state.State;
 
@@ -36,8 +41,7 @@ public class RootApplication extends Application {
 		myManager=new DataManager(this);
 		states = new LongSparseArray<State>();
 
-		Talent.init(getResources().openRawResource(R.raw.talents));
-	    //new AsyncInit(this).execute();
+	    new AsyncInit().execute();
 	    Log.d(LOG,"App created");
 	}
 	
@@ -117,6 +121,31 @@ public class RootApplication extends Application {
 	public void refreshState(Long id) {
 		if(states.get(id) != null){
 			states.get(id).setPersonnage(myManager.getPersonnage(id));
+		}
+	}
+
+    // XML Parcing stuff
+
+    public int getStringResource(String thingie) {
+            String[] split = thingie.split("/");
+            String pack = split[0].replace("@", "");
+            String name = split[1];
+            return getResources().getIdentifier(name, pack, getPackageName());
+    }
+
+	private class AsyncInit extends AsyncTask<Void,Void,Void>{
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			try {
+                XmlPullParser parser = Xml.newPullParser();
+                parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+                Action.init(getResources().openRawResource(R.raw.actions), parser, RootApplication.this);
+                Talent.init(getResources().openRawResource(R.raw.talents), parser, RootApplication.this);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 	}
 	

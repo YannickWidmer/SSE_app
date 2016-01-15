@@ -28,7 +28,7 @@ public class Resolver {
     public static int getAvatarTalentEnhancer(State state, Action act){
         int res = 0;
         for(Map.Entry<Talent,Integer> entry:state.p.getTalents().entrySet()){
-            if(entry.getKey().getEffect() == EffectType.ACTIONENHANCER && entry.getKey().getAction() == act)
+            if(entry.getKey().getEffect() == EffectType.SKILLMODIFIER && entry.getKey().getAction() == act)
                 res += entry.getKey().getEffect(state.mentalState, entry.getValue());
         }
         return res;
@@ -37,7 +37,7 @@ public class Resolver {
     public static int getAvatarTalentModificator(State state, Action act){
         int res = 0;
         for(Map.Entry<Talent,Integer> entry:state.p.getTalents().entrySet()){
-            if(entry.getKey().getEffect() == EffectType.ACTIONMODIFIER && entry.getKey().getAction() == act)
+            if(entry.getKey().getEffect() == EffectType.LUCKMODIFIER && entry.getKey().getAction() == act)
                 res += entry.getKey().getEffect(state.mentalState, entry.getValue());
         }
         return res;

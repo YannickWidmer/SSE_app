@@ -32,7 +32,7 @@ import ch.yannick.display.technical.ColoredHolder;
 import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.display.views.JaugeView;
 import ch.yannick.intern.action_talent.Action;
-import ch.yannick.intern.items.WaffenTyp;
+import ch.yannick.intern.usables.UsableType;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
@@ -248,9 +248,9 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
      * which might arrise from the action. This is change the load state of a range weapon,
      */
     private void fatigue(Limb which, Action action, boolean reaction){
-        if(st.getWeapon(which).getType() == WaffenTyp.RANGEWEAPON && action.isAttack())
+        if(st.getWeapon(which).getType() == UsableType.RANGEWEAPON && action.isAttack())
             st.getWeapon(which).setLoad(false);
-        if(st.getWeapon(which).getType() == WaffenTyp.RANGEWEAPON && action == Action.LOAD)
+        if(st.getWeapon(which).getType() == UsableType.RANGEWEAPON && action == Action.LOAD)
             st.getWeapon(which).setLoad(true);
 
         Intent intent;
@@ -354,7 +354,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                     unloaded_left.setVisibility(View.VISIBLE);
                 }
             }
-            leftManaJauge.setVisibility(st.getWeapon(Limb.LEFTHAND).getType()== WaffenTyp.MANAWEAPON?View.VISIBLE:View.GONE);
+            leftManaJauge.setVisibility(st.getWeapon(Limb.LEFTHAND).getType()== UsableType.MANAWEAPON?View.VISIBLE:View.GONE);
             mLeftWeaponLayout.setVisibility(View.VISIBLE);
             mLeftList.setVisibility(View.VISIBLE);
         }else if(st.hasWeapon(Limb.BOTHHANDS)) {
@@ -370,7 +370,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                     unloaded_left.setVisibility(View.VISIBLE);
                 }
             }
-            leftManaJauge.setVisibility(st.getWeapon(Limb.BOTHHANDS).getType()== WaffenTyp.MANAWEAPON?View.VISIBLE:View.GONE);
+            leftManaJauge.setVisibility(st.getWeapon(Limb.BOTHHANDS).getType()== UsableType.MANAWEAPON?View.VISIBLE:View.GONE);
             mLeftWeaponLayout.setVisibility(View.VISIBLE);
             mLeftList.setVisibility(View.VISIBLE);
         }
@@ -388,7 +388,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                     unLoaded_right.setVisibility(View.VISIBLE);
                 }
             }
-            rightManaJauge.setVisibility(st.getWeapon(Limb.RIGHTHAND).getType()== WaffenTyp.MANAWEAPON?View.VISIBLE:View.GONE);
+            rightManaJauge.setVisibility(st.getWeapon(Limb.RIGHTHAND).getType()== UsableType.MANAWEAPON?View.VISIBLE:View.GONE);
             mRightWeaponLayout.setVisibility(View.VISIBLE);
             mRightList.setVisibility(View.VISIBLE);
         }

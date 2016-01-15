@@ -12,7 +12,7 @@ import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.dice.Dice;
 import ch.yannick.intern.items.Armor;
 import ch.yannick.intern.items.Equipement;
-import ch.yannick.intern.items.Weapon;
+import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
@@ -180,13 +180,13 @@ public class State {
 
     public int getDegats(Limb which, Action act) {
         if (equipement.hasWeapon(which))
-            return equipement.getWeapon(which).getSchaden(act);
+            return equipement.getWeapon(which).getResult(act);
         return 0;
     }
 
     public List<Dice> getDegatsDice(Limb which, Action act){
             if(equipement.hasWeapon(which))
-                return equipement.getWeapon(which).schadenW(act);
+                return equipement.getWeapon(which).getResultDice(act);
             return new ArrayList<>();
     }
 
