@@ -12,15 +12,17 @@ import java.util.ArrayList;
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.intern.action_talent.Action;
+import ch.yannick.intern.action_talent.ActionData;
 import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.dice.Dice;
 import ch.yannick.intern.items.Armor;
-import ch.yannick.intern.usables.UsableType;
-import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Personnage;
 import ch.yannick.intern.personnage.Race;
+import ch.yannick.intern.usables.UsableTyp;
+import ch.yannick.intern.usables.Weapon;
+import ch.yannick.intern.usables.WeaponTyp;
 
 public class SQLDBManager extends SQLiteOpenHelper {
 
@@ -28,7 +30,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
 	
 	  // All Static variables related to db
     // Database Version
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
  
     // Database Name
     private static final String DATABASE_NAME = "SSE";
@@ -75,7 +77,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PERS_TABLE = "CREATE TABLE " + TABLE_PERSONAGE + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+                + KEY_ID + " LONG PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_RACE + " STRING,"
                 + KEY_KA + " INTEGER,"
                 + KEY_GK + " INTEGER,"
@@ -96,15 +98,9 @@ public class SQLDBManager extends SQLiteOpenHelper {
                 + " FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_PERSONAGE+" ("+KEY_ID+") ON DELETE CASCADE);";
 
         String CREATE_WEAPONS_TABLE=" CREATE TABLE "+ TABLE_WEAPONS+"("
-        		+ KEY_ID + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT,"
+        		+ KEY_ID + " LONG PRIMARY KEY, " + KEY_NAME + " TEXT,"
         		+ KEY_TYPE +" STRING,"
                 + KEY_WEIGHT +" INTEGER"+");";
-        		
-        String CREATE_SCHADEN_TABLE=" CREATE TABLE "+ TABLE_SCHADEN+"("
-        		+ KEY_ID + " LONG,"
-        		+ KEY_NAME + " STRING,"
-                + KEY_ACTION + " STRING, "
-        		+ " FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_WEAPONS+" ("+KEY_ID+") ON DELETE CASCADE);";
 
         String CREATE_WEAPON_ACTION_TABLE=" CREATE TABLE "+TABLE_WEAPON_ACTION+" ("
                 + KEY_ID + " LONG,"
@@ -118,8 +114,14 @@ public class SQLDBManager extends SQLiteOpenHelper {
                 + KEY_DIRECT +" BOOLEAN,"
                 + " FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_WEAPONS+" ("+KEY_ID+") ON DELETE CASCADE);";
 
+        String CREATE_SCHADEN_TABLE=" CREATE TABLE "+ TABLE_SCHADEN+"("
+                + KEY_ID + " LONG,"
+                + KEY_NAME + " STRING,"
+                + KEY_ACTION + " STRING, "
+                + " FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_WEAPONS+" ("+KEY_ID+") ON DELETE CASCADE);";
+
         String CREATE_ARMOR_TABLE=" CREATE TABLE "+ TABLE_ARMOR+"("
-                + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_NAME + " TEXT,"
+                + KEY_ID + " LONG PRIMARY KEY, " + KEY_NAME + " TEXT,"
                 + KEY_WEIGHT + " INTEGER,"
                 + KEY_HEAT + " INTEGER,"
                 + KEY_BODYPART + " STRING,"
@@ -181,7 +183,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
     }
     
     public synchronized ArrayList<Personnage> getAllPersonnage(){
-    	ArrayList<Personnage> list= new ArrayList<Personnage>();
+    	ArrayList<Personnage> list= new ArrayList<>();
     	db = getReadableDatabase();
     	Cursor cursor = db.query(TABLE_PERSONAGE,new String[]{KEY_NAME,KEY_ID},null,null,null,null,null);
     	
@@ -242,51 +244,52 @@ public class SQLDBManager extends SQLiteOpenHelper {
     	
     	// The Weapon
     	c.put(KEY_NAME,w.toString());
-    	c.put(KEY_TYPE, ""+w.getType().name());
+    	c.put(KEY_TYPE, ""+w.getTyp().getName());
     	c.put(KEY_WEIGHT,""+w.getWeight());
     	Long id = pushData(TABLE_WEAPONS,w.getId(),c); // in case it is first time
-    	// Damage dices
-    	deleteEntry(TABLE_SCHADEN,id);
-        for(Action action:w.getBase_actions()){
-            if(action.isAttack()){
-                for(Dice dice:w.getData(action).resultDice) {
-                    c = new ContentValues();
-                    c.put(KEY_ID,id);
-                    c.put(KEY_ACTION,action.name());
-                    c.put(KEY_NAME,dice.name());
-                    pushData(TABLE_SCHADEN,null,c);
-                }
-            }
-        }
 
         // Actions
         deleteEntry(TABLE_WEAPON_ACTION,id);
-        for(Action action:w.getType().getActions()){
-            Weapon.ActionData actionData = w.getData(action);
-            ContentValues contentValues = new ContentValues();
+        deleteEntry(TABLE_SCHADEN,id);
+        ActionData actionData;
+        ContentValues contentValues,diceValues;
+        for(Action action:w.getBase_actions()){
+            actionData = w.getBaseData(action);
+            contentValues = new ContentValues();
             contentValues.put(KEY_ID,id);
-            contentValues.put(KEY_NAME,action.name());
+            contentValues.put(KEY_NAME,action.getName());
             contentValues.put(KEY_ATTRIBUTE1,actionData.firstAttribute.name());
             contentValues.put(KEY_ATTRIBUTE2, actionData.secondAttribute.name());
             contentValues.put(KEY_ENHANCER,actionData.enhancer);
             contentValues.put(KEY_FATIGUE, actionData.fatigue);
+            // The next values are zero if this action doesnt need them, so we don't need any if statement here
             contentValues.put(KEY_PENETRATION,actionData.penetration);
             contentValues.put(KEY_DIRECT,actionData.isDirect);
-            contentValues.put(KEY_SCHADEN,actionData.schaden);
+            contentValues.put(KEY_SCHADEN,actionData.resultValue);
             pushData(TABLE_WEAPON_ACTION, null, contentValues);
+            // Damage Dice
+            if(action.hasResult()){
+                for(Dice dice:w.getBaseData(action).resultDice) {
+                    diceValues= new ContentValues();
+                    diceValues.put(KEY_ID,id);
+                    diceValues.put(KEY_ACTION,action.getName());
+                    diceValues.put(KEY_NAME,dice.name());
+                    pushData(TABLE_SCHADEN,null,diceValues);
+                }
+            }
         }
     	return id;
     }
     
 	public synchronized ArrayList<Weapon> getAllWeapon() {
-		ArrayList<Weapon> list= new ArrayList<Weapon>();
+		ArrayList<Weapon> list= new ArrayList<>();
     	db = getReadableDatabase();
-    	Cursor cursor = db.query(TABLE_WEAPONS, new String[]{KEY_ID, KEY_NAME, KEY_TYPE}, null, null, null, null, null);
+    	Cursor cursor = db.query(TABLE_WEAPONS, new String[]{KEY_ID, KEY_NAME, KEY_TYPE,KEY_WEIGHT}, null, null, null, null, null);
     	
     	if(cursor.moveToFirst()){
     		do{
     			Log.d(LOG,"adding Weapon to list with id:"+cursor.getLong(0)+" Name:"+cursor.getString(1)+" type:"+ cursor.getInt(2));
-                list.add(new Weapon(cursor.getLong(0), cursor.getString(1), UsableType.valueOf(cursor.getString(2))));
+                list.add(new Weapon(cursor.getLong(0), cursor.getString(1), (WeaponTyp)UsableTyp.valueOf(cursor.getString(2)),cursor.getInt(3)));
     		}while(cursor.moveToNext());
     	}
 
@@ -306,8 +309,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
 					c.getInt(3)+")");
 
 
-            w =  new Weapon(getLong(c,KEY_ID),getString(c,KEY_NAME), UsableType.valueOf(getString(c, KEY_TYPE)));
-            w.setWeight(get(c,KEY_WEIGHT));
+            w =  new Weapon(getLong(c,KEY_ID),getString(c,KEY_NAME), (WeaponTyp) UsableTyp.valueOf(getString(c, KEY_TYPE)),get(c,(KEY_WEIGHT)));
 			c.close();
 
             // Schaden
@@ -333,14 +335,14 @@ public class SQLDBManager extends SQLiteOpenHelper {
                             + " (" + getString(c, KEY_ATTRIBUTE1) + "," + getString(c, KEY_ATTRIBUTE2) + ","
                             + get(c, KEY_ENHANCER) + "," + get(c, KEY_FATIGUE));
                     Action  action =Action.valueOf(getString(c, KEY_NAME));
-                    Weapon.ActionData actionData = w.getData(action);
+                    ActionData actionData = w.getBaseData(action);
                     // Damage are set allready
                     actionData.firstAttribute = Attribute.valueOf(getString(c,KEY_ATTRIBUTE1));
                     actionData.secondAttribute = Attribute.valueOf(getString(c,KEY_ATTRIBUTE2));
                     actionData.enhancer =  get(c,KEY_ENHANCER);
                     actionData.fatigue = get(c,KEY_FATIGUE);
-                    if(action.isAttack()){
-                        actionData.schaden = get(c,KEY_SCHADEN);
+                    if(action.is("Attack")){
+                        actionData.resultValue = get(c,KEY_SCHADEN);
                         actionData.penetration = get(c,KEY_PENETRATION);
                         actionData.isDirect = getBool(c,KEY_DIRECT);
                     }

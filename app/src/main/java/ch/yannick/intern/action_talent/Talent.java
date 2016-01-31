@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import ch.yannick.context.RootApplication;
-import ch.yannick.intern.usables.UsableType;
+import ch.yannick.intern.usables.UsableTyp;
 import ch.yannick.intern.state.MentalState;
 import ch.yannick.intern.state.Resolver;
 
@@ -28,7 +28,7 @@ public class Talent {
     private EffectType mEffect;
     private int mStringId, mDescriptionId;
     private Action mAction, remadeAction;
-    private UsableType mUsableType;
+    private UsableTyp mUsableType;
     private Resolver.Value mValue;
 
     // The effects value, depending if it depends on the Mental state or not
@@ -39,14 +39,14 @@ public class Talent {
     private int mFatigueModifier;
 
 
-    private Talent(int stringID,int descriptionId, Action act, UsableType wt, EffectType effectType){
+    private Talent(int stringID,int descriptionId, Action act, UsableTyp wt, EffectType effectType){
         this.mAction = act;
         mUsableType = wt;
         mStringId = stringID;
         mEffect = effectType;
     }
 
-    private Talent(int stringID,int descriptionId, Action newAction, Action oldAction, UsableType wt, int fatigueSupplement){
+    private Talent(int stringID,int descriptionId, Action newAction, Action oldAction, UsableTyp wt, int fatigueSupplement){
         mFatigueModifier = fatigueSupplement;
         mStringId = stringID;
         mEffect = EffectType.ACTIONREMAKE;
@@ -107,12 +107,14 @@ public class Talent {
 
     public static void readEntry(XmlPullParser parser, RootApplication application) throws IOException, XmlPullParserException {
         String name= null;
-        UsableType weaponType = null;
+        UsableTyp weaponType = null;
         Resolver.Value value = null;
         EffectType effectType = null;
         Action action = null, newAction = null;
         Integer stringId = null, descriptionId = null, fatigueModifier = null;
         Talent talent = null;
+
+        // Reading attributes of the Talent entry
         int attributeCount = parser.getAttributeCount();
         for(int i = 0;i<attributeCount;++i) {
             Log.d(LOG,"attribute "+parser.getAttributeName(i) + " value "+parser.getAttributeValue(i));
@@ -139,7 +141,7 @@ public class Talent {
                     newAction = Action.valueOf(parser.getAttributeValue(i));
                     break;
                 case "weapon_type":
-                    weaponType = UsableType.valueOf(parser.getAttributeValue(i));
+                    weaponType = UsableTyp.valueOf(parser.getAttributeValue(i));
                     break;
                 case "resolver_value":
                     value = Resolver.Value.valueOf(parser.getAttributeValue(i));
@@ -148,13 +150,20 @@ public class Talent {
                     fatigueModifier = Integer.valueOf(parser.getAttributeValue(i));
             }
         }
-        if(action == null) {
+
+        // filling information which is implicit
+        if(action == null && effectType.isAction()) {
             try {
                 action = Action.valueOf(name);
             }catch(Exception e){}
         }
 
+        if(weaponType == null)
+            weaponType = UsableTyp.ROLE;
+
         switch (effectType){
+            case DESCRIPTIVE:
+                break;
             case RESULTMODIFIER:
             case LUCKMODIFIER:
             case SKILLMODIFIER:
@@ -236,7 +245,7 @@ public class Talent {
 
     public Action actionToCopy(){ return remadeAction;}
 
-    public UsableType getUsableType(){
+    public UsableTyp getUsableType(){
         return mUsableType;
     }
 

@@ -15,6 +15,7 @@ import ch.yannick.context.RootApplication;
 import ch.yannick.display.views.DiceDisplayer;
 import ch.yannick.display.views.ValueControler;
 import ch.yannick.intern.action_talent.Action;
+import ch.yannick.intern.action_talent.ActionData;
 import ch.yannick.intern.dice.Dice;
 import ch.yannick.intern.usables.Weapon;
 
@@ -46,7 +47,7 @@ public class Dialog_Schaden extends MyBaseActivity {
 
 
         action = Action.valueOf(getIntent().getStringExtra("action"));
-        Weapon.ActionData actionData = w.getData(action);
+        ActionData actionData = w.getBaseData(action);
 
         schaden = (ValueControler) findViewById(R.id.schaden);
         penetration = (ValueControler) findViewById(R.id.penetration);
@@ -54,9 +55,9 @@ public class Dialog_Schaden extends MyBaseActivity {
         diceDisplayer = (DiceDisplayer) findViewById(R.id.degats_dice);
 
         direct.setChecked(actionData.isDirect);
-        schaden.setValue(actionData.schaden);
+        schaden.setValue(actionData.resultValue);
         penetration.setValue(actionData.penetration);
-        diceDisplayer.setDices(actionData.schadenWuerfel);
+        diceDisplayer.setDices(actionData.resultDice);
 
         diceDisplayer.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -101,11 +102,11 @@ public class Dialog_Schaden extends MyBaseActivity {
     }
 
     public void confirmed(View v){
-        Weapon.ActionData actionData = w.getData(action);
-        actionData.schaden = schaden.getValue();
+        ActionData actionData = w.getBaseData(action);
+        actionData.resultValue = schaden.getValue();
         actionData.penetration = penetration.getValue();
         actionData.isDirect = direct.isChecked();
-        actionData.schadenWuerfel = (ArrayList<Dice>) diceDisplayer.getDices();
+        actionData.resultDice = (ArrayList<Dice>) diceDisplayer.getDices();
 
         super.finish();
     }

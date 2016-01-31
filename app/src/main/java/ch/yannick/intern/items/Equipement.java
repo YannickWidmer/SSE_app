@@ -13,7 +13,7 @@ import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.MentalState;
-import ch.yannick.intern.usables.UsableType;
+import ch.yannick.intern.usables.Usable;
 import ch.yannick.intern.usables.Weapon;
 
 /**
@@ -27,13 +27,11 @@ public class Equipement {
     public Equipement(){
         mArmor = new ArrayList<>();
         mWeapons = new HashMap<>();
-        Weapon bare = new Weapon(null,"barehands", UsableType.GENERAL);
-        mWeapons.put(Limb.BAREHANDS,bare);
     }
 
     public void setTalents(Map<Talent,Integer> talents, MentalState mentalState){
-        for(Weapon weapon:mWeapons.values())
-            weapon.setTalents(talents,mentalState);
+        for(Usable usable: mWeapons.values())
+            usable.setTalents(talents,mentalState);
     }
 
     public int getProtection(HitZone part){
@@ -44,8 +42,6 @@ public class Equipement {
         }
         return res;
     }
-
-
 
     public void setArmor(ArrayList<Armor> armor){
         mArmor = armor;
@@ -73,16 +69,14 @@ public class Equipement {
     }
 
     public void setWeapon(Weapon w, Limb limb){
-        if(limb == Limb.ALL)
-            return;
-        mWeapons.remove(Limb.BOTHHANDS);
-        if(w.getType().isTwohanded()) {
+        if(limb == Limb.LEFTHAND || limb == Limb.RIGHTHAND || limb == Limb.BOTHHANDS)
+            mWeapons.remove(Limb.BOTHHANDS);
+        if((w.getTyp()).isTwohanded()) {
             limb = Limb.BOTHHANDS;
             mWeapons.remove(Limb.LEFTHAND);
             mWeapons.remove(Limb.RIGHTHAND);
         }
-
-        mWeapons.put(limb, w);
+        mWeapons.put(limb,w);
     }
 
     public boolean hasWeapon(Limb which){
@@ -97,18 +91,18 @@ public class Equipement {
 
     public List<Action> getActions(Limb which){
         Set<Action> set = new HashSet<>();
-        // Add the base_actions
+        // Add the resolved actions
         if(which == Limb.ALL)
-            for(Weapon w:mWeapons.values())
-                set.addAll(w.get_actions());
+            for(Weapon w: mWeapons.values())
+                set.addAll(w.getActions());
         if(mWeapons.containsKey(which))
-            set.addAll(mWeapons.get(which).get_actions());
+            set.addAll(mWeapons.get(which).getActions());
 
         // Remove both hands action if has two weapons
         if(wearsTwoWeapons()){
             Iterator<Action> it = set.iterator();
             while(it.hasNext()){
-                if(it.next().takesBothHands())
+                if(it.next().is("TWOHANDED")) // TODO test if it works
                     it.remove();
             }
         }
@@ -117,18 +111,16 @@ public class Equipement {
 
     private boolean wearsTwoWeapons(){
         return mWeapons.containsKey(Limb.LEFTHAND) && mWeapons.containsKey(Limb.RIGHTHAND);
-    }
-
-    public List<Weapon> getAllWeapon(){
-        return new ArrayList<>(mWeapons.values());
+        // When two swords are combined they become one twohanded weapon
     }
 
     public int getWeight() {
         int weight = 0;
         for(Armor armor:mArmor)
             weight += armor.mWeight;
-        for(Weapon weapon:mWeapons.values())
-            weight += weapon.getWeight();
+        for(Usable usable: mWeapons.values())
+            if(usable instanceof  Weapon)
+               weight += ((Weapon)usable).getWeight();
         return weight;
     }
 

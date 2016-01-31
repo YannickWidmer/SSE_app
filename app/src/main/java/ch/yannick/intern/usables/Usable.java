@@ -1,6 +1,7 @@
 package ch.yannick.intern.usables;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,31 +22,36 @@ import ch.yannick.intern.state.MentalState;
  * There might be more actions than the base actions depending on the Heroes talents.
  */
 
-public class Usables {
-    private static int ID = 0;
-    private String mName, mId;
-    protected UsableType mType;
-    protected Map<Action, ActionData> base_actions, resolved_actions;
+public class Usable {
+    private String mName;
+    protected UsableTyp mType;
+    protected Map<Action, ActionData> base_actions = new HashMap<>(), resolved_actions = new HashMap<>();
 
-    private boolean isLoaded;
-
-    public Usables(String name,String id,UsableType type){
+    public Usable(String name, UsableTyp type){
         mType = type;
-        if(id == null)
-            mId = "weapon_"+ (++ID);
-        else
-            mId = id;
         mName = name;
     }
 
 
     // Getter
-    public String getId() {
-        return mId;
-    }
-
     public String toString(){
         return mName;
+    }
+
+    public String getName(){
+        return mName;
+    }
+
+    public UsableTyp getTyp(){
+        return mType;
+    }
+
+    public ActionData getBaseData(Action action){
+        return base_actions.get(action);
+    }
+
+    public ActionData getResolvedData(Action action){
+        return resolved_actions.get(action);
     }
 
     public int getResult(Action action) {
@@ -80,32 +86,23 @@ public class Usables {
     }
 
 
-    public Set<Action> getBase_actions(){
-        return base_actions.keySet();
-    }
-
-    public Set<Action> get_actions(){
+    public Set<Action> getActions(){
         return resolved_actions.keySet();
     }
 
     public boolean canAction(Action action){
         if(resolved_actions.containsKey(action)) {
-            if(action.is("ATTACK"))
-                return isLoaded;
-            if(action.is("LOADING"))
-                return !isLoaded;
             return true;
         }
         return false;
     }
 
-
     /*
-   this method checks if this is the right usable type, it is separated such that subclasses
-   can override it in case they have different types or count as any type
+    *this method checks if this is the right usable type, it is separated such that subclasses
+    *can override it in case they have different types or count as any type
     */
 
-    protected boolean isType(UsableType type){
+    protected boolean isType(UsableTyp type){
         return mType == type;
     }
 

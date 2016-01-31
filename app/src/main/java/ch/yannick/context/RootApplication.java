@@ -16,9 +16,10 @@ import org.xmlpull.v1.XmlPullParser;
 import ch.yannick.context.datamanagement.DataManager;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.Talent;
-import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.Personnage;
 import ch.yannick.intern.state.State;
+import ch.yannick.intern.usables.Role;
+import ch.yannick.intern.usables.Weapon;
 
 
 /**
@@ -142,7 +143,8 @@ public class RootApplication extends Application {
                 parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
                 Action.init(getResources().openRawResource(R.raw.actions), parser, RootApplication.this);
                 Talent.init(getResources().openRawResource(R.raw.talents), parser, RootApplication.this);
-			} catch (Exception e) {
+                Role.init(getResources().openRawResource(R.raw.roles), parser, RootApplication.this);
+            } catch (Exception e) {
 				e.printStackTrace();
 			}
 			return null;

@@ -6,6 +6,10 @@ package ch.yannick.intern.action_talent;
  */
 public enum EffectType {
     /*
+    * Desfcriptive Talents which are just listed in the app but have no functionality
+     */
+    DESCRIPTIVE(false),
+    /*
     *Talents with this effect change the luck of the corresponding Action
      */
     LUCKMODIFIER(true),

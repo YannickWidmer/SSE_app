@@ -1,0 +1,5 @@
+<Roles>
+    <Role name = "FIGHTER" show_name = "@string/role_fighter" description = "@string/role_description_fighter" actions = "RUN,ESQUIV" />
+    <Role name = "RANGER" show_name = "@string/role_ranger" description = "@string/role_description_ranger" actions = "STEAL,THROW,CLIMB,WEATHERTEST,MAKEFIRE" />
+    
+</Roles>

@@ -37,7 +37,7 @@ public class ActionData{
         modifier = 0;
         firstAttribute = action.getFirstAttribute();
         secondAttribute = action.getSecondAttribute();
-        if (action.is("Attack")) {
+        if (action.hasResult()) {
             resultDice = new ArrayList<>();
         }
     }

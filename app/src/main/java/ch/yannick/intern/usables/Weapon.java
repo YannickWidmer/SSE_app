@@ -1,6 +1,7 @@
 package ch.yannick.intern.usables;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.ActionData;
@@ -8,22 +9,30 @@ import ch.yannick.intern.dice.Dice;
 import ch.yannick.intern.personnage.Attribute;
 
 
-public class Weapon extends Usables{
+public class Weapon extends Usable {
+    private static long ID = 0;
+    private Long mId;
 
     private static String LOG = "Weapon";
-    private UsableType  mCombinedType;
+    private UsableTyp mCombinedType;
     private boolean isLoaded = true;
 
    	private int mWeight;
 
-    public Weapon(String id, String name, UsableType type, int weight){
-	    super(name,id,type);
+    public Weapon(Long id, String name, WeaponTyp type, int weight){
+	    super(name,type);
+        if(id == null){
+            mId = (++ID);
+        }else
+            mId = id;
         mWeight = weight;
+        for(Action action:type.getActions())
+            base_actions.put(action,new ActionData(action));
     }
 
 
     public Weapon combine(Weapon toCombine){
-        Weapon res = new Weapon(null,toString() +"-"+toCombine.toString(),mType,mWeight + toCombine.mWeight);
+        Weapon res = new Weapon(null,toString() +"-"+toCombine.toString(),(WeaponTyp)mType,mWeight + toCombine.mWeight);
         res.mCombinedType = toCombine.mType;
         for(Action action:toCombine.getBase_actions()){
             // for each check if the main Weapon can the action or is weaker
@@ -32,10 +41,19 @@ public class Weapon extends Usables{
                 res.base_actions.put(action,new ActionData(toCombine.base_actions.get(action)));
         }
 
-        // TODO spectial combination boni
+        // TODO special combination boni
         ActionData data;
 
         return res;
+    }
+
+    public Long getId(){
+        return mId;
+    }
+
+    @Override
+    public WeaponTyp getTyp(){
+        return (WeaponTyp) mType;
     }
 
     public int getWeight(){
@@ -45,6 +63,23 @@ public class Weapon extends Usables{
     public void setWeight(int weight){
         mWeight = weight;
     }
+
+    public Set<Action> getBase_actions(){
+        return base_actions.keySet();
+    }
+
+    @Override
+    public boolean canAction(Action action){
+        if(super.canAction(action)) {
+            if(((WeaponTyp)mType).isLoadable() && action.is("ATTACK"))
+                return isLoaded;
+            if(action.is("LOADING"))
+                return !isLoaded;
+            return true;
+        }
+        return false;
+    }
+
 
     private void setAction(Action test,Attribute first, Attribute second,int value,int fatigue,
                           int schaden, int penetration, boolean direct){
@@ -73,24 +108,14 @@ public class Weapon extends Usables{
         }
     }
 
+
     // Editing Base actions methods
     public void addDice(Action action, Dice dice){
         if(action.hasResult() && base_actions.containsKey(action))
             base_actions.get(action).resultDice.add(dice);
     }
 
-    // Attack attributes
-    public boolean isDirect(Action action){
-        return resolved_actions.get(action).isDirect;
-    }
 
-    public int penetration(Action action){
-        return resolved_actions.get(action).penetration;
-    }
-
-    public int getPenetration(Action action) {
-        return resolved_actions.get(action).penetration;
-    }
 
     public void setLoad(boolean load){
         isLoaded = load;

@@ -22,11 +22,10 @@ import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.items.Armor;
-import ch.yannick.intern.usables.UsableType;
-import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
+import ch.yannick.intern.usables.Weapon;
 
 public class Frag_Equipment extends Fragment {
 	private State st;
@@ -116,7 +115,6 @@ public class Frag_Equipment extends Fragment {
 
     private void arm(final Limb which) {
         final ArrayList<Weapon> waffenListe = ((RootApplication)getActivity().getApplication()).getDataManager().getAllWeapon();
-        waffenListe.add(new Weapon(0l,getResources().getString(R.string.remove), UsableType.SWORD));
         final ArrayAdapter<Weapon> adapter = new ArrayAdapter<Weapon>(getActivity(),R.layout.row_dialog,android.R.id.text1,waffenListe);
         //Initialize the Alert Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -124,22 +122,25 @@ public class Frag_Equipment extends Fragment {
         builder.setSingleChoiceItems(adapter, 1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int position) {
-                Weapon waffe = adapter.getItem(position);
-                if (waffe.getName().equals(getResources().getString(R.string.remove))) {
-                    st.removeWeapon(which);
-                } else {
-                    try {
-                        waffe = ((RootApplication) getActivity().getApplication()).getDataManager().getWeapon(waffe.getId());
-                        st.setWeapon(waffe, which);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                Weapon weapon = adapter.getItem(position);
+                try {
+                    weapon = ((RootApplication) getActivity().getApplication()).getDataManager().getWeapon(weapon.getId());
+                    st.setUsable(weapon, which);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 refresh();
                 dialog.dismiss();
             }
         });
 
+        builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                st.removeWeapon(which);
+                dialog.dismiss();
+            }
+        });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
@@ -206,11 +207,11 @@ public class Frag_Equipment extends Fragment {
         ((TextView)v.findViewById(R.id.protection_arms)).setText("" + st.getProtection(HitZone.ARMS));
         ((TextView)v.findViewById(R.id.protection_legs)).setText("" + st.getProtection(HitZone.LEGS));
         ((TextView)v.findViewById(R.id.weight)).setText("" + st.getWeight());
-        ((TextView)v.findViewById(R.id.base_fatigue)).setText("" + st.getFatigue(Action.ATTACK, Limb.BAREHANDS));
-        ((TextView)v.findViewById(R.id.mouvement_fatigue)).setText("" + st.getFatigue(Action.RUN,Limb.BAREHANDS));
-        ((TextView)v.findViewById(R.id.esquiv)).setText("" + st.getSkillEnhancer(Action.ESQUIV, Limb.BAREHANDS));
-        ((TextView)v.findViewById(R.id.run)).setText("" + st.getSkillEnhancer(Action.RUN,Limb.BAREHANDS));
-        ((TextView)v.findViewById(R.id.fight)).setText("" + st.getSkillEnhancer(Action.ATTACK,Limb.BAREHANDS));
+        ((TextView)v.findViewById(R.id.base_fatigue)).setText("" + st.getFatigue(Action.valueOf("ATTACK"), Limb.ROLE));
+        ((TextView)v.findViewById(R.id.mouvement_fatigue)).setText("" + st.getFatigue(Action.valueOf("RUN"),Limb.ROLE));
+        ((TextView)v.findViewById(R.id.esquiv)).setText("" + st.getSkillEnhancer(Action.valueOf("ESQUIV"), Limb.ROLE));
+        ((TextView)v.findViewById(R.id.run)).setText("" + st.getSkillEnhancer(Action.valueOf("RUN"),Limb.ROLE));
+        ((TextView)v.findViewById(R.id.fight)).setText("" + st.getSkillEnhancer(Action.valueOf("ATTACK"),Limb.ROLE));
         ((Button)v.findViewById(R.id.weapon_left)).setText(R.string.left_hand);
         ((Button)v.findViewById(R.id.weapon_right)).setText(R.string.right_hand);
         ((Button)v.findViewById(R.id.weapon_both)).setText("");

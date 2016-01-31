@@ -1,7 +1,6 @@
 package ch.yannick.intern.state;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +11,14 @@ import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.dice.Dice;
 import ch.yannick.intern.items.Armor;
 import ch.yannick.intern.items.Equipement;
-import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.personnage.Personnage;
 import ch.yannick.intern.personnage.Race;
+import ch.yannick.intern.usables.Role;
+import ch.yannick.intern.usables.Usable;
+import ch.yannick.intern.usables.Weapon;
 
 
 /**
@@ -31,6 +32,7 @@ public class State {
     private static String LOG= "State";
 
     protected Personnage p;
+    protected Usable mRole = Role.valueOf("FIGHTER");
     protected int liveNow,liveMax,staminaMax,staminaNow,staminaUsed;
 	protected Equipement equipement;
 
@@ -49,6 +51,11 @@ public class State {
         this.newRound();
 	}
 
+    public void setPersonnage(Personnage p){
+        this.p = p;
+        equipement.setTalents(p.getTalents(), mentalState);
+    }
+
     public Long getId() {
         return p.getId();
     }
@@ -64,11 +71,7 @@ public class State {
     public void newRound() {
         staminaUsed = 0;
         equipement.setTalents(p.getTalents(),mentalState);
-    }
-
-    public void setPersonnage(Personnage p){
-        this.p = p;
-        equipement.setTalents(p.getTalents(),mentalState);
+        mRole.setTalents(p.getTalents(),mentalState);
     }
 
     public void setHealth(int now, int max){
@@ -108,11 +111,20 @@ public class State {
 	}
 
 	public boolean isMagic() {
-		return getSkill(Attribute.MAGIC)!=0;
+		return getAttributeValue(Attribute.MAGIC)!=0;
 	}
 
     public List<Action> getActions(Limb which){
-        return equipement.getActions(which);
+        switch (which) {
+            case ROLE:
+                return new ArrayList<>(mRole.getActions());
+            case ALL:
+                List<Action> res = equipement.getActions(which);
+                res.addAll(mRole.getActions());
+                return res;
+            default:
+                return equipement.getActions(which);
+        }
     }
 
     public boolean canAct(int staminaCost, boolean reaction){
@@ -123,16 +135,21 @@ public class State {
     }
 
     public boolean canAct(Action action, Limb which, boolean reaction) {
-        if (which == Limb.ALL) {
-            for (Limb limb : Limb.values()) {
-                if (limb != Limb.ALL && canAct(action, limb, reaction))
-                    return true;
-            }
+        if(!canAct(getFatigue(action, which), reaction))
             return false;
+        switch (which){
+            case ALL:
+                for (Limb limb : Limb.values()) {
+                    if (limb != Limb.ALL && canAct(action, limb, reaction))
+                        return true;
+                }
+                return false;
+            case ROLE:
+                return mRole.canAction(action);
+            default:
+                return equipement.hasWeapon(which)
+                        && equipement.getWeapon(which).canAction(action);
         }
-        return canAct(getFatigue(action, which), reaction)
-                && equipement.hasWeapon(which)
-                && equipement.getWeapon(which).canAction(action);
     }
 
     public boolean act(int staminaCost, boolean reaction){
@@ -146,56 +163,101 @@ public class State {
     }
 
     public List<Attribute> getAttribute(Action act, Limb which){
+        if(which == Limb.ROLE)
+            return mRole.getAttributes(act);
         if(equipement.hasWeapon(which))
             return equipement.getWeapon(which).getAttributes(act);
         return null;
     }
 
-    public int getSkill(Attribute attribute) {
+    public int getAttributeValue(Attribute attribute) {
         return p.getAttr(attribute);
     }
 
     public int getSkillEnhancer(Action act, Limb which){
-        int base = Resolver.getAvatarEnhancer(this, act);
+        if(which == Limb.ROLE)
+            return mRole.getEnhancer(act);
         if(equipement.hasWeapon(which))
-            return equipement.getWeapon(which).getEnhancer(act)+base;
-        return base;
+            return equipement.getWeapon(which).getEnhancer(act);
+        return 0;
     }
 
     public int getSkillModifier(Action act, Limb which){
-        if(equipement.hasWeapon(which))
+        int base = Resolver.getEquipementModification(this,act);
+        if(which == Limb.ROLE)
+            return mRole.getModifier(act);
+        if(equipement.hasWeapon(which)) {
             return equipement.getWeapon(which).getModifier(act);
+        }
         return 0;
     }
 
-    public Map<Talent,Integer> getTalents() {
-        return p.getTalents();
+    public int getFatigue(Action act,Limb which) {
+        int base = Resolver.getEquipmentRaceFatigue(this, act);
+        if(which == Limb.ROLE)
+            return base + mRole.getFatigue(act);
+        if(equipement.hasWeapon(which) && equipement.getWeapon(which).canAction(act)) {
+            return base + equipement.getWeapon(which).getFatigue(act);
+        }
+        return base;
     }
 
+    // Result specific
     public int getPenetration(Limb which, Action act){
-        if(equipement.hasWeapon(which))
-            return equipement.getWeapon(which).getPenetration(act);
+        // Roles dont have penetration
+        if(equipement.hasWeapon(which) && act.is("Attack"))
+            return equipement.getWeapon(which).getResolvedData(act).penetration;
         return 0;
     }
 
-    public int getDegats(Limb which, Action act) {
+    public int getResultValue(Limb which, Action act) {
+        if(which == Limb.ROLE)
+            return mRole.getResult(act);
         if (equipement.hasWeapon(which))
             return equipement.getWeapon(which).getResult(act);
         return 0;
     }
 
-    public List<Dice> getDegatsDice(Limb which, Action act){
-            if(equipement.hasWeapon(which))
-                return equipement.getWeapon(which).getResultDice(act);
-            return new ArrayList<>();
+    public List<Dice> getResultDice(Limb which, Action act){
+        if(which == Limb.ROLE)
+            return mRole.getResultDice(act);
+        if(equipement.hasWeapon(which))
+            return equipement.getWeapon(which).getResultDice(act);
+        return new ArrayList<>();
     }
 
-    public int getFatigue(Action act,Limb which) {
-        int base = Resolver.getFatigue(this, act);
-        if(equipement.hasWeapon(which) && equipement.getWeapon(which).canAction(act)) {
-            return base + equipement.getWeapon(which).getFatigue(act);
+    public void setUsable(Usable u, Limb which){
+        if(which == Limb.ALL)
+            return;
+        u.setTalents(p.getTalents(), mentalState);
+        if(which == Limb.ROLE)
+            mRole = u;
+        else if(u instanceof Weapon) {
+            equipement.setWeapon((Weapon) u, which);
         }
-        return base;
+    }
+
+    public void removeWeapon(Limb which) {
+        equipement.removeWeapon(which);
+    }
+
+    public boolean hasWeapon(Limb which){
+        return equipement.hasWeapon(which);
+    }
+
+    public Usable getUsable(Limb which){
+        if(which == Limb.ROLE)
+            return mRole;
+        return equipement.getWeapon(which);
+    }
+
+    public void combine(Limb limb) {
+        equipement.combine(limb);
+        equipement.getWeapon(Limb.BOTHHANDS).setTalents(p.getTalents(),mentalState);
+    }
+
+    public Map<Talent,Integer> getTalents() {
+        return p.getTalents();
     }
 
     public void putOn(Armor armor) {
@@ -212,23 +274,6 @@ public class State {
 
     public int getProtection(HitZone where){
         return equipement.getProtection(where);
-    }
-
-    public void setWeapon(Weapon w, Limb which){
-        equipement.setWeapon(w, which);
-        w.setTalents(p.getTalents(), mentalState);
-    }
-
-    public void removeWeapon(Limb which) {
-        equipement.removeWeapon(which);
-    }
-
-    public boolean hasWeapon(Limb which){
-        return equipement.hasWeapon(which);
-    }
-
-    public Weapon getWeapon(Limb which){
-        return equipement.getWeapon(which);
     }
 
     public Vector getMentalPosition(){
@@ -250,10 +295,5 @@ public class State {
 
     public int getWeight() {
         return equipement.getWeight();
-    }
-
-    public void combine(Limb limb) {
-        equipement.combine(limb);
-        equipement.getWeapon(Limb.BOTHHANDS).setTalents(p.getTalents(),mentalState);
     }
 }

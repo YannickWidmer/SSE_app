@@ -32,10 +32,12 @@ import ch.yannick.display.technical.ColoredHolder;
 import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.display.views.JaugeView;
 import ch.yannick.intern.action_talent.Action;
-import ch.yannick.intern.usables.UsableType;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
+import ch.yannick.intern.usables.UsableTyp;
+import ch.yannick.intern.usables.Weapon;
+import ch.yannick.intern.usables.WeaponTyp;
 
 public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClickListener {
 	private static final String LOG = "frag:Control";
@@ -172,9 +174,9 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 		if(st.canAct(0,reaction)){
             List<ColoredHolder<Action>> actionsColored = new ArrayList<>();
             for(Action action:st.getActions(Limb.ALL)){
-                actionsColored.add(new ColoredHolder<Action>(action,action.getStringId(),
-                        st.canAct(action, Limb.ALL, reaction)?R.color.white:R.color.grey));
-                Log.d(LOG,action.name() +" canAct "+st.canAct(action, Limb.ALL, reaction));
+                actionsColored.add(new ColoredHolder<Action>(action, action.getStringId(),
+                        st.canAct(action, Limb.ALL, reaction) ? R.color.white : R.color.grey));
+                Log.d(LOG,action.getName() +" canAct "+st.canAct(action, Limb.ALL, reaction));
             }
 
             final AdapterColored<Action> actionAdapter = new AdapterColored<Action>(getActivity(),actionsColored);
@@ -248,16 +250,16 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
      * which might arrise from the action. This is change the load state of a range weapon,
      */
     private void fatigue(Limb which, Action action, boolean reaction){
-        if(st.getWeapon(which).getType() == UsableType.RANGEWEAPON && action.isAttack())
-            st.getWeapon(which).setLoad(false);
-        if(st.getWeapon(which).getType() == UsableType.RANGEWEAPON && action == Action.LOAD)
-            st.getWeapon(which).setLoad(true);
+        if(st.getUsable(which).getTyp() == WeaponTyp.RANGEWEAPON && action.is("Attack"))
+            ((Weapon)st.getUsable(which)).setLoad(false);
+        if(st.getUsable(which).getTyp() == WeaponTyp.RANGEWEAPON && action == Action.valueOf("LOADING"))
+            ((Weapon)st.getUsable(which)).setLoad(true);
 
         Intent intent;
         intent = new Intent(getActivity().getApplication(), Dialog_fatigue.class);
         intent.putExtra("id",st.getId());
         intent.putExtra("which",which.name());
-        intent.putExtra("action",action.name());
+        intent.putExtra("action",action.getName());
         intent.putExtra("reaction",reaction);
         startActivityForResult(intent,reaction?react_end:act_end);
     }
@@ -342,19 +344,18 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         mRightWeaponLayout.setVisibility(View.GONE);
         mRightList.setVisibility(View.GONE);
         if(st.hasWeapon(Limb.LEFTHAND)) {
-            mWeaponLeftName.setText(st.getWeapon(Limb.LEFTHAND).getName());
+            mWeaponLeftName.setText(st.getUsable(Limb.LEFTHAND).getName());
             mActionArrayLeft.clear();
             mActionArrayLeft.addAll(st.getActions(Limb.LEFTHAND));
             loaded_left.setVisibility(View.GONE);
             unloaded_left.setVisibility(View.GONE);
-            if(st.getWeapon(Limb.LEFTHAND).getType().isLoadable()){
-                if(st.getWeapon(Limb.LEFTHAND).getIsLoaded()){
+            if(((WeaponTyp)st.getUsable(Limb.LEFTHAND).getTyp()).isLoadable()){
+                if(((Weapon)st.getUsable(Limb.LEFTHAND)).getIsLoaded()){
                     loaded_left.setVisibility(View.VISIBLE);
                 }else{
                     unloaded_left.setVisibility(View.VISIBLE);
                 }
             }
-            leftManaJauge.setVisibility(st.getWeapon(Limb.LEFTHAND).getType()== UsableType.MANAWEAPON?View.VISIBLE:View.GONE);
             mLeftWeaponLayout.setVisibility(View.VISIBLE);
             mLeftList.setVisibility(View.VISIBLE);
         }else if(st.hasWeapon(Limb.BOTHHANDS)) {
@@ -370,7 +371,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                     unloaded_left.setVisibility(View.VISIBLE);
                 }
             }
-            leftManaJauge.setVisibility(st.getWeapon(Limb.BOTHHANDS).getType()== UsableType.MANAWEAPON?View.VISIBLE:View.GONE);
+            leftManaJauge.setVisibility(st.getWeapon(Limb.BOTHHANDS).getType()== UsableTyp.MANAWEAPON?View.VISIBLE:View.GONE);
             mLeftWeaponLayout.setVisibility(View.VISIBLE);
             mLeftList.setVisibility(View.VISIBLE);
         }
@@ -388,7 +389,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                     unLoaded_right.setVisibility(View.VISIBLE);
                 }
             }
-            rightManaJauge.setVisibility(st.getWeapon(Limb.RIGHTHAND).getType()== UsableType.MANAWEAPON?View.VISIBLE:View.GONE);
+            rightManaJauge.setVisibility(st.getWeapon(Limb.RIGHTHAND).getType()== UsableTyp.MANAWEAPON?View.VISIBLE:View.GONE);
             mRightWeaponLayout.setVisibility(View.VISIBLE);
             mRightList.setVisibility(View.VISIBLE);
         }
@@ -440,7 +441,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         mDisplayer.setAlter(st.getSkillEnhancer(action, which));
         mDisplayer.setModif(st.getSkillModifier(action,which));
         if(action.isAttack())
-            mDisplayer.setDegats(st.getDegatsDice(which,action),st.getDegats(which,action),st.getPenetration(which,action),st.getWeapon(which).isDirect(action));
+            mDisplayer.setDegats(st.getResultDice(which, action),st.getResultValue(which, action),st.getPenetration(which,action),st.getWeapon(which).isDirect(action));
         mDisplayer.refresh();
     }
 

@@ -28,6 +28,13 @@
     <string name="STR_WI">will</string>
     <string name="STR_MA">magic</string>
 
+
+    <!-- Role -->
+    <string name="role_fighter">fighter</string>
+    <string name="role_description_fighter">fighter</string>
+    <string name="role_ranger">ranger</string>
+    <string name="role_description_ranger">ranger</string>
+
     <!-- Play -->
     <string name="play">Start</string>
     <string name="modif">modif</string>
@@ -212,5 +219,6 @@
     <string name="penetration">penetration</string>
     <string name="twohanded">twohanded sword</string>
     <string name="fatigue">fatigue</string>
+    <string name="role">role</string>
 
 </resources>

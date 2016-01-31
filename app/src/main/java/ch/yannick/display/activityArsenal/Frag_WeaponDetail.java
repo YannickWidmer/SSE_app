@@ -28,8 +28,9 @@ import ch.yannick.display.views.FlowLayout;
 import ch.yannick.display.views.ValueChangeListener;
 import ch.yannick.display.views.ValueControler;
 import ch.yannick.intern.action_talent.Action;
-import ch.yannick.intern.usables.Weapon;
+import ch.yannick.intern.action_talent.ActionData;
 import ch.yannick.intern.personnage.Attribute;
+import ch.yannick.intern.usables.Weapon;
 
 public class Frag_WeaponDetail extends Fragment{
 	
@@ -75,7 +76,7 @@ public class Frag_WeaponDetail extends Fragment{
 
         View v = inflater.inflate(R.layout.frag_weapons_detail, container, false);
         ((TextView)v.findViewById(R.id.name_weapon)).setText(w.getName());
-        ((TextView)v.findViewById(R.id.name_weapon_type)).setText(w.getType().getStringId());
+        ((TextView)v.findViewById(R.id.name_weapon_type)).setText(w.getTyp().getStringId());
         mActions = (LinearLayout) v.findViewById(R.id.InsideFrame);
 
         return v;
@@ -139,14 +140,13 @@ public class Frag_WeaponDetail extends Fragment{
         FlowLayout flow;
         LinearLayout attributeLayout, damageLayout, penetrationLayout, fatigueLayout;
 
-        for (final Action finalAction : w.getType().getActions()) {
-            final Weapon.ActionData actionData = w.getData(finalAction);
+        for (final Action finalAction : w.getTyp().getActions()) {
+            final ActionData actionData = w.getBaseData(finalAction);
             title = new TextView(getActivity());
             title.setText(finalAction.getStringId());
             title.setTextAppearance(getActivity(), R.style.BaseTextWhite);
             title.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-            title.setPadding(0, 0, getResources().getDimensionPixelOffset(R.dimen.view_padding)
-                    , getResources().getDimensionPixelOffset(R.dimen.view_padding));
+            title.setPadding(0, 0, getResources().getDimensionPixelOffset(R.dimen.view_padding), getResources().getDimensionPixelOffset(R.dimen.view_padding));
             mActions.addView(title);
 
             flow = new FlowLayout(getActivity());
@@ -229,7 +229,7 @@ public class Frag_WeaponDetail extends Fragment{
             }));
             flow.addView(fatigueLayout);
 
-            if(finalAction.isAttack()){
+            if(finalAction.is("Attack")){
                 penetrationLayout = makeLayout();
                 penetrationLayout.addView(makeTextView(R.string.penetration));
                 penetrationLayout.addView(makeControler(actionData.penetration, 0, -1, new ValueChangeListener() {
@@ -244,22 +244,22 @@ public class Frag_WeaponDetail extends Fragment{
                 damageLayout.addView(makeTextView(R.string.degats));
                 DiceDisplayer dc = new DiceDisplayer(getActivity());
                 dc.showNumber(false);
-                dc.setDices(actionData.schadenWuerfel);
+                dc.setDices(actionData.resultDice);
                 dc.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity().getApplication(), Dialog_Schaden.class);
                         intent.putExtra("id",w.getId());
-                        intent.putExtra("action",finalAction.name());
+                        intent.putExtra("action",finalAction.getName());
                         startActivity(intent);
                     }
                 });
                 damageLayout.addView(dc);
                 damageLayout.addView(makeTextView("+"));
-                damageLayout.addView((makeControler(actionData.schaden, -1, -1, new ValueChangeListener() {
+                damageLayout.addView((makeControler(actionData.resultValue, -1, -1, new ValueChangeListener() {
                     @Override
                     public void onChangeValue(int value) {
-                        actionData.schaden = value;
+                        actionData.resultValue = value;
                     }
                 })));
                 flow.addView(damageLayout);

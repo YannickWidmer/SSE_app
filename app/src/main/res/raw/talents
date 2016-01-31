@@ -1,33 +1,33 @@
 <Talents>
     <Talent name="STEAL"  show_name="@string/action_steal"  description="@string/talent_steal_description"
-        effect_type="LUCKMODIFIER" weapon_type="GENERAL" />
+        effect_type="LUCKMODIFIER" />
 
     <Talent name="MAKEFIRE"  show_name="@string/action_make_fire" description="@string/talent_makefire_description"
-        weapon_type="GENERAL" effect_type="LUCKMODIFIER" />
+        effect_type="LUCKMODIFIER" />
 
     <Talent name="COOK"  show_name="@string/action_cook" description="@string/talent_cook_description"
-        weapon_type="GENERAL" effect_type="LUCKMODIFIER"/>
+         effect_type="LUCKMODIFIER"/>
 
     <Talent name="BUTCHER" show_name="@string/action_butcher" description="@string/talent_butcher_description"
-        weapon_type="GENERAL" effect_type="LUCKMODIFIER" />
+        effect_type="LUCKMODIFIER" />
 
     <Talent name="FISHING" show_name="@string/action_fishing" description="@string/talent_fishing_description"
-        weapon_type="GENERAL" effect_type="LUCKMODIFIER" />
+        effect_type="LUCKMODIFIER" />
 
     <Talent name="CLIMB" show_name="@string/action_climb" description="@string/talent_climb_description"
-        weapon_type="GENERAL" effect_type="LUCKMODIFIER"/>
+        effect_type="LUCKMODIFIER"/>
 
     <Talent name="SWIM" show_name="@string/action_swim"  description="@string/talent_swim_description"
-        weapon_type="GENERAL" effect_type="LUCKMODIFIER" />
+        effect_type="LUCKMODIFIER" />
 
     <Talent name="THROW" show_name="@string/action_throw" description="@string/talent_throw_description"
-        weapon_type="GENERAL"  effect_type="LUCKMODIFIER" />
+        effect_type="LUCKMODIFIER" />
 
     <Talent name="MUSIC" show_name="@string/action_make_music" description="@string/talent_make_music_description"
-        action="MAKEMUSIC" effect_type="LUCKMODIFIER" weapon_type="GENERAL" />
+        action="MAKEMUSIC" effect_type="LUCKMODIFIER"  />
 
     <Talent name="SING"  show_name="@string/action_sing" description="@string/talent_sing_description"
-        effect_type="LUCKMODIFIER" weapon_type="GENERAL" />
+        effect_type="LUCKMODIFIER"  />
 
     <Talent name="TWOHANDATTACK" show_name="@string/talent_twohand_destroyer" description="@string/talent_twohand_destroyer_description"
         effect_type="SKILLMODIFIER"  weapon_type="BISWORD">

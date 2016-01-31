@@ -36,20 +36,20 @@ public class Frag_modif extends Fragment {
     }
 
     private void refresh(View v){
-        ((TextView)v.findViewById(R.id.mouvement_skill)).setText(""+Resolver.getBaseSkill(st, Action.RUN, Limb.BAREHANDS));
-        ((TextView)v.findViewById(R.id.mouvement_weigth)).setText(""+Resolver.getEquipementModification(st, Action.RUN));
-        ((TextView)v.findViewById(R.id.mouvement_talent)).setText(""+Resolver.getAvatarEnhancer(st, Action.RUN));
-        ((TextView)v.findViewById(R.id.mouvement_fatigue)).setText(""+Resolver.getFatigue(st, Action.RUN));
+        ((TextView)v.findViewById(R.id.mouvement_skill)).setText(""+Resolver.getBaseSkill(st, Action.valueOf("RUN"), Limb.ROLE));
+        ((TextView)v.findViewById(R.id.mouvement_weigth)).setText(""+Resolver.getEquipementModification(st, Action.valueOf("RUN")));
+        ((TextView)v.findViewById(R.id.mouvement_talent)).setText(""+Resolver.getAvatarEnhancer(st, Action.valueOf("RUN")));
+        ((TextView)v.findViewById(R.id.mouvement_fatigue)).setText(""+Resolver.getFatigue(st, Action.valueOf("RUN")));
 
-        ((TextView)v.findViewById(R.id.esquiv_skill)).setText(""+Resolver.getBaseSkill(st, Action.ESQUIV, Limb.BAREHANDS));
-        ((TextView)v.findViewById(R.id.esquiv_weigth)).setText(""+Resolver.getEquipementModification(st, Action.ESQUIV));
-        ((TextView)v.findViewById(R.id.esquiv_talent)).setText(""+Resolver.getAvatarEnhancer(st, Action.ESQUIV));
-        ((TextView)v.findViewById(R.id.esquiv_fatigue)).setText(""+Resolver.getFatigue(st, Action.ESQUIV));
+        ((TextView)v.findViewById(R.id.esquiv_skill)).setText(""+Resolver.getBaseSkill(st, Action.valueOf("ESQUIV"), Limb.ROLE));
+        ((TextView)v.findViewById(R.id.esquiv_weigth)).setText(""+Resolver.getEquipementModification(st, Action.valueOf("ESQUIV")));
+        ((TextView)v.findViewById(R.id.esquiv_talent)).setText(""+Resolver.getAvatarEnhancer(st, Action.valueOf("ESQUIV")));
+        ((TextView)v.findViewById(R.id.esquiv_fatigue)).setText(""+Resolver.getFatigue(st, Action.valueOf("ESQUIV")));
 
         //((TextView)findViewById(R.id.combat_skill)).setText(Resolver.getBaseSkill(st, Action.ATTACK, Limb.GENERAL));
-        ((TextView)v.findViewById(R.id.combat_weigth)).setText(""+Resolver.getEquipementModification(st, Action.ATTACK));
+        ((TextView)v.findViewById(R.id.combat_weigth)).setText(""+Resolver.getEquipementModification(st, Action.valueOf("ATTACK")));
         //((TextView)findViewById(R.id.combat_talent)).setText(""+Resolver.getAvatarEnhancer(st, Action.A));
-        ((TextView)v.findViewById(R.id.combat_fatigue)).setText("x + "+Resolver.getFatigue(st, Action.ATTACK));
+        ((TextView)v.findViewById(R.id.combat_fatigue)).setText("x + "+Resolver.getFatigue(st, Action.valueOf("ATTACK")));
     }
 
 }

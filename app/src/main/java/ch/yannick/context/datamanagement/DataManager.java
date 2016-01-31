@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.RootApplication;
 import ch.yannick.intern.items.Armor;
-import ch.yannick.intern.usables.UsableType;
-import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.personnage.Personnage;
+import ch.yannick.intern.usables.Weapon;
+import ch.yannick.intern.usables.WeaponTyp;
 
 public class DataManager {
 
@@ -46,9 +46,9 @@ public class DataManager {
         as.execute();
     }
 
-    public void newWeapon(String name, UsableType type) {
-        Log.d(LOG, "new Weapon " + name + " type " + type.name());
-        AsyncInsert as = new AsyncInsert(new Weapon(null, name, type));
+    public void newWeapon(String name, WeaponTyp type) {
+        Log.d(LOG, "new Weapon " + name + " type " + type.getName());
+        AsyncInsert as = new AsyncInsert(new Weapon(null, name, type,0));
         as.execute();
     }
 

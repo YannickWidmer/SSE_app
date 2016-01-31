@@ -42,7 +42,7 @@
             attriubtes ="ACUITY,AGILITY" fatigue="0"/>
     </Fight>
 
-    <Action name="WEATERTEST" show_name ="@string/action_cold_sleep"
+    <Action name="WEATHERTEST" show_name ="@string/action_cold_sleep"
         attriubtes ="PHYSIQUE,PHYSIQUE" fatigue="0"/>
     <Action name="OTHER" show_name ="@string/action_other"
         attriubtes ="FORCE,FORCE" fatigue="0"/>
