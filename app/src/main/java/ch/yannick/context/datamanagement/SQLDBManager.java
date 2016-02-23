@@ -254,12 +254,12 @@ public class SQLDBManager extends SQLiteOpenHelper {
         ActionData actionData;
         ContentValues contentValues,diceValues;
         for(Action action:w.getBase_actions()){
-            actionData = w.getBaseData(action);
+            actionData = w.getData(action);
             contentValues = new ContentValues();
             contentValues.put(KEY_ID,id);
             contentValues.put(KEY_NAME,action.getName());
-            contentValues.put(KEY_ATTRIBUTE1,actionData.firstAttribute.name());
-            contentValues.put(KEY_ATTRIBUTE2, actionData.secondAttribute.name());
+            contentValues.put(KEY_ATTRIBUTE1,actionData.attributes[0].name());
+            contentValues.put(KEY_ATTRIBUTE2, actionData.attributes[1].name());
             contentValues.put(KEY_ENHANCER,actionData.enhancer);
             contentValues.put(KEY_FATIGUE, actionData.fatigue);
             // The next values are zero if this action doesnt need them, so we don't need any if statement here
@@ -269,7 +269,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
             pushData(TABLE_WEAPON_ACTION, null, contentValues);
             // Damage Dice
             if(action.hasResult()){
-                for(Dice dice:w.getBaseData(action).resultDice) {
+                for(Dice dice:w.getData(action).resultDice) {
                     diceValues= new ContentValues();
                     diceValues.put(KEY_ID,id);
                     diceValues.put(KEY_ACTION,action.getName());
@@ -335,10 +335,10 @@ public class SQLDBManager extends SQLiteOpenHelper {
                             + " (" + getString(c, KEY_ATTRIBUTE1) + "," + getString(c, KEY_ATTRIBUTE2) + ","
                             + get(c, KEY_ENHANCER) + "," + get(c, KEY_FATIGUE));
                     Action  action =Action.valueOf(getString(c, KEY_NAME));
-                    ActionData actionData = w.getBaseData(action);
+                    ActionData actionData = w.getData(action);
                     // Damage are set allready
-                    actionData.firstAttribute = Attribute.valueOf(getString(c,KEY_ATTRIBUTE1));
-                    actionData.secondAttribute = Attribute.valueOf(getString(c,KEY_ATTRIBUTE2));
+                    actionData.attributes[0] = Attribute.valueOf(getString(c,KEY_ATTRIBUTE1));
+                    actionData.attributes[1] = Attribute.valueOf(getString(c,KEY_ATTRIBUTE2));
                     actionData.enhancer =  get(c,KEY_ENHANCER);
                     actionData.fatigue = get(c,KEY_FATIGUE);
                     if(action.is("Attack")){

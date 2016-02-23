@@ -5,8 +5,6 @@ import android.util.Log;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
-import ch.yannick.context.RootApplication;
-import ch.yannick.intern.state.State;
 
 public class Act_Play extends MyBaseActivity {
 
@@ -16,11 +14,6 @@ public class Act_Play extends MyBaseActivity {
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_play);
-		long id = getIntent().getLongExtra("id",-1);
-        State state = ((RootApplication) getApplication()).getState(id);
-
-		((Frag_PlayControl)getFragmentManager().findFragmentById(R.id.play)).setState(state);
-        ((Frag_PlayAttributes)getFragmentManager().findFragmentById(R.id.attributes)).setState(state);
 	}
 	
 	
@@ -32,6 +25,7 @@ public class Act_Play extends MyBaseActivity {
 	public void react(String res, int Flag) {
 		Log.d(LOG, "Does nothing onReact");
 		((Frag_PlayControl)getFragmentManager().findFragmentById(R.id.play)).refresh();
+		((Frag_Actions)getFragmentManager().findFragmentById(R.id.actions)).refresh();
 	}
 	
 }

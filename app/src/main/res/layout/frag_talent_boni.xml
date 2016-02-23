@@ -2,55 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <GridLayout
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="5"
-        android:rowCount="4">
+        android:padding="@dimen/view_padding">
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style = "@style/SmallText"
+            android:text="@string/skill"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style = "@style/SmallText"
+            android:text="@string/modif"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style = "@style/SmallText"
+            android:text="@string/fatigue"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-        <TextView style = "@style/SmallText" android:text="@string/skill"
-            android:layout_row="0" android:layout_column="1"
-            android:layout_columnWeight="1"/>
-        <TextView style = "@style/SmallText" android:text="@string/weight"
-            android:layout_row="0" android:layout_column="2"
-            android:layout_columnWeight="1"/>
-        <TextView style = "@style/SmallText" android:text="@string/talent"
-            android:layout_row="0" android:layout_column="3"
-            android:layout_columnWeight="1"/>
-        <TextView style = "@style/SmallText" android:text="@string/fatigue"
-            android:layout_row="0" android:layout_column="4"
-            android:layout_columnWeight="1"/>
-        <TextView style = "@style/SmallText" android:text="@string/mouvement"
-            android:layout_row="1" android:layout_column="0"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                    android:id="@+id/mouvement_skill"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/mouvement_weigth"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/mouvement_talent"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/mouvement_fatigue"/>
-        <TextView style = "@style/SmallText" android:text="@string/esquiv"
-            android:layout_row="2" android:layout_column="0"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/esquiv_skill"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/esquiv_weigth"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/esquiv_talent"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/esquiv_fatigue"/>
-        <TextView style = "@style/SmallText" android:text="@string/combat"
-            android:layout_row="3" android:layout_column="0"/>
-            <TextView style = "@style/SmallText" android:text="-"
-                android:id="@+id/combat_skill"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/combat_weigth"/>
-            <TextView style = "@style/SmallText" android:text="-"
-                android:id="@+id/combat_talent"/>
-            <TextView style = "@style/SmallText" android:text="0"
-                android:id="@+id/combat_fatigue"/>
-    </GridLayout>
 </LinearLayout>

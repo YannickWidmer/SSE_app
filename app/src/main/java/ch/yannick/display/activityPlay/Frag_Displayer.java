@@ -152,7 +152,7 @@ public class Frag_Displayer extends Fragment{
         mSplitControler.setValue(value);
     }
 
-    public void setAlter(int value){
+    public void setEnhancer(int value){
         mAlterControler.setValue(value);
     }
 

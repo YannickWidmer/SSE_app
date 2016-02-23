@@ -31,7 +31,7 @@ public class Dialog_fatigue extends MyBaseActivity {
         else {
             which = Limb.valueOf(getIntent().getStringExtra("which"));
             action = Action.valueOf(getIntent().getStringExtra("action"));
-            stamina = st.getFatigue(action, which);
+            stamina = st.getActionData(which, action).getFatigue();
         }
         ((ValueControler) findViewById(R.id.stamina_used_value)).setValue(stamina);
     }

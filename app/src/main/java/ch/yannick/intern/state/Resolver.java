@@ -2,14 +2,12 @@ package ch.yannick.intern.state;
 
 import android.util.Log;
 
-import java.util.List;
 import java.util.Map;
 
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.EffectType;
 import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.items.Armor;
-import ch.yannick.intern.items.Equipement;
 import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
@@ -21,7 +19,7 @@ import ch.yannick.intern.personnage.Limb;
 public class Resolver {
     private static String LOG ="Resolver";
 
-    public static int getEquipementModification(State state, Action act) {
+    public static int getEquipementModifier(State state, Action act) {
         int weight = state.equipement.getWeight();
         int fight = state.p.getRasse().getFightCoeff();
         int move = state.p.getRasse().getMovementCoeff();
@@ -38,11 +36,10 @@ public class Resolver {
             }
         }else if (act.is("Fight"))
                     res -= Math.max(0, ((weight - 8 * fight) / fight) / 2);
-
         return res;
     }
 
-    public static int getEquipmentRaceFatigue(State state, Action act) {
+    public static int getEquipmentFatigue(State state, Action act) {
         int weight = state.equipement.getWeight();
         int baseFatigue = state.p.getRasse().getBaseFatigue();
         int fatigue = state.p.getRasse().getFatigueCoeff();
@@ -57,12 +54,16 @@ public class Resolver {
 
     // Nicht konsequent gebraucht
     public static int getBaseSkill(State state, Action act, Limb limb){
-        List<Attribute> attributes = state.equipement.getWeapon(limb).getAttributes(act);
+        return getSkill(state,state.getActionData(limb, act).attributes);
+    }
+
+    public static int getSkill(State state, Attribute[] attributes){
         int res = 0;
         for(Attribute attr : attributes)
             res += state.p.getAttr(attr);
-        return 2*res/attributes.size();
+        return 2*res/attributes.length;
     }
+
 
     public static int getValue(State state,Value value){
         int res = 0;

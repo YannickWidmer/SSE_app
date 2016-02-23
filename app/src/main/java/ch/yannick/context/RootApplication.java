@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.xmlpull.v1.XmlPullParser;
 
 import ch.yannick.context.datamanagement.DataManager;
+import ch.yannick.context.mysqlconnection.ConnectionTest;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.personnage.Personnage;
@@ -33,6 +34,7 @@ public class RootApplication extends Application {
 	private DataManager myManager;
 	private MyBaseActivity mCurrentActivity = null;
 	private LongSparseArray<State> states;
+	private State mCurrentState;
 
 	@Override
 	public void onCreate(){
@@ -57,12 +59,16 @@ public class RootApplication extends Application {
 	@Override
 	public void finalize()
 	{
-		Log.d(LOG,"finalizing App");
+		Log.d(LOG, "finalizing App");
 		try {
 			super.finalize();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void testConnection(){
+		new ConnectionTest().testConnection(this);
 	}
 	
 	public DataManager getDataManager(){
@@ -116,7 +122,12 @@ public class RootApplication extends Application {
 			Personnage p = myManager.getPersonnage(id);
 			states.put(id,new State(p));
 		}
-		return states.get(id);
+		mCurrentState = states.get(id);
+		return mCurrentState;
+	}
+
+	public State getCurrentState(){
+		return mCurrentState;
 	}
 
 	public void refreshState(Long id) {

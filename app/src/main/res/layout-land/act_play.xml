@@ -13,13 +13,24 @@
         android:orientation="horizontal"
         tools:context=".Act_Play">
 
-        <fragment android:id="@+id/play"
-            class="ch.yannick.display.activityPlay.Frag_PlayControl"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            tools:layout="@layout/frag_play_control" />
+            android:orientation="vertical">
 
+            <fragment android:id="@+id/play"
+                class="ch.yannick.display.activityPlay.Frag_PlayControl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/frag_play_control" />
+
+            <fragment android:id="@+id/actions"
+                class="ch.yannick.display.activityPlay.Frag_Actions"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                tools:layout="@layout/frag_actions" />
+        </LinearLayout>
         <Space
             android:layout_width="20dp"
             android:layout_height="match_parent"

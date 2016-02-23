@@ -40,6 +40,34 @@
                 android:text="@string/heroes" />
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/view_padding"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/BaseTextWhite"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/connection"
+            android:background="@color/brown"
+            />
+        <LinearLayout
+            android:background="@drawable/brown_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/test_connection"
+                android:padding="@dimen/view_padding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="testConnection"
+                android:text="@string/text_connection" />
+        </LinearLayout>
+    </LinearLayout>
     
 
     <LinearLayout

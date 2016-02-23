@@ -1,16 +1,16 @@
 package ch.yannick.intern.usables;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.ActionData;
+import ch.yannick.intern.action_talent.EffectType;
 import ch.yannick.intern.action_talent.Talent;
-import ch.yannick.intern.dice.Dice;
-import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.state.MentalState;
+import ch.yannick.intern.state.Resolver;
+import ch.yannick.intern.state.State;
 
 /**
  * Created by Yannick on 08.01.2016.
@@ -25,13 +25,12 @@ import ch.yannick.intern.state.MentalState;
 public class Usable {
     private String mName;
     protected UsableTyp mType;
-    protected Map<Action, ActionData> base_actions = new HashMap<>(), resolved_actions = new HashMap<>();
+    protected Map<Action, ActionData> base_actions = new HashMap<>();
 
     public Usable(String name, UsableTyp type){
         mType = type;
         mName = name;
     }
-
 
     // Getter
     public String toString(){
@@ -46,52 +45,16 @@ public class Usable {
         return mType;
     }
 
-    public ActionData getBaseData(Action action){
-        return base_actions.get(action);
+    public ActionData getData(Action action){
+        return new ActionData(base_actions.get(action));
     }
-
-    public ActionData getResolvedData(Action action){
-        return resolved_actions.get(action);
-    }
-
-    public int getResult(Action action) {
-        return resolved_actions.get(action).resultValue;
-    }
-
-    public ArrayList<Dice> getResultDice(Action action){
-        return resolved_actions.get(action).resultDice;
-    }
-
-    public int getEnhancer(Action test){
-        if(resolved_actions.containsKey(test))
-            return resolved_actions.get(test).enhancer;
-        return 0;
-    }
-
-    public int getModifier(Action test){
-        if(resolved_actions.containsKey(test))
-            return resolved_actions.get(test).modifier;
-        return 0;
-    }
-
-    public int getFatigue(Action action){
-        return resolved_actions.get(action).fatigue;
-    }
-
-    public ArrayList<Attribute> getAttributes(Action action){
-        ArrayList<Attribute> res = new ArrayList<>();
-        res.add(resolved_actions.get(action).firstAttribute);
-        res.add(resolved_actions.get(action).secondAttribute);
-        return res;
-    }
-
 
     public Set<Action> getActions(){
-        return resolved_actions.keySet();
+        return base_actions.keySet();
     }
 
     public boolean canAction(Action action){
-        if(resolved_actions.containsKey(action)) {
+        if(base_actions.containsKey(action)) {
             return true;
         }
         return false;
@@ -108,39 +71,35 @@ public class Usable {
 
     // Talent related till the bottom
     public void setTalents(Map<Talent, Integer> talents, MentalState mentalState) {
-        //First remove all action which where added by previus talents
-        resolved_actions.clear();
 
-        // copy the from the usable data
-        for (Action action : base_actions.keySet())
-            copyActionData(action, action);
+        // copy the actions from the usable data
+        for (ActionData data: base_actions.values())
+            data.reset();
+
+        // Add all remade actions, those are actions which are only available with corresponding Talents
+        for (Map.Entry<Talent, Integer> e : talents.entrySet()) {
+            if (e.getKey().getEffect() == EffectType.ACTIONREMAKE) {
+                copyActionData(e.getKey().actionToCopy(), e.getKey().getAction());
+                base_actions.get(e.getKey().getAction()).talentFatigue += e.getKey().getFatigueModifier();
+                base_actions.get(e.getKey().getAction()).talentEnhancer += e.getKey().getEffect(mentalState, e.getValue());
+            }
+        }
 
         Action action;
-        boolean typeMatch;
         for (Map.Entry<Talent, Integer> e : talents.entrySet()) {
-
             if (e.getKey().getEffect().isAction() && isType( e.getKey().getUsableType())) {
                 action = e.getKey().getAction();
                 switch (e.getKey().getEffect()) {
+                    // All action effects except ACTIONREMAKE, which is handled above, are listed here
                     case LUCKMODIFIER:
-                        copyActionData(action, action);
-                        resolved_actions.get(action).modifier += e.getKey().getEffect(mentalState, e.getValue());
+                        base_actions.get(action).talentModifier += e.getKey().getEffect(mentalState, e.getValue());
                         break;
                     case SKILLMODIFIER:
-                        copyActionData(action, action);
-                        resolved_actions.get(action).enhancer += e.getKey().getEffect(mentalState, e.getValue());
+                        base_actions.get(action).talentEnhancer += e.getKey().getEffect(mentalState, e.getValue());
                         break;
-                    case RESULTMODIFIER:
-                        copyActionData(action, action);
-                        resolved_actions.get(action).resultValue += e.getKey().getEffect(mentalState, e.getValue());
+                    case RESULTMODIFIER: // Not used very often might remove this or make it more prominent
+                        base_actions.get(action).talentResult+= e.getKey().getEffect(mentalState, e.getValue());
                         break;
-                    case ACTIONREMAKE:
-                        copyActionData(e.getKey().actionToCopy(), action);
-                        resolved_actions.get(action).fatigue += e.getKey().getFatigueModifier();
-                        resolved_actions.get(action).enhancer += e.getKey().getEffect(mentalState, e.getValue());
-                        break;
-                    case VALUE:
-                        break; // this is not resolved here, and has nothing to do with actions, instead it is taken care of in resolver!
                 }
             }
         }
@@ -153,15 +112,15 @@ public class Usable {
     * The actions toCopy and new should always both be Attack actions or not.
     */
     private void copyActionData(Action toCopy, Action newAction) {
-        ActionData actionData;
-        if (resolved_actions.containsKey(newAction))
-            return; // nothing to do.
+        if (!base_actions.containsKey(toCopy))
+            base_actions.put(newAction,new ActionData(base_actions.get(toCopy)));
+    }
 
-        if (base_actions.containsKey(toCopy)) {
-            actionData = new ActionData(base_actions.get(toCopy));
-        } else {
-            actionData = new ActionData(newAction);
+    public void setEquipmentMalus(State state) {
+        for(Map.Entry<Action,ActionData> entry:base_actions.entrySet()){
+            entry.getValue().equipmeentFatigue = Resolver.getEquipmentFatigue(state,entry.getKey());
+            // TODO entry.getValue().equipmentEnhancer =
+            entry.getValue().equipmentModifier = Resolver.getEquipementModifier(state,entry.getKey());
         }
-        resolved_actions.put(newAction, actionData);
     }
 }

@@ -84,8 +84,7 @@ public class Weapon extends Usable {
     private void setAction(Action test,Attribute first, Attribute second,int value,int fatigue,
                           int schaden, int penetration, boolean direct){
         if(base_actions.containsKey(test)){
-            base_actions.get(test).firstAttribute = first;
-            base_actions.get(test).secondAttribute = second;
+            base_actions.get(test).attributes = new Attribute[]{first, second};
             base_actions.get(test).enhancer = value;
             base_actions.get(test).fatigue = fatigue;
             base_actions.get(test).resultValue = schaden;
@@ -97,8 +96,7 @@ public class Weapon extends Usable {
     private void setAction(Action test,Attribute first, Attribute second,int value,int fatigue,
                           int schaden, int penetration, boolean direct, ArrayList<Dice> damageDices){
         if(base_actions.containsKey(test)){
-            base_actions.get(test).firstAttribute=first;
-            base_actions.get(test).secondAttribute=second;
+            base_actions.get(test).attributes = new Attribute[]{first, second};
             base_actions.get(test).enhancer=value;
             base_actions.get(test).fatigue=fatigue;
             base_actions.get(test).resultDice =damageDices;

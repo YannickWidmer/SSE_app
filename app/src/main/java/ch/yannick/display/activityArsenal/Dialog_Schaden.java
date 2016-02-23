@@ -47,7 +47,7 @@ public class Dialog_Schaden extends MyBaseActivity {
 
 
         action = Action.valueOf(getIntent().getStringExtra("action"));
-        ActionData actionData = w.getBaseData(action);
+        ActionData actionData = w.getData(action);
 
         schaden = (ValueControler) findViewById(R.id.schaden);
         penetration = (ValueControler) findViewById(R.id.penetration);
@@ -102,7 +102,7 @@ public class Dialog_Schaden extends MyBaseActivity {
     }
 
     public void confirmed(View v){
-        ActionData actionData = w.getBaseData(action);
+        ActionData actionData = w.getData(action);
         actionData.resultValue = schaden.getValue();
         actionData.penetration = penetration.getValue();
         actionData.isDirect = direct.isChecked();

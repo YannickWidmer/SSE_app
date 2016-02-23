@@ -14,49 +14,37 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import ch.yannick.context.R;
+import ch.yannick.context.RootApplication;
 import ch.yannick.display.activityMental.Act_Mental;
 import ch.yannick.display.activityMental.Vector;
 import ch.yannick.display.technical.AdapterColored;
 import ch.yannick.display.technical.ColoredHolder;
-import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.display.views.JaugeView;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
-import ch.yannick.intern.usables.UsableTyp;
 import ch.yannick.intern.usables.Weapon;
 import ch.yannick.intern.usables.WeaponTyp;
 
-public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClickListener {
+public class Frag_PlayControl extends Fragment {
 	private static final String LOG = "frag:Control";
 	private static final int act_end = 0, react_end = 2, new_round = 3, mental = 4, hit = 5;
 	private State st;
-    private Frag_PlayAttributes mAttr;
-    private ListView mLeftList,mMiddleList, mRightList;
-    private Frag_Displayer mDisplayer;
-    private LinearLayout mLeftWeaponLayout, mRightWeaponLayout;
-    private TextView mWeaponLeftName, mWeaponRightName;
-    private JaugeView healthJauge, staminaJauge, leftManaJauge, rightManaJauge;
-    private View loaded_left,unloaded_left, loaded_right, unLoaded_right;
-    private EnumAdapter<Action> mAdapterLeft,mAdapterRight, freeAction;
-    private ArrayList<Action> mActionArrayLeft, mActionArrayRight, mActionArrayFree;
+    private JaugeView healthJauge, staminaJauge;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d(LOG, "onCreateView");
+        st = ((RootApplication)getActivity().getApplication()).getCurrentState();
 		setHasOptionsMenu(true);
 		return inflater.inflate(R.layout.frag_play_control, container, false);
 	}
@@ -67,20 +55,13 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 	    super.onCreateOptionsMenu(menu, inflater);
 	}
 	
-	public void setState(State state) {
-		st = state;
-	}
+
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		Log.d(LOG, "onActivityCreated");
-
         getActivity().setTitle(st.getName());
-
-        mAttr = (Frag_PlayAttributes) getActivity().getFragmentManager().findFragmentById(R.id.attributes);
-        mDisplayer = (Frag_Displayer) getActivity().getFragmentManager().findFragmentById(R.id.display);
-
         View v = getView();
 
         healthJauge = (JaugeView) v.findViewById(R.id.vie);
@@ -103,21 +84,6 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
             }
         });
 
-
-
-        mLeftWeaponLayout = (LinearLayout) v.findViewById(R.id.weapon_left);
-        mRightWeaponLayout = (LinearLayout) v.findViewById(R.id.weapon_right);
-
-        mWeaponLeftName = (TextView) v.findViewById(R.id.weapon_left_name);
-        mWeaponRightName = (TextView) v.findViewById(R.id.weapon_right_name);
-
-        leftManaJauge = (JaugeView) v.findViewById(R.id.mana_jauge_left);
-        rightManaJauge  = (JaugeView) v.findViewById(R.id.mana_jauge_right);
-        loaded_left = getView().findViewById(R.id.loaded_left);
-        unloaded_left = getView().findViewById(R.id.unloaded_left);
-        loaded_right =  getView().findViewById(R.id.loaded_right);
-        unLoaded_right = getView().findViewById(R.id.unloaded_right);
-
 		v.findViewById(R.id.act).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -136,24 +102,6 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
                 hit();
             }
         });
-
-        mActionArrayLeft = new ArrayList<>();
-        mActionArrayRight = new ArrayList<>();
-        mActionArrayFree = new ArrayList<>();
-
-        mAdapterLeft = new EnumAdapter<>(getActivity(), mActionArrayLeft, R.layout.row_centered_text);
-        mAdapterRight = new EnumAdapter<>(getActivity(), mActionArrayRight, R.layout.row_centered_text);
-        freeAction = new EnumAdapter<>(getActivity(),mActionArrayFree,R.layout.row_centered_text);
-
-        mLeftList = ((ListView)v.findViewById(R.id.left_actions));
-        mLeftList.setAdapter(mAdapterLeft);
-        mLeftList.setOnItemClickListener(this);
-        mRightList = ((ListView)v.findViewById(R.id.right_actions));
-        mRightList.setAdapter(mAdapterRight);
-        mRightList.setOnItemClickListener(this);
-        mMiddleList = ((ListView)v.findViewById(R.id.middle_actions));
-        mMiddleList.setAdapter(freeAction);
-        mMiddleList.setOnItemClickListener(this);
         refresh();
 	}
 
@@ -213,7 +161,7 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
         final List<ColoredHolder<Limb>> coloredPossiblities = new ArrayList<>();
 
         for(Limb limb:Limb.values()){
-            if(st.hasWeapon(limb) && st.getActions(limb).contains(act)){
+            if(st.hasUsable(limb) && st.getActions(limb).contains(act)){
                 coloredPossiblities.add(new ColoredHolder<>(limb,limb.getStringId(),
                         st.canAct(act, limb, reaction)?R.color.white:R.color.grey));
             }
@@ -339,110 +287,11 @@ public class Frag_PlayControl extends Fragment implements AdapterView.OnItemClic
 	}
 	
 	protected void refresh(){
-        mLeftWeaponLayout.setVisibility(View.GONE);
-        mLeftList.setVisibility(View.GONE);
-        mRightWeaponLayout.setVisibility(View.GONE);
-        mRightList.setVisibility(View.GONE);
-        if(st.hasWeapon(Limb.LEFTHAND)) {
-            mWeaponLeftName.setText(st.getUsable(Limb.LEFTHAND).getName());
-            mActionArrayLeft.clear();
-            mActionArrayLeft.addAll(st.getActions(Limb.LEFTHAND));
-            loaded_left.setVisibility(View.GONE);
-            unloaded_left.setVisibility(View.GONE);
-            if(((WeaponTyp)st.getUsable(Limb.LEFTHAND).getTyp()).isLoadable()){
-                if(((Weapon)st.getUsable(Limb.LEFTHAND)).getIsLoaded()){
-                    loaded_left.setVisibility(View.VISIBLE);
-                }else{
-                    unloaded_left.setVisibility(View.VISIBLE);
-                }
-            }
-            mLeftWeaponLayout.setVisibility(View.VISIBLE);
-            mLeftList.setVisibility(View.VISIBLE);
-        }else if(st.hasWeapon(Limb.BOTHHANDS)) {
-            mWeaponLeftName.setText(st.getWeapon(Limb.BOTHHANDS).getName());
-            mActionArrayLeft.clear();
-            mActionArrayLeft.addAll(st.getActions(Limb.BOTHHANDS));
-            loaded_left.setVisibility(View.GONE);
-            unloaded_left.setVisibility(View.GONE);
-            if(st.getWeapon(Limb.BOTHHANDS).getType().isLoadable()){
-                if(st.getWeapon(Limb.BOTHHANDS).getIsLoaded()){
-                    loaded_left.setVisibility(View.VISIBLE);
-                }else{
-                    unloaded_left.setVisibility(View.VISIBLE);
-                }
-            }
-            leftManaJauge.setVisibility(st.getWeapon(Limb.BOTHHANDS).getType()== UsableTyp.MANAWEAPON?View.VISIBLE:View.GONE);
-            mLeftWeaponLayout.setVisibility(View.VISIBLE);
-            mLeftList.setVisibility(View.VISIBLE);
-        }
-
-        if(st.hasWeapon(Limb.RIGHTHAND)){
-            mWeaponRightName.setText(st.getWeapon(Limb.RIGHTHAND).getName());
-            mActionArrayRight.clear();
-            mActionArrayRight.addAll(st.getActions(Limb.RIGHTHAND));
-            loaded_right.setVisibility(View.GONE);
-            unLoaded_right.setVisibility(View.GONE);
-            if(st.getWeapon(Limb.RIGHTHAND).getType().isLoadable()){
-                if(st.getWeapon(Limb.RIGHTHAND).getIsLoaded()){
-                    loaded_right.setVisibility(View.VISIBLE);
-                }else{
-                    unLoaded_right.setVisibility(View.VISIBLE);
-                }
-            }
-            rightManaJauge.setVisibility(st.getWeapon(Limb.RIGHTHAND).getType()== UsableTyp.MANAWEAPON?View.VISIBLE:View.GONE);
-            mRightWeaponLayout.setVisibility(View.VISIBLE);
-            mRightList.setVisibility(View.VISIBLE);
-        }
-
-        mActionArrayFree.clear();
-        mActionArrayFree.addAll(st.getActions(Limb.BAREHANDS));
-        mActionArrayFree.remove(Action.OTHER);
-
         healthJauge.setValues(st.getHealth(), 0, st.getHealthMax() - st.getHealth());
 		staminaJauge.setValues(st.getStaminaNow(), st.getStaminaUsed(),
                 st.getStaminaMax() - st.getStaminaNow() - st.getStaminaUsed());
-
-        Collections.sort(mActionArrayFree);
-        Collections.sort(mActionArrayLeft);
-        Collections.sort(mActionArrayRight);
-
         ((TextView) getView().findViewById(R.id.mental_state)).setText(st.getMentalState().getStringId());
         ((TextView) getView().findViewById(R.id.race)).setText(st.getRace().getStringId());
-    }
-
-
-    // Actions in listviews
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mDisplayer.setSplit(1);
-        mDisplayer.setAlter(0);
-        mDisplayer.hideDegats();
-
-        Action action;
-        Limb which;
-        switch(parent.getId()) {
-            case R.id.left_actions:
-                action = mActionArrayLeft.get(position);
-                if(st.hasWeapon(Limb.BOTHHANDS))
-                    which = Limb.BOTHHANDS;
-                else
-                    which = Limb.LEFTHAND;
-                break;
-            case R.id.right_actions:
-                action = mActionArrayRight.get(position);
-                which = Limb.RIGHTHAND;
-                break;
-            default:
-                action = mActionArrayFree.get(position);
-                which = Limb.BAREHANDS;
-        }
-
-        mAttr.setSelection(st.getAttribute(action,which));
-        mDisplayer.setAlter(st.getSkillEnhancer(action, which));
-        mDisplayer.setModif(st.getSkillModifier(action,which));
-        if(action.isAttack())
-            mDisplayer.setDegats(st.getResultDice(which, action),st.getResultValue(which, action),st.getPenetration(which,action),st.getWeapon(which).isDirect(action));
-        mDisplayer.refresh();
     }
 
     private void toTired(){

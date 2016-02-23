@@ -220,5 +220,7 @@
     <string name="twohanded">twohanded sword</string>
     <string name="fatigue">fatigue</string>
     <string name="role">role</string>
+    <string name="connection">connection</string>
+    <string name="text_connection">test connection</string>
 
 </resources>

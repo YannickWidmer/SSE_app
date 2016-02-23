@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:orientation="horizontal"
         android:padding="@dimen/view_padding">
         <LinearLayout
@@ -151,101 +151,10 @@
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            style="@style/BaseText"
-            android:padding="@dimen/view_padding"
-            android:text="@string/fatigue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            style="@style/BaseText"
-            android:padding="@dimen/view_padding"
-            android:text=":"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            style="@style/BaseText"
-            android:padding="@dimen/view_padding"
-            android:text="@string/base"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/base_fatigue"
-            style="@style/BaseTextWhite"
-            android:text="0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            style="@style/BaseText"
-            android:text="@string/mouvement"
-            android:padding="@dimen/view_padding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/mouvement_fatigue"
-            style="@style/BaseTextWhite"
-            android:text="0"
-            android:padding="@dimen/view_padding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/BaseText"
-            android:padding="@dimen/view_padding"
-            android:text="@string/malus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            style="@style/BaseText"
-            android:padding="@dimen/view_padding"
-            android:text=":"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            style="@style/BaseText"
-            android:text="@string/esquiv"
-            android:padding="@dimen/view_padding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/esquiv"
-            style="@style/BaseTextWhite"
-            android:text="0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            style="@style/BaseText"
-            android:text="@string/run"
-            android:padding="@dimen/view_padding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/run"
-            style="@style/BaseTextWhite"
-            android:text="0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            style="@style/BaseText"
-            android:text="@string/fight"
-            android:padding="@dimen/view_padding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/fight"
-            style="@style/BaseTextWhite"
-            android:text="0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <fragment android:id="@+id/boni_malus"
+        class="ch.yannick.display.activityPlay.Frag_modif"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:layout="@layout/frag_talent_boni"/>
 </LinearLayout>

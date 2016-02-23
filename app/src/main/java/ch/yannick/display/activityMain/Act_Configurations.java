@@ -69,6 +69,10 @@ public class Act_Configurations extends MyBaseActivity {
         builder.create().show();
     }
 
+    public void testConnection(View v){
+        mRootApplication.testConnection();
+    }
+
 	@Override
 	public void react(String res, int Flag) {
 		// does nothing		

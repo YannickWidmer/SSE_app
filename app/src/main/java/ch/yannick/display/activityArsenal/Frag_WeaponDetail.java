@@ -141,7 +141,7 @@ public class Frag_WeaponDetail extends Fragment{
         LinearLayout attributeLayout, damageLayout, penetrationLayout, fatigueLayout;
 
         for (final Action finalAction : w.getTyp().getActions()) {
-            final ActionData actionData = w.getBaseData(finalAction);
+            final ActionData actionData = w.getData(finalAction);
             title = new TextView(getActivity());
             title.setText(finalAction.getStringId());
             title.setTextAppearance(getActivity(), R.style.BaseTextWhite);
@@ -153,7 +153,7 @@ public class Frag_WeaponDetail extends Fragment{
             flow.setPadding(getResources().getDimensionPixelOffset(R.dimen.view_padding));
 
             attributeLayout = makeLayout();
-            final Button attrOne = makeButton(actionData.firstAttribute.getStringId());
+            final Button attrOne = makeButton(actionData.attributes[0].getStringId());
                 attrOne.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -166,7 +166,7 @@ public class Frag_WeaponDetail extends Fragment{
                             public void onClick(DialogInterface dialog, int position) {
                                 Attribute attr = attributeArrayAdapter.getItem(position);
                                 dialog.dismiss();
-                                actionData.firstAttribute = attr;
+                                actionData.attributes[0] = attr;
                                 attrOne.setText(attr.getStringId());
                             }
                         });
@@ -182,7 +182,7 @@ public class Frag_WeaponDetail extends Fragment{
                 });
                 attrOne.setPadding(mTextPadding,0,mTextPadding,0);
                 attributeLayout.addView(attrOne);
-            final Button attrTwo = makeButton(actionData.secondAttribute.getStringId());
+            final Button attrTwo = makeButton(actionData.attributes[1].getStringId());
                 attrTwo.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -195,7 +195,7 @@ public class Frag_WeaponDetail extends Fragment{
                             public void onClick(DialogInterface dialog, int position) {
                                 Attribute attr = attributeArrayAdapter.getItem(position);
                                 dialog.dismiss();
-                                actionData.secondAttribute =  attr;
+                                actionData.attributes[1] =  attr;
                                 attrTwo.setText(attr.getStringId());
                             }
                         });

@@ -31,7 +31,7 @@ public enum EffectType {
      */
     VALUE(false);
 
-    // this means if it has something to do with actions and hence has to be treated in Weapon.setTalents;
+    // this means if it has something to do with actions and hence has to be treated in Weapon.setBoniAndMalus;
     private boolean isAction;
     EffectType(boolean action) {
         isAction = action;

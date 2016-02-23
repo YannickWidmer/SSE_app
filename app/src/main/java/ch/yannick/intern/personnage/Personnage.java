@@ -7,6 +7,7 @@ import java.util.Map;
 
 import ch.yannick.context.R;
 import ch.yannick.intern.action_talent.Talent;
+import ch.yannick.intern.state.Equipement;
 
 public class Personnage {
 
@@ -101,5 +102,9 @@ public class Personnage {
 	
 	public int getStamina(){
 		return attr.get(R.id.KEY_AU)*4;
+	}
+
+	public void setMalus(Equipement malus) {
+		 // TODO
 	}
 }

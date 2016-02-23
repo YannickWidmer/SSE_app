@@ -41,11 +41,6 @@
             android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:theme="@style/SSEBaseDialog" />
 
-
-
-
-
-
         <activity
             android:name="ch.yannick.display.activityArsenal.Act_Arsenal"
             android:label="@string/arsenal"
@@ -125,4 +120,8 @@
       		android:theme="@style/SSEBaseDialog" />
 
     </application>
+
+    <!--  Internet Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

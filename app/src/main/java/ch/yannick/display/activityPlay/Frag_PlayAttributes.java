@@ -12,6 +12,7 @@ import android.widget.ToggleButton;
 import java.util.List;
 
 import ch.yannick.context.R;
+import ch.yannick.context.RootApplication;
 import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.state.State;
 
@@ -25,11 +26,8 @@ public class Frag_PlayAttributes extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		Log.d(LOG, "onCreateView");
 		setHasOptionsMenu(true);
+		st = ((RootApplication)getActivity().getApplication()).getCurrentState();
 		return inflater.inflate(R.layout.frag_play_attributes, container, false);
-	}
-
-	public void setState(State state) {
-		st = state;
 	}
 
 	@Override
@@ -58,7 +56,7 @@ public class Frag_PlayAttributes extends Fragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		compute();
-        mDisplayer.setAlter(0);
+        mDisplayer.setEnhancer(0);
         mDisplayer.setModif(0);
 		mDisplayer.setSplit(1);
 		mDisplayer.refresh();
