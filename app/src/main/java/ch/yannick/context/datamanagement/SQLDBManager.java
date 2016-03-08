@@ -5,24 +5,22 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 
-import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.ActionData;
 import ch.yannick.intern.action_talent.Talent;
-import ch.yannick.intern.dice.Dice;
-import ch.yannick.intern.items.Armor;
+import ch.yannick.intern.items.Clothe;
+import ch.yannick.intern.items.Item;
 import ch.yannick.intern.personnage.Attribute;
+import ch.yannick.intern.personnage.Character;
 import ch.yannick.intern.personnage.HitZone;
-import ch.yannick.intern.personnage.Personnage;
 import ch.yannick.intern.personnage.Race;
-import ch.yannick.intern.usables.UsableTyp;
 import ch.yannick.intern.usables.Weapon;
-import ch.yannick.intern.usables.WeaponTyp;
+import ch.yannick.intern.usables.UsableInterface;
+import ch.yannick.intern.usables.UsableType;
 
 public class SQLDBManager extends SQLiteOpenHelper {
 
@@ -30,42 +28,60 @@ public class SQLDBManager extends SQLiteOpenHelper {
 	
 	  // All Static variables related to db
     // Database Version
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 12;
  
     // Database Name
     private static final String DATABASE_NAME = "SSE";
  
     // table names
     private static final String
-            TABLE_PERSONAGE = "personages";
-    private static final String TABLE_TALENTS = "talents";
-    private static final String TABLE_WEAPONS="weapons";
-    private static final String TABLE_SCHADEN="resultValue";
-    private static final String TABLE_WEAPON_ACTION="weapon_action";
-    private static final String TABLE_ARMOR = "armor";
- 
+            TABLE_CHARACTER = "character", TABLE_ATTRIBUTE = "attribute", TABLE_TALENT = "talent", TABLE_STATE = "state",
+            TABLE_ITEM= "item", TABLE_USABLE = "usable", TABLE_CLOTHE ="clothe", TABLE_SPELL ="spell", TABLE_MANA_COUNT = "mana_count",
+            TABLE_ATTRIBUTE_ACTION ="attribute_action";
+
     //Table columns for all tables
-    private static final String KEY_NAME = "name", KEY_ID="id";
-    
-    // Personage Table Columns names
-    private static final String  KEY_KA = "force", KEY_GK = "agility", KEY_GW = "speed",
-    		KEY_SZ = "saga", KEY_CH = "charme", KEY_SS = "Acuity", KEY_KB = "constitution", KEY_AU = "endurance",
-            KEY_WI = "will", KEY_MA = "magic", KEY_RACE = "race";
+    private static final String KEY_NAME = "name", KEY_DESCRIPTION = "description",
+            KEY_ID="id", KEY_SERVER_ID = "server_id",
+            KEY_VALUE = "value";
 
-    // weapon Table Columns names
+    // Foreign Keys
+    private static final String KEY_CHARACTER_ID = "character_id",KEY_ITEM_ID = "item_id",KEY_STATE_ID = "state_id";
+
+
+
+    // Character Table Columns names
+    private static final String  KEY_RACE = "race",
+                                KEY_CLASS = "class";
+
+    // attirbute and talent Table columns
+    //NONe
+
+
+    //item TABLE columsn
+    private static final String KEY_WEIGHT = "weight";
+
+    // usable Table Columns names
     private static final String KEY_TYPE= "type";
-    		
-	// Schaden Table Columns
-    private static final String KEY_VALUE="value",KEY_ACTION = "action";
 
-	// Weapon action Table Columns
-    private static final String KEY_ATTRIBUTE1="first_attribute",
-            KEY_ATTRIBUTE2="second_attribute",KEY_WEIGHT="weight",
-            KEY_FATIGUE="fatigue",  KEY_PENETRATION="penetration", KEY_DIRECT="isDirect",
-            KEY_SCHADEN="resultValue", KEY_ENHANCER = "enhancer";
+    // clothes table columns
+    private static final String KEY_WHEATER_PROTECTION = "wheater_protection",
+            KEY_PROTECTION  = "protection",
+            KEY_BODYPART ="bodypart";
 
-    // armor table columns
-    private static final String KEY_BODYPART="body_part", KEY_PROTECTION="protection", KEY_HEAT = "heat_protection";
+    // mana count table columns
+    private static final String  KEY_MANA = "mana";
+
+	// action Table Columns
+    private static final String  KEY_ATTRIBUTES="attributes",
+            KEY_FATIGUE="fatigue", KEY_MODIFIER = "modifier",
+            KEY_RESULT="resultValue", KEY_SKILL_ENHANCER = "enhancer";
+
+    // state table colums
+    private static final String KEY_LIFE_MAX = "life_max", KEY_LIFE_NOW ="life_now",
+            KEY_STAMINA_MAX ="stamina_max", KEY_STAMINA_NOW = "stamina_now",
+            KEY_PERIOD_STAMINA_MAX = "period_stamina_max", KEY_PERIOD_STAMINA_NOW= "period_stamina_now", KEY_PERIOD_STAMINA_USED = "period_stamina_used",
+            KEY_MENTALSTATE_X = "mentalstate_x", KEY_MENTALSTATE_Y = "mentalstate_y", KEY_MENTALSTATE = "mentalstate";
+
 
     private SQLiteDatabase db;
    
@@ -76,346 +92,360 @@ public class SQLDBManager extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_PERS_TABLE = "CREATE TABLE " + TABLE_PERSONAGE + "("
-                + KEY_ID + " LONG PRIMARY KEY," + KEY_NAME + " TEXT,"
+
+        String CREATE_CHARACTER_TABLE = "CREATE TABLE " + TABLE_CHARACTER + "("
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+                + KEY_SERVER_ID + " LONG,"
                 + KEY_RACE + " STRING,"
-                + KEY_KA + " INTEGER,"
-                + KEY_GK + " INTEGER,"
-                + KEY_GW + " INTEGER,"
-                + KEY_SZ + " INTEGER,"
-                + KEY_CH + " INTEGER,"
-                + KEY_SS + " INTEGER,"
-                + KEY_KB + " INTEGER,"
-                + KEY_AU + " INTEGER,"
-                + KEY_WI + " INTEGER,"
-                + KEY_MA + " INTEGER" 
+                + KEY_CLASS + " VARCHAR"
                 + ");";
 
-        String CREATE_TALENTS_TABLE=" CREATE TABLE "+ TABLE_TALENTS+"("
-                + KEY_ID + " LONG,"
-                + KEY_NAME + " STRING,"
+        String CREATE_ATTRIBUTE_TABLE = "CREATE TABLE " + TABLE_ATTRIBUTE + "("
+                + KEY_CHARACTER_ID + " INTEGER,"
+                + KEY_NAME + " VARCHAR,"
                 + KEY_VALUE + " INTEGER,"
-                + " FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_PERSONAGE+" ("+KEY_ID+") ON DELETE CASCADE);";
+                + " FOREIGN KEY ("+KEY_CHARACTER_ID+") REFERENCES "+TABLE_CHARACTER+" ("+KEY_ID+") ON DELETE CASCADE);";
 
-        String CREATE_WEAPONS_TABLE=" CREATE TABLE "+ TABLE_WEAPONS+"("
-        		+ KEY_ID + " LONG PRIMARY KEY, " + KEY_NAME + " TEXT,"
-        		+ KEY_TYPE +" STRING,"
-                + KEY_WEIGHT +" INTEGER"+");";
+        String CREATE_TALENT_TABLE=" CREATE TABLE "+ TABLE_TALENT+"("
+                + KEY_CHARACTER_ID + " LONG,"
+                + KEY_NAME + " VARCHAR,"
+                + KEY_VALUE + " INTEGER,"
+                + " FOREIGN KEY ("+KEY_CHARACTER_ID+") REFERENCES "+TABLE_CHARACTER+" ("+KEY_ID+") ON DELETE CASCADE);";
 
-        String CREATE_WEAPON_ACTION_TABLE=" CREATE TABLE "+TABLE_WEAPON_ACTION+" ("
-                + KEY_ID + " LONG,"
+        String CREATE_STATE_TABLE = "CREATE TABLE "+ TABLE_STATE +"("
+                + KEY_CHARACTER_ID + " INTEGER,"
+                + KEY_LIFE_MAX + " INTEGER,"
+                + KEY_LIFE_NOW + " INTEGER,"
+                + KEY_STAMINA_MAX + " INTEGER,"
+                + KEY_STAMINA_NOW + " INTEGER,"
+                + KEY_PERIOD_STAMINA_MAX + " INTEGER,"
+                + KEY_PERIOD_STAMINA_NOW+ " INTEGER,"
+                + KEY_PERIOD_STAMINA_USED + " INTEGER,"
+                + KEY_MENTALSTATE + " STRING,"
+                + KEY_MENTALSTATE_X + " INTEGER,"
+                + KEY_MENTALSTATE_Y+ " INTEGER,"
+                + " FOREIGN KEY ("+KEY_CHARACTER_ID+") REFERENCES "+TABLE_CHARACTER+" ("+KEY_ID+") ON DELETE CASCADE);";
+
+        String CREATE_TABLE_ITEM = " CREATE TABLE "+ TABLE_ITEM +"("
+                +KEY_ID + " INTEGER PRIMARY KEY,"
+                +KEY_NAME + " TEXT,"
+                +KEY_SERVER_ID + " LONG,"
+                +KEY_CHARACTER_ID+ " INTEGER,"
+                +KEY_DESCRIPTION + " TEXT,"
+                +KEY_WEIGHT + " INTEGER,"
+                + " FOREIGN KEY ("+KEY_CHARACTER_ID+") REFERENCES "+TABLE_CHARACTER+" ("+KEY_ID+") ON DELETE CASCADE);";
+
+        String CREATE_USABLE_TABLE=" CREATE TABLE "+ TABLE_USABLE +"("
+        		+ KEY_ITEM_ID + " INTEGER,"
+                + KEY_TYPE +" STRING,"
+                + " FOREIGN KEY ("+KEY_ITEM_ID+") REFERENCES "+TABLE_ITEM+" ("+KEY_ID+") ON DELETE CASCADE);";
+
+        String CREATE_TABLE_CLOTHE = "CREATE TABLE "+ TABLE_CLOTHE+"("
+                + KEY_ID + " INTEGER PRIMARY KEY, "
+                + KEY_ITEM_ID + " INTEGER,"
+                + KEY_BODYPART + " VARCHAR(255),"
+                + KEY_WHEATER_PROTECTION +" INTEGER,"
+                + KEY_PROTECTION +" INTEGER,"
+                + " FOREIGN KEY ("+KEY_ITEM_ID+") REFERENCES "+TABLE_ITEM+" ("+KEY_ID+") ON DELETE CASCADE);";
+
+
+        String CREATE_TABLE_SPELL = "CREATE TABLE " + TABLE_SPELL +"("
+                + KEY_ID + " INTEGER PRIMARY KEY, "
+                + KEY_CHARACTER_ID + " INTEGER,"
+                + " FOREIGN KEY ("+KEY_CHARACTER_ID+") REFERENCES "+TABLE_CHARACTER+" ("+KEY_ID+") ON DELETE CASCADE);";
+
+        String CREATE_TABLE_MANA_COUNT = "CREATE TABLE "+ TABLE_MANA_COUNT + "("
+                + KEY_ITEM_ID + " INTEGER,"
+                + KEY_STATE_ID + " INTEGER,"
+                + KEY_MANA + " INTEGER,"
+                + " FOREIGN KEY ("+KEY_ITEM_ID+") REFERENCES "+TABLE_ITEM+" ("+KEY_ID+") ON DELETE CASCADE"
+                + " FOREIGN KEY ("+KEY_STATE_ID+") REFERENCES "+TABLE_STATE+" ("+KEY_ID+") ON DELETE CASCADE);";
+
+        String CREATE_TABLE_ACTION = "CREATE TABLE "+ TABLE_ATTRIBUTE_ACTION +"("
+                + KEY_ITEM_ID + " INTEGER,"
+                + KEY_ID + " INTEGER PRIMARY KEY, "
                 + KEY_NAME + " STRING,"
-                + KEY_ATTRIBUTE1 + " STRING,"
-                + KEY_ATTRIBUTE2 + " STRING,"
-                + KEY_ENHANCER + " INTEGER,"
+                + KEY_ATTRIBUTES +" VARCHAR,"
                 + KEY_FATIGUE + " INTEGER,"
-                + KEY_PENETRATION +" INTEGER,"
-                + KEY_SCHADEN+" INTEGER,"
-                + KEY_DIRECT +" BOOLEAN,"
-                + " FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_WEAPONS+" ("+KEY_ID+") ON DELETE CASCADE);";
+                + KEY_SKILL_ENHANCER + " INTEGER,"
+                + KEY_MODIFIER + " INTEGER,"
+                + KEY_RESULT +" VARCHAR,"
+                + " FOREIGN KEY ("+KEY_ITEM_ID+") REFERENCES "+TABLE_ITEM+" ("+KEY_ID+") ON DELETE CASCADE);";
 
-        String CREATE_SCHADEN_TABLE=" CREATE TABLE "+ TABLE_SCHADEN+"("
-                + KEY_ID + " LONG,"
-                + KEY_NAME + " STRING,"
-                + KEY_ACTION + " STRING, "
-                + " FOREIGN KEY ("+KEY_ID+") REFERENCES "+TABLE_WEAPONS+" ("+KEY_ID+") ON DELETE CASCADE);";
-
-        String CREATE_ARMOR_TABLE=" CREATE TABLE "+ TABLE_ARMOR+"("
-                + KEY_ID + " LONG PRIMARY KEY, " + KEY_NAME + " TEXT,"
-                + KEY_WEIGHT + " INTEGER,"
-                + KEY_HEAT + " INTEGER,"
-                + KEY_BODYPART + " STRING,"
-                + KEY_PROTECTION + " INTEGER);";
-
-        db.execSQL(CREATE_PERS_TABLE);
-        db.execSQL(CREATE_TALENTS_TABLE);
-        db.execSQL(CREATE_WEAPONS_TABLE);
-        db.execSQL(CREATE_SCHADEN_TABLE);
-        db.execSQL(CREATE_WEAPON_ACTION_TABLE);
-        db.execSQL(CREATE_ARMOR_TABLE);
+        db.execSQL(CREATE_CHARACTER_TABLE);
+        db.execSQL(CREATE_ATTRIBUTE_TABLE);
+        db.execSQL(CREATE_STATE_TABLE);
+        db.execSQL(CREATE_TABLE_ACTION);
+        db.execSQL(CREATE_TABLE_CLOTHE);
+        db.execSQL(CREATE_TABLE_MANA_COUNT);
+        db.execSQL(CREATE_TALENT_TABLE);
+        db.execSQL(CREATE_USABLE_TABLE);
+        db.execSQL(CREATE_TABLE_ITEM);
+        db.execSQL(CREATE_TABLE_SPELL);
     }
  
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERSONAGE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TALENTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEAPONS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCHADEN);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WEAPON_ACTION);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARMOR);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ATTRIBUTE_ACTION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ATTRIBUTE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MANA_COUNT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEM);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPELL);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHARACTER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CLOTHE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TALENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USABLE);
         // Create tables again
         onCreate(db);
     }
-    
-    
+
     //////////// PERSONAGES //////////////////////////////////
 
-    public synchronized Long pushPersonnage(Personnage p){ // add or update personnage
-    	SparseIntArray attr = p.getAttr();
+    public synchronized Long pushCharacter(Character p){ // add or update personnage
     	ContentValues c = new ContentValues();
     	c.put(KEY_NAME, p.toString());
-    	c.put(KEY_AU, ""+attr.get(R.id.KEY_AU));
-    	c.put(KEY_CH, ""+attr.get(R.id.KEY_CH));
-    	c.put(KEY_GK, ""+attr.get(R.id.KEY_GK));
-    	c.put(KEY_GW, ""+attr.get(R.id.KEY_GW));
-    	c.put(KEY_KA, ""+attr.get(R.id.KEY_KA));
-    	c.put(KEY_KB, ""+attr.get(R.id.KEY_KB));
-        c.put(KEY_WI, ""+attr.get(R.id.KEY_WI));
-        c.put(KEY_MA, ""+attr.get(R.id.KEY_MA));
-    	c.put(KEY_SS, ""+attr.get(R.id.KEY_SS));
-    	c.put(KEY_SZ, ""+attr.get(R.id.KEY_SZ));
         c.put(KEY_RACE, p.getRasse().name());
+        c.put(KEY_SERVER_ID, p.getServerId());
+        c.put(KEY_CLASS, p.getJob());
 
-        long id = pushData(TABLE_PERSONAGE,p.getId(),c);
-        deleteEntry(TABLE_TALENTS,id);
+        long id = pushData(TABLE_CHARACTER,p.getId(),c);
+        Log.d(LOG," Character pushed and id is "+id);
+        p.setId(id);
+        deleteEntry(TABLE_TALENT,KEY_CHARACTER_ID,id);
         for(Talent tl:p.getTalents().keySet()){
-            Log.d(LOG,"pushing talent "+Talent.getName(tl));
+            Log.d(LOG,"pushing talent "+ tl.getName());
             c = new ContentValues();
-            c.put(KEY_ID,id);
-            c.put(KEY_NAME,Talent.getName(tl));
+            c.put(KEY_CHARACTER_ID,id);
+            c.put(KEY_NAME,tl.getName());
             c.put(KEY_VALUE,p.getTalents().get(tl));
-            pushData(TABLE_TALENTS,null,c);
+            pushData(TABLE_TALENT,null,c);
         }
 
+        deleteEntry(TABLE_ATTRIBUTE,KEY_CHARACTER_ID,id);
+        for(Attribute attribute:p.getAttributes()){
+            Log.d(LOG,"pushing attribute "+attribute.name());
+            c = new ContentValues();
+            c.put(KEY_CHARACTER_ID,id);
+            c.put(KEY_NAME,attribute.name());
+            c.put(KEY_VALUE,p.getAttr(attribute));
+            pushData(TABLE_ATTRIBUTE,null,c);
+        }
     	return id;
     }
-    
-    public synchronized ArrayList<Personnage> getAllPersonnage(){
-    	ArrayList<Personnage> list= new ArrayList<>();
-    	db = getReadableDatabase();
-    	Cursor cursor = db.query(TABLE_PERSONAGE,new String[]{KEY_NAME,KEY_ID},null,null,null,null,null);
-    	
-    	if(cursor.moveToFirst()){
-    		do{
-    			list.add(new Personnage(cursor.getString(0),cursor.getLong(1)));
-    		}while(cursor.moveToNext());
-    	}
-    	db.close();
-    	cursor.close();
-    	return list;
-    }
-    
-    public synchronized Personnage getPersonnage(Long id) throws Exception{
-    	db = getReadableDatabase();
-    	Cursor cursor = db.query(TABLE_PERSONAGE, new String[]{ KEY_ID, KEY_NAME, KEY_RACE, KEY_KA, KEY_GK,KEY_GW, KEY_SZ, KEY_CH, KEY_SS, KEY_KB, KEY_AU, KEY_WI, KEY_MA}, KEY_ID + "=?",
-    			new String[]{String.valueOf(id) }, null,null,null,null);
- 
-    	if(cursor.moveToFirst()){
-			Log.d(LOG,"adding Pers to list with id:"+cursor.getLong(0)+" Name:"+cursor.getString(1));
-			Log.d(LOG, "Attrs" + get(cursor, KEY_KA) + get(cursor, KEY_GK) + get(cursor, KEY_GW) + get(cursor, KEY_SZ) +
-                    get(cursor, KEY_CH) + get(cursor, KEY_SS) + get(cursor, KEY_KB) + get(cursor, KEY_AU) +get(cursor,KEY_WI)+ get(cursor, KEY_MA));
-				 
-    		Personnage p = new Personnage(cursor.getString(1),cursor.getLong(0));
-    		p.setAttr(get(cursor,KEY_KA),get(cursor,KEY_GK),get(cursor,KEY_GW),get(cursor,KEY_SZ),
-    				get(cursor,KEY_CH),get(cursor,KEY_SS),get(cursor,KEY_KB),get(cursor,KEY_AU),get(cursor,KEY_WI),get(cursor,KEY_MA));
-            p.setRasse(Race.valueOf(getString(cursor,KEY_RACE)));
-    		cursor.close();
 
-            // Talents
-            cursor = db.query(TABLE_TALENTS, new String[]{KEY_ID,KEY_NAME,KEY_VALUE},
-                    KEY_ID + "=?",new String[]{String.valueOf(id) }, null,null,null,null);
-            Log.d(LOG, cursor.toString());
+    public synchronized Character getCharacter(Long id) throws Exception{
+        db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CHARACTER, new String[]{ KEY_ID, KEY_NAME, KEY_RACE}, KEY_ID + "=?",
+                new String[]{String.valueOf(id) }, null,null,null,null);
+
+        if(cursor.moveToFirst()){
+            Log.d(LOG, "adding Pers to list with id:" + cursor.getLong(0) + " Name:" + cursor.getString(1));
+
+            Character p = new Character(cursor.getString(1),cursor.getLong(0));
+            p.setRasse(Race.valueOf(getString(cursor, KEY_RACE)));
+            cursor.close();
+
+            // Attributes
+            cursor = db.query(TABLE_ATTRIBUTE, new String[]{KEY_CHARACTER_ID,KEY_NAME,KEY_VALUE},
+                    KEY_CHARACTER_ID + "=?",new String[]{String.valueOf(id) }, null,null,null,null);
             if(cursor.moveToFirst()){
                 do{
-                    Log.d(LOG, "Adding talent" + getString(cursor,KEY_NAME));
+                    Log.d(LOG, "Adding attribute " + getString(cursor,KEY_NAME));
+                    p.setAttr(Attribute.valueOf(getString(cursor, KEY_NAME)), get(cursor, KEY_VALUE));
+                }while(cursor.moveToNext());
+            }
+            cursor.close();
+
+            // Talents
+            cursor = db.query(TABLE_TALENT, new String[]{KEY_CHARACTER_ID,KEY_NAME,KEY_VALUE},
+                    KEY_CHARACTER_ID + "=?",new String[]{String.valueOf(id) }, null,null,null,null);
+            if(cursor.moveToFirst()){
+                do{
+                    Log.d(LOG, "Adding talent " + getString(cursor,KEY_NAME));
                     p.setTalent(Talent.getTalent(getString(cursor, KEY_NAME)),get(cursor,KEY_VALUE));
                 }while(cursor.moveToNext());
             }
             cursor.close();
-        	db.close();
-        	return p;
-   		}else{
-   			cursor.close();
-   			db.close();
-   			throw(new Exception("Personnage not in the DataBase"));
-   		}
-   	}
-    
-    public synchronized void delete(Personnage p){
-		 deleteEntry(SQLDBManager.TABLE_PERSONAGE,p.getId());
-	 }
-
-    //////////// WEAPONS  //////////////////////////////////
-
-    public synchronized Long pushWeapon(Weapon w){
-    	ContentValues c = new ContentValues();
-    	
-    	// The Weapon
-    	c.put(KEY_NAME,w.toString());
-    	c.put(KEY_TYPE, ""+w.getTyp().getName());
-    	c.put(KEY_WEIGHT,""+w.getWeight());
-    	Long id = pushData(TABLE_WEAPONS,w.getId(),c); // in case it is first time
-
-        // Actions
-        deleteEntry(TABLE_WEAPON_ACTION,id);
-        deleteEntry(TABLE_SCHADEN,id);
-        ActionData actionData;
-        ContentValues contentValues,diceValues;
-        for(Action action:w.getBase_actions()){
-            actionData = w.getData(action);
-            contentValues = new ContentValues();
-            contentValues.put(KEY_ID,id);
-            contentValues.put(KEY_NAME,action.getName());
-            contentValues.put(KEY_ATTRIBUTE1,actionData.attributes[0].name());
-            contentValues.put(KEY_ATTRIBUTE2, actionData.attributes[1].name());
-            contentValues.put(KEY_ENHANCER,actionData.enhancer);
-            contentValues.put(KEY_FATIGUE, actionData.fatigue);
-            // The next values are zero if this action doesnt need them, so we don't need any if statement here
-            contentValues.put(KEY_PENETRATION,actionData.penetration);
-            contentValues.put(KEY_DIRECT,actionData.isDirect);
-            contentValues.put(KEY_SCHADEN,actionData.resultValue);
-            pushData(TABLE_WEAPON_ACTION, null, contentValues);
-            // Damage Dice
-            if(action.hasResult()){
-                for(Dice dice:w.getData(action).resultDice) {
-                    diceValues= new ContentValues();
-                    diceValues.put(KEY_ID,id);
-                    diceValues.put(KEY_ACTION,action.getName());
-                    diceValues.put(KEY_NAME,dice.name());
-                    pushData(TABLE_SCHADEN,null,diceValues);
-                }
-            }
+            db.close();
+            return p;
+        }else{
+            cursor.close();
+            db.close();
+            throw(new Exception("Personnage not in the DataBase"));
         }
-    	return id;
     }
-    
-	public synchronized ArrayList<Weapon> getAllWeapon() {
-		ArrayList<Weapon> list= new ArrayList<>();
+
+    public synchronized ArrayList<Character> getAllCharacter(){
+    	ArrayList<Character> list= new ArrayList<>();
     	db = getReadableDatabase();
-    	Cursor cursor = db.query(TABLE_WEAPONS, new String[]{KEY_ID, KEY_NAME, KEY_TYPE,KEY_WEIGHT}, null, null, null, null, null);
-    	
+    	Cursor cursor = db.query(TABLE_CHARACTER,new String[]{KEY_NAME,KEY_ID},null,null,null,null,null);
+
     	if(cursor.moveToFirst()){
     		do{
-    			Log.d(LOG,"adding Weapon to list with id:"+cursor.getLong(0)+" Name:"+cursor.getString(1)+" type:"+ cursor.getInt(2));
-                list.add(new Weapon(cursor.getLong(0), cursor.getString(1), (WeaponTyp)UsableTyp.valueOf(cursor.getString(2)),cursor.getInt(3)));
+                Log.d(LOG,"adding character with id " + cursor.getLong(1));
+    			list.add(new Character(cursor.getString(0),cursor.getLong(1)));
     		}while(cursor.moveToNext());
     	}
-
-        // To lazy to do the rest but I only need this function when showing lists and reaload the weapon afterwards
     	db.close();
     	cursor.close();
     	return list;
-	}
+    }
 
-	public synchronized Weapon getWeapon(Long id) throws Exception {
-		Weapon w;
-    	db = getReadableDatabase();
-    	Cursor c = db.query(TABLE_WEAPONS, new String[]{KEY_ID,KEY_NAME,KEY_TYPE,KEY_WEIGHT},
-    			KEY_ID + "=?",new String[]{String.valueOf(id) }, null,null,null,null);
-    	if(c.moveToFirst()){
-			Log.d(LOG,"The result of the query is (name="+c.getString(1)+"/id:"+ c.getInt(0)+"/type:"+c.getString(2)+"weight"+
-					c.getInt(3)+")");
+    public synchronized void delete(Character p){
+		 deleteEntry(SQLDBManager.TABLE_CHARACTER, p.getId());
+	 }
 
+    //////////// ITEMS  //////////////////////////////////
 
-            w =  new Weapon(getLong(c,KEY_ID),getString(c,KEY_NAME), (WeaponTyp) UsableTyp.valueOf(getString(c, KEY_TYPE)),get(c,(KEY_WEIGHT)));
-			c.close();
+    public synchronized Long pushItem(Item w){
+    	ContentValues c = new ContentValues();
 
-            // Schaden
-            c = db.query(TABLE_SCHADEN, new String[]{KEY_ID,KEY_NAME,KEY_ACTION},
-				KEY_ID + "=?",new String[]{String.valueOf(id) }, null,null,null,null);
-	    	Log.d(LOG,c.toString());
-	    	if(c.moveToFirst()){
-	    		do{
-	    			Log.d(LOG,"Adding dice" + get(c,KEY_NAME));
-	    			w.addDice(Action.valueOf(getString(c, KEY_ACTION)), Dice.valueOf(getString(c, KEY_NAME)));
-	    		}while(c.moveToNext());
-	    	}   		
-	    	c.close();
+        delete(w);
+    	c.put(KEY_NAME,w.getName());
+        c.put(KEY_SERVER_ID,w.getServerId());
+        c.put(KEY_CHARACTER_ID,w.getOwner());
+        c.put(KEY_DESCRIPTION,w.getDescription());
+        c.put(KEY_WEIGHT,w.getWeight());
+        Long id = pushData(TABLE_ITEM,w.getId(),c); // in case it is first time
 
-            //Actions
-            c = db.query(TABLE_WEAPON_ACTION, new String[]{KEY_ID,KEY_NAME,KEY_ATTRIBUTE1,KEY_ATTRIBUTE2,KEY_ENHANCER,KEY_FATIGUE
-                    ,KEY_SCHADEN,KEY_PENETRATION,KEY_DIRECT},
-                    KEY_ID + "=?",new String[]{String.valueOf(id) }, null,null,null,null);
-            Log.d(LOG,c.toString());
-            if(c.moveToFirst()){
-                do{
-                    Log.d(LOG, "Adding action " + getString(c, KEY_NAME)
-                            + " (" + getString(c, KEY_ATTRIBUTE1) + "," + getString(c, KEY_ATTRIBUTE2) + ","
-                            + get(c, KEY_ENHANCER) + "," + get(c, KEY_FATIGUE));
-                    Action  action =Action.valueOf(getString(c, KEY_NAME));
-                    ActionData actionData = w.getData(action);
-                    // Damage are set allready
-                    actionData.attributes[0] = Attribute.valueOf(getString(c,KEY_ATTRIBUTE1));
-                    actionData.attributes[1] = Attribute.valueOf(getString(c,KEY_ATTRIBUTE2));
-                    actionData.enhancer =  get(c,KEY_ENHANCER);
-                    actionData.fatigue = get(c,KEY_FATIGUE);
-                    if(action.is("Attack")){
-                        actionData.resultValue = get(c,KEY_SCHADEN);
-                        actionData.penetration = get(c,KEY_PENETRATION);
-                        actionData.isDirect = getBool(c,KEY_DIRECT);
-                    }
-                }while(c.moveToNext());
+        if(w instanceof UsableInterface){
+            ActionData data;
+            for(Action action:((UsableInterface) w).getActions()) {
+                data = ((UsableInterface) w).getData(action);
+                if(!data.isRemake) {
+                    c = new ContentValues();
+                    c.put(KEY_ITEM_ID, id);
+                    c.put(KEY_NAME, action.getName());
+                    c.put(KEY_ATTRIBUTES, data.getAttributesString());
+                    c.put(KEY_FATIGUE, data.fatigue);
+                    c.put(KEY_SKILL_ENHANCER, data.enhancer);
+                    c.put(KEY_RESULT, data.getResult());
+                    pushData(TABLE_ATTRIBUTE_ACTION, null, c);
+                }
             }
-            c.close();
+        }
 
-	    	db.close();
-	    	return w;
-   		}else { throw(new Exception("Weapon not in the Data Base"));}
-   	}
+        if(w instanceof Weapon){
+            c = new ContentValues();
+            c.put(KEY_ITEM_ID,id);
+            c.put(KEY_TYPE,((Weapon) w).getTyp().name());
+            pushData(TABLE_USABLE,null,c);
+        }
 
+        if(w instanceof Clothe){
+            c = new ContentValues();
+            c.put(KEY_ITEM_ID,id);
+            c.put(KEY_BODYPART,((Clothe) w).getPart().name());
+            c.put(KEY_WHEATER_PROTECTION,((Clothe) w).getWeatherProtection());
+            c.put(KEY_PROTECTION,((Clothe) w).getProtection());
+            pushData(TABLE_CLOTHE,null,c);
+        }
 
+        return id;
+    }
+    
+	public synchronized ArrayList<Item> getAllItem(Long ownerId) {
+		ArrayList<Item> list= new ArrayList<>();
+    	db = getReadableDatabase();
+    	Cursor cursor = db.query(TABLE_ITEM, new String[]{KEY_ID, KEY_NAME, KEY_SERVER_ID, KEY_CHARACTER_ID, KEY_DESCRIPTION, KEY_WEIGHT},
+                KEY_CHARACTER_ID +"=?",new String[]{String.valueOf(ownerId)}, null, null, null, null);
 
-    public synchronized void delete(Weapon w) {
-        deleteEntry(SQLDBManager.TABLE_WEAPONS, w.getId());
-		deleteEntry(SQLDBManager.TABLE_SCHADEN, w.getId());
+        Item item;
+        Cursor cSub;
+    	if(cursor.moveToFirst()){
+    		do{
+    			Log.d(LOG,"adding item to list with id:"+cursor.getLong(0)+" Name:"+cursor.getString(1));
+                item = new Item(getLong(cursor,KEY_ID),getLong(cursor,KEY_SERVER_ID),getLong(cursor,KEY_CHARACTER_ID),getString(cursor,KEY_NAME),
+                        getString(cursor,KEY_DESCRIPTION),get(cursor,KEY_WEIGHT));
+
+                cSub = db.query(TABLE_USABLE, new String[]{KEY_TYPE,KEY_ITEM_ID},KEY_ITEM_ID +"=?",
+                        new String[]{String.valueOf(getLong(cursor,KEY_ID))},null,null,null,null);
+                if(cSub.moveToFirst())
+                    item = new Weapon(item,UsableType.valueOf(getString(cSub, KEY_TYPE)));
+                cSub.close();
+                cSub = db.query(TABLE_CLOTHE, new String[]{KEY_ITEM_ID, KEY_WHEATER_PROTECTION, KEY_PROTECTION, KEY_BODYPART}, KEY_ITEM_ID +"=?",
+                        new String[]{String.valueOf(getLong(cursor,KEY_ID))},null,null,null,null);
+                if(cSub.moveToFirst())
+                    item = new Clothe(item, HitZone.valueOf(getString(cSub, KEY_BODYPART)),get(cSub,KEY_PROTECTION),get(cSub,KEY_WHEATER_PROTECTION));
+                cSub.close();
+
+                if(item instanceof Weapon){
+                    cSub = db.query(TABLE_ATTRIBUTE_ACTION,new String[]{KEY_ITEM_ID,KEY_NAME,KEY_ATTRIBUTES,KEY_FATIGUE,KEY_SKILL_ENHANCER,KEY_MODIFIER,KEY_RESULT},
+                            KEY_ITEM_ID+"=?",new String[]{String.valueOf(getLong(cursor,KEY_ID))},null,null,null,null);
+                    if(cSub.moveToFirst()){
+                        do{
+                            ((Weapon) item).addData(Action.valueOf(getString(cSub, KEY_NAME)),
+                                    new ActionData(get(cSub,KEY_FATIGUE), get(cSub,KEY_SKILL_ENHANCER),get(cSub,KEY_MODIFIER), getString(cSub,KEY_RESULT)));
+                        }while (cSub.moveToNext());
+                    }
+                }
+                list.add(item);
+            }while(cursor.moveToNext());
+    	}
+        cursor.close();
+        db.close();
+    	return list;
 	}
 
-
-    //////////// ARMOR  //////////////////////////////////
-
-    public synchronized Long pushArmor(Armor armor){
-        ContentValues c = new ContentValues();
-
-        // The Weapon
-        c.put(KEY_NAME,armor.toString());
-        c.put(KEY_BODYPART, ""+armor.getPart().name());
-        c.put(KEY_WEIGHT, "" + armor.getWeight());
-        c.put(KEY_HEAT,""+armor.getWeatherProtection());
-        c.put(KEY_PROTECTION,""+armor.getProtection());
-        return pushData(TABLE_ARMOR,armor.getId(),c); // in case it is first time
-    }
-
-    public synchronized ArrayList<Armor> getAllArmor(){
-        ArrayList<Armor> list= new ArrayList<>();
+    public synchronized Item getItem(Long id) {
         db = getReadableDatabase();
-        Cursor c = db.query(TABLE_ARMOR,new String[]{KEY_ID, KEY_NAME, KEY_PROTECTION,KEY_HEAT,KEY_WEIGHT,KEY_BODYPART},null,null,null,null,null);
-        Armor temp;
-        if(c.moveToFirst()){
-            do{
-                temp = new Armor(getLong(c,KEY_ID),getString(c,KEY_NAME), HitZone.valueOf(getString(c, KEY_BODYPART)),get(c, KEY_PROTECTION),get(c, KEY_WEIGHT));
-                temp.setWeatherProtection(get(c,KEY_HEAT));
-                list.add(temp);
-            }while(c.moveToNext());
+        Cursor cursor;
+        if(id != null)
+        cursor = db.query(TABLE_ITEM, new String[]{KEY_ID, KEY_NAME, KEY_SERVER_ID, KEY_CHARACTER_ID, KEY_DESCRIPTION, KEY_WEIGHT},
+                KEY_ID +"=?",new String[]{String.valueOf(id)}, null, null, null, null);
+        else
+            cursor = db.query(TABLE_ITEM, new String[]{KEY_ID, KEY_NAME, KEY_SERVER_ID, KEY_CHARACTER_ID, KEY_DESCRIPTION, KEY_WEIGHT},
+                    null,null, null, null, null, null);
+
+        Item item = null;
+        Cursor cSub;
+        if(cursor.moveToFirst()){
+
+            Log.d(LOG,"adding item to list with id:"+cursor.getLong(0)+" Name:"+cursor.getString(1));
+            item = new Item(getLong(cursor,KEY_ID),getLong(cursor,KEY_SERVER_ID),getLong(cursor,KEY_CHARACTER_ID),getString(cursor,KEY_NAME),
+                    getString(cursor,KEY_DESCRIPTION),get(cursor,KEY_WEIGHT));
+
+            cSub = db.query(TABLE_USABLE, new String[]{KEY_TYPE,KEY_ITEM_ID},KEY_ITEM_ID +"=?",
+                    new String[]{String.valueOf(getLong(cursor,KEY_ID))},null,null,null,null);
+            if(cSub.moveToFirst())
+                item = new Weapon(item,UsableType.valueOf(getString(cSub, KEY_TYPE)));
+            cSub.close();
+            cSub = db.query(TABLE_CLOTHE, new String[]{KEY_ITEM_ID, KEY_WHEATER_PROTECTION, KEY_PROTECTION, KEY_BODYPART}, KEY_ITEM_ID +"=?",
+                    new String[]{String.valueOf(getLong(cursor,KEY_ID))},null,null,null,null);
+            if(cSub.moveToFirst())
+                item = new Clothe(item, HitZone.valueOf(getString(cSub, KEY_BODYPART)),get(cSub,KEY_PROTECTION),get(cSub,KEY_WHEATER_PROTECTION));
+            cSub.close();
+
+            if(item instanceof Weapon){
+                cSub = db.query(TABLE_ATTRIBUTE_ACTION,new String[]{KEY_ITEM_ID,KEY_NAME,KEY_ATTRIBUTES,KEY_FATIGUE,KEY_SKILL_ENHANCER,KEY_MODIFIER,KEY_RESULT},
+                        KEY_ITEM_ID+"=?",new String[]{String.valueOf(getLong(cursor,KEY_ID))},null,null,null,null);
+                if(cSub.moveToFirst()){
+                    do{
+                        ((Weapon) item).addData(Action.valueOf(getString(cSub, KEY_NAME)),
+                                new ActionData(get(cSub,KEY_FATIGUE), get(cSub,KEY_SKILL_ENHANCER),get(cSub,KEY_MODIFIER), getString(cSub,KEY_RESULT)));
+                    }while (cSub.moveToNext());
+                }
+            }
         }
+        cursor.close();
         db.close();
-        c.close();
-        return list;
+        return item;
     }
 
-    public synchronized Armor getArmor(Long id) throws Exception{
-        db = getReadableDatabase();
-        Cursor c = db.query(TABLE_ARMOR, new String[]{ KEY_ID, KEY_NAME, KEY_PROTECTION,KEY_HEAT,KEY_WEIGHT,KEY_BODYPART}, KEY_ID + "=?",
-                new String[]{String.valueOf(id) }, null,null,null,null);
-
-        if(c.moveToFirst()){
-
-            Armor armor = new Armor(getLong(c,KEY_ID),getString(c,KEY_NAME), HitZone.valueOf(getString(c, KEY_BODYPART)),get(c,KEY_PROTECTION),get(c,KEY_WEIGHT));
-            armor.setWeatherProtection(get(c,KEY_HEAT));
-            c.close();
-            db.close();
-            return armor;
-        }else{
-            c.close();
-            db.close();
-            throw(new Exception("Armor not in the DataBase"));
-        }
+    public synchronized void delete(Item item) {
+        deleteEntry(TABLE_ITEM, item.getId());
+		deleteEntry(TABLE_USABLE, KEY_ITEM_ID, item.getId());
+        deleteEntry(TABLE_SPELL,KEY_ITEM_ID, item.getId());
+        deleteEntry(TABLE_CLOTHE,KEY_ITEM_ID, item.getId());
+        deleteEntry(TABLE_ATTRIBUTE_ACTION,KEY_ITEM_ID, item.getId());
     }
 
-    public synchronized void delete(Armor amor){
-        deleteEntry(SQLDBManager.TABLE_ARMOR,amor.getId());
-    }
+    // State
+    //TODO
+
 
 	// Help methods
 	
@@ -449,7 +479,12 @@ public class SQLDBManager extends SQLiteOpenHelper {
 	    }
 	    
 	private void deleteEntry(String table,Long id){
-		getWritableDatabase().delete(table,KEY_ID + " = ?",
-				new String[]{String.valueOf(id)});
+		deleteEntry(table,KEY_ID,id);
 	}
+
+    private void deleteEntry(String table,String key_column,Long id){
+        if(id != null)
+            getWritableDatabase().delete(table,key_column + " = ?",
+                new String[]{String.valueOf(id)});
+    }
 }

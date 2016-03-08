@@ -21,7 +21,7 @@ import ch.yannick.intern.action_talent.ActionData;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.Resolver;
 import ch.yannick.intern.state.State;
-import ch.yannick.intern.usables.Usable;
+import ch.yannick.intern.usables.UsableInterface;
 
 /**
  * Created by Yannick on 06.12.2015.
@@ -60,12 +60,12 @@ public class Frag_modif extends Fragment {
         @Override
         public void notifyDataSetChanged() {
             mList.clear();
-            for(Map.Entry<Limb,Usable> entry:st.getUsableMap().entrySet())
+            for(Map.Entry<Limb,UsableInterface> entry:st.getUsableMap().entrySet())
                 for(Action action:entry.getValue().getActions())
                     mList.add(new Holder(
-                            mContext.getResources().getString(entry.getKey().getStringId()),
-                            entry.getValue().getName(),
-                            mContext.getResources().getString(action.getStringId()),
+                            getResources().getString(entry.getKey().getStringId()),
+                            entry.getValue().getName(getResources()),
+                            getResources().getString(action.getStringId()),
                             entry.getValue().getData(action)));
 
             super.notifyDataSetChanged();

@@ -10,8 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/raw_creator" />
-            <option value="$PROJECT_DIR$/rule_tester" />
+            <option value="$PROJECT_DIR$/gcmsender" />
           </set>
         </option>
       </GradleProjectSettings>

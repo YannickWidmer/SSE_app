@@ -20,6 +20,7 @@ public abstract class MyBaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRootApplication = (RootApplication)this.getApplicationContext();
+        mRootApplication.addActivity(this);
         if(getActionBar() != null){
         	getActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -30,17 +31,10 @@ public abstract class MyBaseActivity extends Activity {
         mRootApplication.setCurrentActivity(this);
     }
     protected void onPause() {
-        clearReferences();
         super.onPause();
     }
-    protected void onDestroy() {        
-        clearReferences();
+    protected void onDestroy() {
+        mRootApplication.removeActivity(this);
         super.onDestroy();
-    }
-
-    private void clearReferences(){
-        Activity currActivity = mRootApplication.getCurrentActivity();
-        if (currActivity != null && currActivity.equals(this))
-            mRootApplication.setCurrentActivity(null);
     }
 }

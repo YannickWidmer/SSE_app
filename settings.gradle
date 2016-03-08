@@ -1,1 +1,1 @@
-include ':app', ':rule_tester', ':raw_creator'
+include ':app', ':gcmsender'

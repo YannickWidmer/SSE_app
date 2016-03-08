@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,10 +21,10 @@ import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.intern.action_talent.Action;
+import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
 import ch.yannick.intern.usables.Weapon;
-import ch.yannick.intern.usables.WeaponTyp;
 
 /**
  * Created by Yannick on 21.02.2016.
@@ -42,24 +42,34 @@ public class Frag_Actions extends Fragment implements AdapterView.OnItemClickLis
                              Bundle savedInstanceState) {
         Log.d(LOG, "onCreateView");
         st = ((RootApplication)getActivity().getApplication()).getCurrentState();
-        HorizontalScrollView v = (HorizontalScrollView) inflater.inflate(R.layout.frag_play_control, container, false);
-        View view;
+        HorizontalScrollView v = (HorizontalScrollView) inflater.inflate(R.layout.frag_actions, container, false);
+        LinearLayout lin = (LinearLayout) v.findViewById(R.id.list);
         Holder holder;
+        /*
+       here I Use the same layout several times to produce all lists, I then hide them all and only make them visible when they become relevant
+       since I inflate the same layout with the same ids I have to replace those Ids with new one, so that on onSavestate and onRestoreInstanceState
+       work proprerly.
+         */
         for(Limb l:Limb.values()) {
-            view =  inflater.inflate(R.layout.view_usable_state, v, true);
+            if(l == Limb.ALL)
+                continue;
             holder = new Holder();
-            holder.main = view;
-            holder.name = (TextView) view.findViewById(R.id.name);
+            holder.main =  inflater.inflate(R.layout.view_usable_state, null, false);
+            lin.addView(holder.main);
+            holder.name = (TextView) holder.main.findViewById(R.id.name);
+            holder.name.setId(View.generateViewId());
             holder.name.setText(l.getStringId());
-            holder.loaded = (ImageView) view.findViewById(R.id.loaded);
-            holder.unloaded = (ImageView) view.findViewById(R.id.unloaded);
+            holder.loaded = (ImageView) holder.main.findViewById(R.id.loaded);
+            holder.loaded.setId(View.generateViewId());
+            holder.unloaded = (ImageView) holder.main.findViewById(R.id.unloaded);
+            holder.unloaded.setId(View.generateViewId());
             holder.adapter = new EnumAdapter<>(getActivity(), holder.actions, R.layout.row_centered_text);
-            ListView listView = ((ListView) view.findViewById(R.id.actions));
+            ListView listView = ((ListView) holder.main.findViewById(R.id.actions));
+            holder.main.findViewById(R.id.actions).setId(View.generateViewId());
             listView.setAdapter(holder.adapter);
-            ((ListView)view.findViewById(R.id.actions)).setOnItemClickListener(this);
+            listView.setOnItemClickListener(this);
             listView.setTag(l);
             holderMap.put(l, holder);
-            v.addView(view);
         }
         return v;
     }
@@ -72,34 +82,32 @@ public class Frag_Actions extends Fragment implements AdapterView.OnItemClickLis
         mAttr = (Frag_PlayAttributes) getActivity().getFragmentManager().findFragmentById(R.id.attributes);
         mDisplayer = (Frag_Displayer) getActivity().getFragmentManager().findFragmentById(R.id.display);
 
-        View v = getView();
-
         refresh();
     }
 
     protected void refresh(){
         Holder holder;
+        Log.d(LOG,"refreshing");
         for(Map.Entry<Limb,Holder> entry:holderMap.entrySet()){
             if(st.hasUsable(entry.getKey())){
                 holder = entry.getValue();
-                holder.name.setText(st.getUsable(entry.getKey()).getName());
+                holder.main.setVisibility(View.VISIBLE);
+                holder.name.setText(st.getUsable(entry.getKey()).getName(getResources()));
                 holder.actions.clear();
                 holder.actions.addAll(st.getActions(entry.getKey()));
+                holder.adapter.notifyDataSetChanged();
                 holder.loaded.setVisibility(View.GONE);
                 holder.unloaded.setVisibility(View.GONE);
-                if(((WeaponTyp)st.getUsable(entry.getKey()).getTyp()).isLoadable()){
-                    if(((Weapon)st.getUsable(entry.getKey())).getIsLoaded()){
+                if((st.getUsable(entry.getKey()).getTyp()).isLoadable()) {
+                    if (((Weapon) st.getUsable(entry.getKey())).getIsLoaded()) {
                         holder.loaded.setVisibility(View.VISIBLE);
-                    }else{
+                    } else {
                         holder.unloaded.setVisibility(View.VISIBLE);
                     }
                 }
             }else
                 entry.getValue().main.setVisibility(View.GONE);
         }
-
-        ((TextView) getView().findViewById(R.id.mental_state)).setText(st.getMentalState().getStringId());
-        ((TextView) getView().findViewById(R.id.race)).setText(st.getRace().getStringId());
     }
 
     // Actions in listviews
@@ -111,13 +119,15 @@ public class Frag_Actions extends Fragment implements AdapterView.OnItemClickLis
         Limb l = (Limb) parent.getTag();
         Holder h = holderMap.get(l);
         Action act = h.actions.get(position);
-
-        mAttr.setSelection(Arrays.asList(st.getActionData(l,act).attributes));
+        Log.d(LOG," attributes "+st.getActionData(l,act).attributes.toString());
+        for(Attribute attr:st.getActionData(l,act).attributes)
+            Log.d(LOG,"- "+attr);
+        mAttr.setSelection(st.getActionData(l, act).attributes);
         mDisplayer.setEnhancer(st.getActionData(l, act).getEnhancer());
         mDisplayer.setModif(st.getActionData(l, act).getModifier());
-        if(act.is("ATTACK"))
-            mDisplayer.setDegats(st.getActionData(l, act).resultDice,st.getActionData(l, act).resultValue,
-                    st.getActionData(l, act).penetration,st.getActionData(l, act).isDirect);
+        if(act.hasResult())
+            mDisplayer.setDegats(act.getResultNameId(),st.getActionData(l, act).resultDice,st.getActionData(l, act).resultValue,
+                    st.getActionData(l, act).resultString);
         mDisplayer.refresh();
     }
 

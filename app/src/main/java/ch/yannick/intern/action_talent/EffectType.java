@@ -22,10 +22,11 @@ public enum EffectType {
     */
     RESULTMODIFIER(true),
     /*
-    *Talents with this effect Add an action to a weapon and change its fatigue and its skill, there might be a Talent of the
-    * type LUCKMODIFIER combined with this one, if this is the case it is important that the REMAKE has to be learned first.
+    *Talents with this effect Adds an action to a usable, there might be a Talent of the
+    * type LUCKMODIFIER combined with this one, if this is the case it is important that the ALLOWING talent is learned first.
+    *
     */
-    ACTIONREMAKE(true),
+    ALLOWACTION(true),
     /*
     *Talents with this effect change values (Resolver.Value) computed in Resolver
      */

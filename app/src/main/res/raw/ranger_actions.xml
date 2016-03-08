@@ -1,0 +1,19 @@
+<Actions>
+    <Flags>
+        <Flag name = "TWOHANDED"/>
+        <Flag name = "LOADING"/>
+        <Flag name = "ATTACK" result = "@string/result_damage"/>
+    </Flags>
+
+
+    <Action name="WEATHERTEST" show_name ="@string/action_cold_sleep"
+        attributes ="PHYSIQUE,PHYSIQUE" fatigue="0"/>
+    <Action name="MAKEFIRE" show_name ="@string/action_make_fire"
+        attributes ="ASTUTENESS,AGILITY" fatigue="1"/>
+    <Action name="COOK" show_name ="@string/action_cook"
+        attributes ="STAMINA,AGILITY" fatigue="1"/>
+    <Action name="BUTCHER" show_name ="@string/action_butcher"
+        attributes ="FORCE,STAMINA" fatigue="2"/>
+    <Action name="FISHING" show_name ="@string/action_fishing"
+        attributes ="WILL,AGILITY" fatigue="0"/>
+</Actions>

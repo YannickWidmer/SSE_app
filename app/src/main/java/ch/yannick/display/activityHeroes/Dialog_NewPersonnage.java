@@ -17,7 +17,7 @@ public class Dialog_NewPersonnage extends MyBaseActivity {
 	
 	public void confirmed(View v){
 		final EditText input = (EditText) findViewById(R.id.nom);
-		((RootApplication) getApplication()).getDataManager().newPersonnage(input.getText().toString());
+		((RootApplication) getApplication()).getDataManager().newCharacter(input.getText().toString());
 		super.finish();
 	}
 	

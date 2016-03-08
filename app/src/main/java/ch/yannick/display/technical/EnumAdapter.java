@@ -37,8 +37,4 @@ public class EnumAdapter<T extends AdapterUsable> extends ArrayAdapter<T> {
         text.setText(getItem(position).getStringId());
         return convertView;
     }
-
-    private static class ViewHolder {
-        private TextView itemView;
-    }
 }

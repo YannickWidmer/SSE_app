@@ -56,7 +56,6 @@
     <string name="arsenal">arsenal</string>
     <string name="menu_new_weapon">add Weapon</string>
 
-    <string name="direct">direct</string>
 
     <string name="plus">+</string>
     <string name="addDice">add dice</string>
@@ -215,12 +214,14 @@
     <string name="mana_weapon">mana weapon</string>
 
     <!-- Weapon/Action Attributes -->
-    <string name="degats">damage</string>
     <string name="penetration">penetration</string>
+    <string name="result_damage">damage</string>
     <string name="twohanded">twohanded sword</string>
     <string name="fatigue">fatigue</string>
     <string name="role">role</string>
     <string name="connection">connection</string>
     <string name="text_connection">test connection</string>
-
+    <string name="arm_shield">arm shield</string>
+    <string name="spell">spel</string>
+    <string name="connect">connect</string>
 </resources>

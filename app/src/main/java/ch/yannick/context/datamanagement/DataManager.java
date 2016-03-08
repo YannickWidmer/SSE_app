@@ -4,13 +4,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.RootApplication;
-import ch.yannick.intern.items.Armor;
-import ch.yannick.intern.personnage.Personnage;
+import ch.yannick.intern.items.Clothe;
+import ch.yannick.intern.items.Item;
+import ch.yannick.intern.personnage.Character;
+import ch.yannick.intern.usables.UsableType;
 import ch.yannick.intern.usables.Weapon;
-import ch.yannick.intern.usables.WeaponTyp;
 
 public class DataManager {
 
@@ -25,15 +27,15 @@ public class DataManager {
         root = context;
     }
 
-    public ArrayList<Personnage> getAllPersonnage() {
+    public ArrayList<Character> getAllCharacter() {
         // returns just name and ids
-        return db.getAllPersonnage();
+        return db.getAllCharacter();
     }
 
-    public Personnage getPersonnage(Long id) {
-        Log.d(LOG, "Looking for personnage with id " + id);
+    public Character getCharacter(Long id) {
+        Log.d(LOG, "Looking for character with id " + id);
         try {
-            return db.getPersonnage(id);
+            return db.getCharacter(id);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -41,79 +43,69 @@ public class DataManager {
         }
     }
 
-    public void newPersonnage(String name) {
-        AsyncInsert as = new AsyncInsert(new Personnage(name, null));
+    public void newCharacter(String name) {
+        AsyncInsert as = new AsyncInsert(new Character(name, null));
         as.execute();
     }
 
-    public void newWeapon(String name, WeaponTyp type) {
-        Log.d(LOG, "new Weapon " + name + " type " + type.getName());
-        AsyncInsert as = new AsyncInsert(new Weapon(null, name, type,0));
+    public void newUsable(String name, UsableType type) {
+        Log.d(LOG, "new Usable " + name + " type " + type.name());
+        AsyncInsert as = new AsyncInsert(new Weapon( type,name));
         as.execute();
     }
 
-    public void newArmor(String name) {
-        Log.d(LOG, "new armor " + name);
-        AsyncInsert as = new AsyncInsert(new Armor(null, name));
+    public void newClothe(String name) {
+        Log.d(LOG, "new clothe " + name);
+        AsyncInsert as = new AsyncInsert(new Clothe(null, name));
         as.execute();
     }
 
 
-    public void delete(Personnage p) {
+    public void delete(Character p) {
         db.delete(p);
     }
 
-    public void delete(Weapon w) {
+    public void delete(Item w) {
         db.delete(w);
     }
 
-    public void delete(Armor armor) {
-        db.delete(armor);
-    }
 
-    public ArrayList<Weapon> getAllWeapon() {
+    public ArrayList<Item> getAllItem(Long ownerId) {
         //returns just the name, ids and types
-        return db.getAllWeapon();
+        return db.getAllItem(ownerId);
     }
 
-    public Weapon getWeapon(Long id) throws Exception {
-        Log.d(LOG, "Looking for weapon with id " + id);
-        return db.getWeapon(id);
-
+    public Item getItem(Long id){
+        return db.getItem(id);
     }
 
-    public ArrayList<Armor> getAllArmor() {
-        return db.getAllArmor();
-    }
-
-    public Armor getArmor(Long id) throws Exception{
-        Log.d(LOG, "Looking for armor with id " + id);
-        return db.getArmor(id);
-    }
-
-    public void pushPersonnage(Personnage p) { // add or update personnage
+    public void pushPersonnage(Character p) { // add or update personnage
         new AsyncInsert(p).execute();
     }
 
-    public void pushWeapon(Weapon w) {
-        new AsyncInsert(w).execute();
+    public void pushItem(Item item) {
+        new AsyncInsert(item).execute();
     }
 
-    public void pushArmor(Armor arm){
-        new AsyncInsert(arm).execute();
+    public ArrayList<Weapon> getAllWeapon() {
+        List<Item> list = db.getAllItem(null);
+        ArrayList<Weapon> res = new ArrayList<>();
+        for(Item it :list){
+            if(it instanceof  Weapon)
+                res.add((Weapon)it);
+        }
+        return res;
     }
-
 
     //////////// ASYNCQUERYS ////////////////////////////////////
 
 
     private class AsyncInsert extends AsyncTask<Void, Void, Long> {
-        private Personnage p;
-        private Weapon w;
-        private Armor arm;
+        private Character p;
+        private Item item;
         private int flag;
 
-        public AsyncInsert(Personnage p) {
+        public AsyncInsert(Character p) {
             super();
             this.p = p;
             if (p.getId() == null) {
@@ -124,43 +116,29 @@ public class DataManager {
             Log.d(LOG, "Pushing Personnage, id:" + p.getId());
         }
 
-        public AsyncInsert(Weapon w) {
+        public AsyncInsert(Item item) {
             super();
-            this.w = w;
-            if (w.getId() == null) {
+            this.item = item;
+            if (item.getId() == null) {
                 this.flag = MyBaseActivity.INSERTWEAPON;
             } else {
                 this.flag = MyBaseActivity.UPDATEWEAPON;
             }
-            Log.d(LOG, "Pushing Weapon, id:" + w.getId());
+            Log.d(LOG, "Pushing item, id:" + item.getId());
         }
 
-        public AsyncInsert(Armor a) {
-            super();
-            this.arm = a;
-            if (arm.getId() == null) {
-                this.flag = MyBaseActivity.INSERTARMOR;
-            } else {
-                this.flag = MyBaseActivity.UPDATEARMOR;
-            }
-            Log.d(LOG, "Pushing Armor, id:" + arm.getId());
-        }
 
         @Override
         protected Long doInBackground(Void... params) {
             switch (flag) {
                 case (MyBaseActivity.INSERTPERSONNAGE):
                 case (MyBaseActivity.UPDATEPERSONNAGE):
-                    Log.d(LOG, "Insert personnage " + p.toString());
-                    return db.pushPersonnage(p);
+                    Log.d(LOG, "Insert character " + p.toString());
+                    return db.pushCharacter(p);
                 case (MyBaseActivity.INSERTWEAPON):
                 case (MyBaseActivity.UPDATEWEAPON):
-                    Log.d(LOG, "Insert weapon " + w.toString());
-                    return db.pushWeapon(w);
-                case (MyBaseActivity.INSERTARMOR):
-                case (MyBaseActivity.UPDATEARMOR):
-                    Log.d(LOG, "Insert armor " + arm.toString());
-                    return db.pushArmor(arm);
+                    Log.d(LOG, "Insert item " + item.toString());
+                    return db.pushItem(item);
                 default:
                     Log.w(LOG, " AsyncInsert got unattended Flag");
                     return (long) -1;// should never happen

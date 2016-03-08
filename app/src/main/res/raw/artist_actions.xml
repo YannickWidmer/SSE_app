@@ -1,0 +1,8 @@
+<Actions>
+
+    <Action name="SING" show_name ="@string/action_sing"
+        attributes ="CHARM,ASTUTENESS" fatigue="0"/>
+    <Action name="MAKEMUSIC" show_name ="@string/action_make_music"
+        attributes ="ASTUTENESS,AGILITY" fatigue="1"/>
+
+</Actions>

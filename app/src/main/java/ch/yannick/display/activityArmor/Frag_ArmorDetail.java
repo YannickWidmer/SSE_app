@@ -22,13 +22,14 @@ import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.display.technical.EnumAdapter;
 import ch.yannick.display.views.ValueControler;
-import ch.yannick.intern.items.Armor;
+import ch.yannick.intern.items.Clothe;
+import ch.yannick.intern.items.Item;
 import ch.yannick.intern.personnage.HitZone;
 
 public class Frag_ArmorDetail extends Fragment {
 
     private static final String LOG = "Frag:ArmorDetail";
-    private Armor armor;
+    private Clothe armor;
     private HitZone mPart;
     private int index;
     private EnumAdapter<HitZone> mBodyParts;
@@ -62,7 +63,11 @@ public class Frag_ArmorDetail extends Fragment {
 
         index = getArguments().getInt("index", 0);
         try {
-            armor = ((RootApplication) getActivity().getApplication()).getDataManager().getArmor(getArguments().getLong("id", 0));
+            Item it = ((RootApplication) getActivity().getApplication()).getDataManager().getItem(getArguments().getLong("id", 0));
+            if(it instanceof Clothe)
+                armor = (Clothe) it;
+            else
+                getActivity().finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -145,7 +150,7 @@ public class Frag_ArmorDetail extends Fragment {
                 armor.setProtection(((ValueControler) getView().findViewById(R.id.protection)).getValue());
                 armor.setWeatherProtection(((ValueControler) getView().findViewById(R.id.wheater_protection)).getValue());
                 armor.setPart(mPart);
-                ((RootApplication) getActivity().getApplication()).getDataManager().pushArmor(armor);
+                ((RootApplication) getActivity().getApplication()).getDataManager().pushItem(armor);
                 return true;
         }
         return false;

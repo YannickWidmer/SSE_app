@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.display.activityMain.Inter_ListCarrier;
-import ch.yannick.intern.personnage.Personnage;
+import ch.yannick.intern.personnage.Character;
 
 /*
  * This fragment contains the -list of heroes in the DB. It can be embedded
@@ -30,8 +30,8 @@ public class Frag_HeroesList extends Fragment implements OnItemClickListener, On
 	private static final String LOG="Frag:HeroesList";
 	//private boolean isDualPane;
 	private int position=-1;
-	private ArrayAdapter<Personnage> adapter;
-	private ArrayList<Personnage> personnageList= new ArrayList<Personnage>();
+	private ArrayAdapter<Character> adapter;
+	private ArrayList<Character> personnageList= new ArrayList<Character>();
 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +52,7 @@ public class Frag_HeroesList extends Fragment implements OnItemClickListener, On
 	        public void onClick(final View v) {
 	        	if(position !=-1){
 	        		try{
-			        	Personnage p=personnageList.get(position);
+			        	Character p=personnageList.get(position);
 			        	personnageList.remove(position);
 			        	((RootApplication) getActivity().getApplication()).getDataManager().delete(p);
 			        	position=-1;
@@ -70,13 +70,13 @@ public class Frag_HeroesList extends Fragment implements OnItemClickListener, On
 		super.onActivityCreated(savedInstanceState);
 		Log.d(LOG,"onActivityCreated");
 		try{
-			 personnageList=((RootApplication) getActivity().getApplication()).getDataManager().getAllPersonnage();
+			 personnageList=((RootApplication) getActivity().getApplication()).getDataManager().getAllCharacter();
 		}catch(Exception e){e.printStackTrace();}
 		
 	
 		final ListView listview = (ListView) getView().findViewById(R.id.listView);
 		
-		adapter =	new ArrayAdapter<Personnage>(getActivity().getApplication(),android.R.layout.simple_list_item_1,personnageList);
+		adapter =	new ArrayAdapter<Character>(getActivity().getApplication(),android.R.layout.simple_list_item_1,personnageList);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
 		listview.setOnItemLongClickListener(this);
@@ -114,7 +114,7 @@ public class Frag_HeroesList extends Fragment implements OnItemClickListener, On
 		Log.d(LOG, "upDate");
 		try{
 			 personnageList.clear();
-			 personnageList.addAll(((RootApplication) getActivity().getApplication()).getDataManager().getAllPersonnage());
+			 personnageList.addAll(((RootApplication) getActivity().getApplication()).getDataManager().getAllCharacter());
 		}catch(Exception e){e.printStackTrace();}
 	    
 		adapter.notifyDataSetChanged();

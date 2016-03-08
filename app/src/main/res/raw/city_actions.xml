@@ -1,0 +1,7 @@
+<Actions>
+
+    <Fight>
+        <Action name="STEAL" show_name ="@string/action_steal"
+            attributes ="ACUITY,AGILITY" fatigue="0"/>
+    </Fight>
+</Actions>

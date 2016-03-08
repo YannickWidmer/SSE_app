@@ -4,18 +4,20 @@ package ch.yannick.intern.state;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import ch.yannick.context.datamanagement.DataManager;
 import ch.yannick.display.activityMental.Vector;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.ActionData;
 import ch.yannick.intern.action_talent.Talent;
-import ch.yannick.intern.items.Armor;
+import ch.yannick.intern.items.Clothe;
 import ch.yannick.intern.personnage.Attribute;
+import ch.yannick.intern.personnage.Character;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
-import ch.yannick.intern.personnage.Personnage;
 import ch.yannick.intern.personnage.Race;
-import ch.yannick.intern.usables.Usable;
+import ch.yannick.intern.usables.UsableInterface;
 import ch.yannick.intern.usables.Weapon;
 
 
@@ -29,15 +31,14 @@ public class State {
 
     private static String LOG= "State";
 
-    protected Personnage p;
+    protected Character p;
     protected int liveNow,liveMax,staminaMax,staminaNow,staminaUsed;
-	protected Equipement equipement = new Equipement();
-    private Usables mUsables = new Usables();
+	protected Inventory mInventory = new Inventory();
 
     private Vector mentalPosition;
     protected MentalState mentalState;
 
-    public State(Personnage p){
+    public State(Character p){
 		this.p = p;
 		staminaUsed=0;
         mentalPosition = new Vector(0,0);
@@ -48,7 +49,11 @@ public class State {
         this.newRound();
 	}
 
-    public void setPersonnage(Personnage p){
+    public void getInventoryFromSQL(DataManager dM){
+        mInventory.setFromDB(p.getId(), dM);
+    }
+
+    public void setPersonnage(Character p){
         this.p = p;
         newRound();
     }
@@ -67,8 +72,7 @@ public class State {
 
     public void newRound() {
         staminaUsed = 0;
-        mUsables.setBoniAndMalus(p.getTalents(), mentalState, this);
-        p.setMalus(equipement);
+        mInventory.setBoniAndMalus(p.getTalents(), this);
     }
 
     public void setHealth(int now, int max){
@@ -102,7 +106,7 @@ public class State {
 
     // returns effective damage
 	public int takeHit(HitZone where, int damage, int pierce, boolean direct){
-        damage = Resolver.computeDamage(equipement,where,damage,pierce,direct);
+        damage = Resolver.computeDamage(mInventory,where,damage,pierce,direct);
 		liveNow -= damage;
         return damage;
 	}
@@ -119,10 +123,10 @@ public class State {
     }
 
     public boolean canAct(Action action, Limb which, boolean reaction) {
-        if(!canAct(mUsables.getActionData(which,action).getFatigue(), reaction))
+        if(!canAct(mInventory.mUsables.getActionData(which,action).getFatigue(), reaction))
             return false;
-        return mUsables.hasUsable(which)
-                        && mUsables.canAction(which,action);
+        return mInventory.mUsables.hasUsable(which)
+                        && mInventory.mUsables.canAction(which,action);
     }
 
     public boolean act(int staminaCost, boolean reaction){
@@ -144,54 +148,54 @@ public class State {
     }
 
     public List<Action> getActions(Limb which){
-        return mUsables.getActions(which);
+        return mInventory.mUsables.getActions(which);
     }
 
-    public void setUsable(Usable u, Limb which){
+    public void setUsable(Weapon u, Limb which){
         if(which == Limb.ALL)
             return;
         u.setTalents(p.getTalents(), mentalState);
-        mUsables.setWeapon((Weapon) u, which);
+        mInventory.mUsables.setUsable(u, which);
     }
 
     public void removeUsable(Limb which) {
-        mUsables.removeWeapon(which);
+        mInventory.mUsables.removeUsable(which);
     }
 
     public boolean hasUsable(Limb which){
-        return mUsables.hasUsable(which);
+        return mInventory.mUsables.hasUsable(which);
     }
 
     public ActionData getActionData(Limb which, Action action){
-        return mUsables.getActionData(which, action);
+        return mInventory.mUsables.getActionData(which, action);
     }
 
-    public Map<Limb,Usable> getUsableMap(){
-        return mUsables.getUsableMap();
+    public Map<Limb,UsableInterface> getUsableMap(){
+        return mInventory.mUsables.getUsableMap();
     }
 
-    public Usable getUsable(Limb limb) {
-        return mUsables.getUsable(limb);
+    public UsableInterface getUsable(Limb limb) {
+        return mInventory.mUsables.getUsable(limb);
     }
 
     public void combine(Limb limb) {
-        mUsables.combine(limb, p, mentalState);
+        mInventory.mUsables.combine(limb, p, mentalState);
     }
 
-    public void putOn(Armor armor) {
-        this.equipement.put(armor);
+    public void putOn(Clothe armor) {
+        mInventory.mEquipement.put(armor);
     }
 
-    public ArrayList<Armor> getAllArmor() {
-        return equipement.getAllArmor();
+    public ArrayList<Clothe> getAllArmor() {
+        return mInventory.mEquipement.getAllArmor();
     }
 
-    public void removeArmor(Armor armor) {
-        equipement.removeArmor(armor);
+    public void removeArmor(Clothe armor) {
+        mInventory.mEquipement.removeArmor(armor);
     }
 
     public int getProtection(HitZone where){
-        return equipement.getProtection(where);
+        return mInventory.mEquipement.getProtection(where);
     }
 
     public Vector getMentalPosition(){
@@ -212,6 +216,14 @@ public class State {
     }
 
     public int getWeight() {
-        return equipement.getWeight() + mUsables.getWeight();
+        return mInventory.getWeight();
+    }
+
+    public Inventory getInventory() {
+        return mInventory;
+    }
+
+    public Set<Attribute> getAttributes() {
+        return p.getAttributes();
     }
 }

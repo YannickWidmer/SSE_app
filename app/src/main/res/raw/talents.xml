@@ -30,7 +30,7 @@
         effect_type="LUCKMODIFIER"  />
 
     <Talent name="TWOHANDATTACK" show_name="@string/talent_twohand_destroyer" description="@string/talent_twohand_destroyer_description"
-        effect_type="SKILLMODIFIER"  weapon_type="BISWORD">
+        effect_type="SKILLMODIFIER"  usable_type="BISWORD">
         <MentalEffect
             FRENETIC = "0,0,0,1,1,1,2,2,3,3"
             AGRESSIVE = "0,1,1,2,2,3,4,5,5,5"
@@ -38,7 +38,7 @@
     </Talent>
 
     <Talent name="CONJURE" show_name="@string/action_conjure" description="@string/talent_conjure_description"
-        weapon_type="GENERAL" effect_type="SKILLMODIFIER" >
+        effect_type="SKILLMODIFIER" >
         <MentalEffect
             FOCUSED = "0,0,0,1,1,1,2,2,3,3"
             IMMERSED = "0,1,1,2,2,3,4,5,5,5"
@@ -46,7 +46,7 @@
     </Talent>
 
     <Talent name="TWOSWORDSATTACK" show_name="@string/talent_two_sword_dance" description="@string/talent_two_sword_dance_description"
-        weapon_type="TWOSWORDS" effect_type="SKILLMODIFIER" action = "ATTACK">
+        usable_type="TWOSWORDS" effect_type="SKILLMODIFIER" action = "ATTACK">
         <MentalEffect
             CONCENTRATED = "0,0,0,1,1,1,2,2,3,3"
             METAPHASE = "0,1,1,2,2,3,4,5,5,5"
@@ -54,7 +54,7 @@
     </Talent>
 
     <Talent name="POLEATTACK" show_name="@string/talent_pole_master" description="@string/talent_pole_master_description"
-        weapon_type="POLEWEAPON" effect_type="SKILLMODIFIER" action = "ATTACK">
+        usable_type="POLEWEAPON" effect_type="SKILLMODIFIER" action = "ATTACK">
         <MentalEffect
             CONCENTRATED = "0,0,0,1,1,1,2,2,3,3"
             METAPHASE = "0,1,1,2,2,3,4,5,5,5"
@@ -62,7 +62,7 @@
     </Talent>
 
     <Talent name = "TWOHANDDAMAGE" show_name="@string/talent_fury" description="@string/talent_fury_description"
-        weapon_type="BISWORD" effect_type="RESULTMODIFIER" action= "TWOHANDEDATTACK">
+        usable_type="BISWORD" effect_type="RESULTMODIFIER" action= "TWOHANDEDATTACK">
         <MentalEffect
             FRENETIC = "0,0,0,1,1,1,2,2,3,3"
             AGRESSIVE = "1,2,3,3,4,5,5,6,6,7"
@@ -71,11 +71,11 @@
 
     <Talent name = "HEALTH" show_name="@string/health" description="@string/talent_health_description"
         effect_type="VALUE"  resolver_value = "HEALTH">
-        <Effect value = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"/>
+        <Effect values = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"/>
     </Talent>
 
     <Talent name = "STAMINA" show_name="@string/talent_endurance" description="@string/talent_endurance_description"
         effect_type="VALUE"  resolver_value = "STAMINA">
-        <Effect value = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"/>
+        <Effect values = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10"/>
     </Talent>
 </Talents>

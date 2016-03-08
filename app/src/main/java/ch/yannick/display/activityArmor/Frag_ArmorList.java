@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import ch.yannick.context.R;
 import ch.yannick.context.RootApplication;
 import ch.yannick.display.activityMain.Inter_ListCarrier;
-import ch.yannick.intern.items.Armor;
+import ch.yannick.intern.items.Clothe;
 
 /*
  * This fragment contains the -list of Weapons in the DB. It can be embedded
@@ -30,8 +30,8 @@ public class Frag_ArmorList extends Fragment implements OnItemClickListener, OnI
 	private static final String LOG="Frag:ArmorList";
 	//private boolean isDualPane;
 	private int position=-1;
-	private ArrayAdapter<Armor> adapter;
-	private ArrayList<Armor> armorList = new ArrayList<>();
+	private ArrayAdapter<Clothe> adapter;
+	private ArrayList<Clothe> armorList = new ArrayList<>();
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +42,7 @@ public class Frag_ArmorList extends Fragment implements OnItemClickListener, OnI
 		v.findViewById(R.id.create_new).setOnClickListener(new OnClickListener() {
 		        @Override
 		        public void onClick(final View v) {
-					Intent intent = new Intent(getActivity().getApplication(), Dialog_NewArmor.class);
+					Intent intent = new Intent(getActivity().getApplication(), Dialog_NewClothe.class);
 					startActivity(intent);
 				}
 			});
@@ -52,7 +52,7 @@ public class Frag_ArmorList extends Fragment implements OnItemClickListener, OnI
 	        public void onClick(final View v) {
 	        	if(position !=-1){
 	        		try{
-			        	Armor armor= armorList.get(position);
+			        	Clothe armor= armorList.get(position);
 			        	armorList.remove(position);
 			        	((RootApplication) getActivity().getApplication()).getDataManager().delete(armor);
 			        	position=-1;
@@ -70,13 +70,13 @@ public class Frag_ArmorList extends Fragment implements OnItemClickListener, OnI
 		super.onActivityCreated(savedInstanceState);
 		Log.d(LOG,"onActivityCreated");
 		try{
-			 armorList =((RootApplication) getActivity().getApplication()).getDataManager().getAllArmor();
+			 armorList =((RootApplication) getActivity().getApplication()).getCurrentState().getAllArmor();
 		}catch(Exception e){e.printStackTrace();}
 		
 	
 		final ListView listview = (ListView) getView().findViewById(R.id.listView);
 		
-		adapter =	new ArrayAdapter<Armor>(getActivity().getApplication(),android.R.layout.simple_list_item_1, armorList);
+		adapter =	new ArrayAdapter<Clothe>(getActivity().getApplication(),android.R.layout.simple_list_item_1, armorList);
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
 		listview.setOnItemLongClickListener(this);
@@ -117,7 +117,7 @@ public class Frag_ArmorList extends Fragment implements OnItemClickListener, OnI
 		Log.d(LOG, "upDate");
 		try{
 			 armorList.clear();
-			 armorList.addAll(((RootApplication) getActivity().getApplication()).getDataManager().getAllArmor());
+			 armorList.addAll(((RootApplication) getActivity().getApplication()).getCurrentState().getAllArmor());
 		}catch(Exception e){e.printStackTrace();}
 	    
 		adapter.notifyDataSetChanged();

@@ -6,16 +6,17 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
 import ch.yannick.display.technical.EnumAdapter;
-import ch.yannick.intern.usables.WeaponTyp;
+import ch.yannick.intern.usables.UsableType;
 
 
 public class Dialog_newWeapon extends MyBaseActivity implements AdapterView.OnItemClickListener {
-    private EnumAdapter<WeaponTyp> adapter;
+    private EnumAdapter adapter;
     private int mPosition =0;
 
 	@Override
@@ -23,16 +24,10 @@ public class Dialog_newWeapon extends MyBaseActivity implements AdapterView.OnIt
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_new_weapon);
 
-
-        ArrayList<WeaponTyp> typeList=new ArrayList<>();
-
-        for(WeaponTyp wt: WeaponTyp.getValues()) {
-			typeList.add(wt);
-		}
-
         final ListView listview = (ListView) findViewById(R.id.listView);
-
-        adapter = new EnumAdapter<>(this, typeList);
+		List<UsableType> list = Arrays.asList(UsableType.values());
+		list.remove(UsableType.ROLE);
+        adapter = new EnumAdapter(getApplication(),list);
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(this);
     }
@@ -40,7 +35,7 @@ public class Dialog_newWeapon extends MyBaseActivity implements AdapterView.OnIt
 	
 	public void confirmed(View v){
 		final EditText input = (EditText) findViewById(R.id.nom);
-		mRootApplication.getDataManager().newWeapon(input.getText().toString(),adapter.getItem(mPosition));
+		mRootApplication.getDataManager().newUsable(input.getText().toString(), (UsableType) adapter.getItem(mPosition));
 		super.finish();
 	}
 	

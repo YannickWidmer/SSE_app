@@ -31,8 +31,8 @@ import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.personnage.HitZone;
 import ch.yannick.intern.personnage.Limb;
 import ch.yannick.intern.state.State;
+import ch.yannick.intern.usables.UsableType;
 import ch.yannick.intern.usables.Weapon;
-import ch.yannick.intern.usables.WeaponTyp;
 
 public class Frag_PlayControl extends Fragment {
 	private static final String LOG = "frag:Control";
@@ -198,9 +198,9 @@ public class Frag_PlayControl extends Fragment {
      * which might arrise from the action. This is change the load state of a range weapon,
      */
     private void fatigue(Limb which, Action action, boolean reaction){
-        if(st.getUsable(which).getTyp() == WeaponTyp.RANGEWEAPON && action.is("Attack"))
+        if(st.getUsable(which).getTyp() == UsableType.RANGEWEAPON && action.is("Attack"))
             ((Weapon)st.getUsable(which)).setLoad(false);
-        if(st.getUsable(which).getTyp() == WeaponTyp.RANGEWEAPON && action == Action.valueOf("LOADING"))
+        if(st.getUsable(which).getTyp() == UsableType.RANGEWEAPON && action == Action.valueOf("LOADING"))
             ((Weapon)st.getUsable(which)).setLoad(true);
 
         Intent intent;

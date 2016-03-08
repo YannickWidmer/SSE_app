@@ -121,23 +121,15 @@ public class Frag_Displayer extends Fragment{
         getView().findViewById(R.id.damage_layout).setVisibility(View.GONE);
     }
 
-    public void setDegats(List<Dice> dices, int enhancer,int penetration,boolean direct){
-        degats.setDices(dices);
-        degats.setNumber(enhancer);
-        ((TextView)getView().findViewById(R.id.degats_value)).setText("" + enhancer);
-        if(direct) {
-            getView().findViewById(R.id.damage_direct_text).setVisibility(View.VISIBLE);
-            getView().findViewById(R.id.damage_penetration).setVisibility(View.GONE);
-        }
-        else {
-            ((TextView)getView().findViewById(R.id.damage_penetration)).setText(""+penetration);
-            getView().findViewById(R.id.damage_direct_text).setVisibility(View.GONE);
-            getView().findViewById(R.id.damage_penetration).setVisibility(View.VISIBLE);
-
-        }
+    public void setDegats(int resultNameId, List<Dice> resultDice, int resultValue, String resultString) {
+        degats.setDices(resultDice);
+        degats.setNumber(resultValue); // Is this used?
+        ((TextView)getView().findViewById(R.id.result_name)).setText(resultNameId);
+        ((TextView)getView().findViewById(R.id.result_value)).setText("" + resultValue);
+        ((TextView)getView().findViewById(R.id.result_string)).setText(resultString);
         getView().findViewById(R.id.damage_layout).setVisibility(View.VISIBLE);
     }
-	
+
 	public void setSkill(int value){
 		this.mSkill = value;
         ((TextView)getView().findViewById(R.id.skill)).setText(mSkill + "");

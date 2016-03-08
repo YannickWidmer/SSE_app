@@ -42,7 +42,7 @@ public class Dialog_Schaden extends MyBaseActivity {
 
         mTextPadding = getResources().getDimensionPixelOffset(R.dimen.view_padding);
         try{
-            w = ((RootApplication) getApplication()).currentWeapon;
+            w = ((RootApplication) getApplication()).mCurrentUsable;
         }catch(Exception e){ e.printStackTrace();}
 
 
@@ -54,10 +54,19 @@ public class Dialog_Schaden extends MyBaseActivity {
         direct = (ToggleButton)findViewById(R.id.direct);
         diceDisplayer = (DiceDisplayer) findViewById(R.id.degats_dice);
 
-        direct.setChecked(actionData.isDirect);
         schaden.setValue(actionData.resultValue);
-        penetration.setValue(actionData.penetration);
         diceDisplayer.setDices(actionData.resultDice);
+
+        String[] resultString = actionData.resultString.split("\\s*:\\s*");
+        penetration.setValue(0);
+        if(resultString.length>0 && resultString[0].equals("direct")) {
+            direct.setChecked(true);
+        }else{
+            direct.setChecked(false);
+            if(resultString.length>1)
+                penetration.setValue(Integer.valueOf(resultString[1]));
+        }
+
 
         diceDisplayer.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -104,8 +113,10 @@ public class Dialog_Schaden extends MyBaseActivity {
     public void confirmed(View v){
         ActionData actionData = w.getData(action);
         actionData.resultValue = schaden.getValue();
-        actionData.penetration = penetration.getValue();
-        actionData.isDirect = direct.isChecked();
+        if(direct.isChecked())
+            actionData.resultString = "direct";
+        else
+            actionData.resultString = "penetration: "+penetration.getValue();
         actionData.resultDice = (ArrayList<Dice>) diceDisplayer.getDices();
 
         super.finish();

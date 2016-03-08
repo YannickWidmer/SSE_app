@@ -4,8 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SSE.iml" filepath="$PROJECT_DIR$/SSE.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/raw_creator/raw_creator.iml" filepath="$PROJECT_DIR$/raw_creator/raw_creator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rule_tester/rule_tester.iml" filepath="$PROJECT_DIR$/rule_tester/rule_tester.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gcmsender/gcmsender.iml" filepath="$PROJECT_DIR$/gcmsender/gcmsender.iml" />
     </modules>
   </component>
 </project>

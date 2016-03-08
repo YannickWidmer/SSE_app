@@ -29,6 +29,7 @@ import ch.yannick.display.views.ValueChangeListener;
 import ch.yannick.display.views.ValueControler;
 import ch.yannick.intern.action_talent.Action;
 import ch.yannick.intern.action_talent.ActionData;
+import ch.yannick.intern.items.Item;
 import ch.yannick.intern.personnage.Attribute;
 import ch.yannick.intern.usables.Weapon;
 
@@ -70,8 +71,13 @@ public class Frag_WeaponDetail extends Fragment{
 
         index = getArguments().getInt("index",0);
         try{
-        	w = ((RootApplication) getActivity().getApplication()).getDataManager().getWeapon(getArguments().getLong("id",0));
-            ((RootApplication) getActivity().getApplication()).currentWeapon = w;
+        	Item item = ((RootApplication) getActivity().getApplication()).getDataManager().getItem(getArguments().getLong("id",0));
+            if(item instanceof Weapon) {
+                w = (Weapon)item;
+                ((RootApplication) getActivity().getApplication()).mCurrentUsable = w;
+            }else{
+                getActivity().finish();
+            }
         }catch(Exception e){ e.printStackTrace();}
 
         View v = inflater.inflate(R.layout.frag_weapons_detail, container, false);
@@ -113,7 +119,7 @@ public class Frag_WeaponDetail extends Fragment{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d(LOG,"onCreateOptionsMenu");
+        Log.d(LOG, "onCreateOptionsMenu");
         inflater.inflate(R.menu.menu_weapon, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -123,7 +129,7 @@ public class Frag_WeaponDetail extends Fragment{
         switch(item.getItemId()){
         case R.id.save:
              w.setWeight(((ValueControler) getView().findViewById(R.id.libras)).getValue() * 12 + ((ValueControler) getView().findViewById(R.id.ounces)).getValue());
-            ((RootApplication) getActivity().getApplication()).getDataManager().pushWeapon(w);
+            ((RootApplication) getActivity().getApplication()).getDataManager().pushItem(w);
             return true;
         }
         return false;
@@ -153,7 +159,7 @@ public class Frag_WeaponDetail extends Fragment{
             flow.setPadding(getResources().getDimensionPixelOffset(R.dimen.view_padding));
 
             attributeLayout = makeLayout();
-            final Button attrOne = makeButton(actionData.attributes[0].getStringId());
+            final Button attrOne = makeButton(actionData.attributes.get(0).getStringId());
                 attrOne.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -166,7 +172,7 @@ public class Frag_WeaponDetail extends Fragment{
                             public void onClick(DialogInterface dialog, int position) {
                                 Attribute attr = attributeArrayAdapter.getItem(position);
                                 dialog.dismiss();
-                                actionData.attributes[0] = attr;
+                                actionData.attributes.add(0, attr);
                                 attrOne.setText(attr.getStringId());
                             }
                         });
@@ -182,7 +188,7 @@ public class Frag_WeaponDetail extends Fragment{
                 });
                 attrOne.setPadding(mTextPadding,0,mTextPadding,0);
                 attributeLayout.addView(attrOne);
-            final Button attrTwo = makeButton(actionData.attributes[1].getStringId());
+            final Button attrTwo = makeButton(actionData.attributes.get(1).getStringId());
                 attrTwo.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -195,7 +201,7 @@ public class Frag_WeaponDetail extends Fragment{
                             public void onClick(DialogInterface dialog, int position) {
                                 Attribute attr = attributeArrayAdapter.getItem(position);
                                 dialog.dismiss();
-                                actionData.attributes[1] =  attr;
+                                actionData.attributes.add(1, attr);
                                 attrTwo.setText(attr.getStringId());
                             }
                         });
@@ -232,12 +238,7 @@ public class Frag_WeaponDetail extends Fragment{
             if(finalAction.is("Attack")){
                 penetrationLayout = makeLayout();
                 penetrationLayout.addView(makeTextView(R.string.penetration));
-                penetrationLayout.addView(makeControler(actionData.penetration, 0, -1, new ValueChangeListener() {
-                    @Override
-                    public void onChangeValue(int value) {
-                       actionData.penetration = value;
-                    }
-                }));
+                penetrationLayout.addView(makeTextView(actionData.resultString));
                 flow.addView(penetrationLayout);
 
                 damageLayout = makeLayout();

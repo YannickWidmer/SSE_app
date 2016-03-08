@@ -28,13 +28,13 @@ import ch.yannick.display.views.ValueChangeListener;
 import ch.yannick.display.views.ValueControler;
 import ch.yannick.intern.action_talent.Talent;
 import ch.yannick.intern.personnage.Attribute;
-import ch.yannick.intern.personnage.Personnage;
+import ch.yannick.intern.personnage.Character;
 import ch.yannick.intern.personnage.Race;
 
 public class Frag_HeroesDetail extends Fragment{
 	
 	private static final String LOG="Frag:HeroesDetail";
-	private Personnage p;
+	private Character p;
 	private int index;
 	private boolean exists;
     private EnumAdapter<Race> races;
@@ -72,7 +72,7 @@ public class Frag_HeroesDetail extends Fragment{
        
         index=getArguments().getInt("index",0);
         try{
-        	p=((RootApplication) getActivity().getApplication()).getDataManager().getPersonnage(getArguments().getLong("id",0));
+        	p=((RootApplication) getActivity().getApplication()).getDataManager().getCharacter(getArguments().getLong("id",0));
         }catch(Exception e){ e.printStackTrace();}
         
         Log.d(LOG,"onCreateVIew2");
@@ -179,7 +179,7 @@ public class Frag_HeroesDetail extends Fragment{
 	}
 
 
-	public Personnage getPersonnage() {
+	public Character getPersonnage() {
 		return p;
 	}
 

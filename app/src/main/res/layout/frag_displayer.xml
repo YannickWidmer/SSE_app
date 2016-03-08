@@ -12,18 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/degats"/>
+        <TextView android:id="@+id/result_name" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp"/>
         <ch.yannick.display.views.DiceDisplayer  android:id="@+id/damage_dice"  style="@style/BaseText" android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:padding="@dimen/view_padding" />
         <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="+"/>
-        <TextView android:id="@+id/degats_value" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
-        <ImageView
-            android:id="@+id/damage_shield"
-            android:layout_width="@dimen/huge_text"
-            android:layout_height="@dimen/huge_text"
-            android:background="@drawable/check_shield"/>
-        <TextView android:id="@+id/damage_direct_text" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/direct"/>
-        <TextView android:id="@+id/damage_penetration" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
+        <TextView android:id="@+id/result_value" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
+        <TextView android:id="@+id/result_string" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
     </ch.yannick.display.views.FlowLayout>
 
     <LinearLayout android:layout_width="match_parent"

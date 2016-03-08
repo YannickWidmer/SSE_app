@@ -1,234 +1,73 @@
 package ch.yannick.intern.action_talent;
 
-import android.util.Log;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ch.yannick.context.RootApplication;
-import ch.yannick.intern.usables.UsableTyp;
+import ch.yannick.context.MyXmlParser;
 import ch.yannick.intern.state.MentalState;
 import ch.yannick.intern.state.Resolver;
+import ch.yannick.intern.usables.UsableType;
 
 /**
  * Created by Yannick on 18.07.2015.
  */
 public class Talent {
     private static final String LOG = "Talent";
-    private static  boolean isReady = false;
-    public static HashMap<String,Talent> values;
+    public static HashMap<String,Talent> values = new HashMap<>();
 
     private EffectType mEffect;
+    private String mName;
     private int mStringId, mDescriptionId;
-    private Action mAction, remadeAction;
-    private UsableTyp mUsableType;
+    private Action mAction;
+    private UsableType mUsableType;
     private Resolver.Value mValue;
 
     // The effects value, depending if it depends on the Mental state or not
-    private int[] mEffects;
-    private Map<MentalState,int[]> mMentalEffects;
-
-    // If the Talent changes the usual action
-    private int mFatigueModifier;
+    private List<Integer> mEffects;
+    private Map<MentalState,List<Integer>> mMentalEffects;
 
 
-    private Talent(int stringID,int descriptionId, Action act, UsableTyp wt, EffectType effectType){
+    private Talent(String name,int stringID,int descriptionId, Action act, UsableType wt, EffectType effectType){
+        mName = name;
         this.mAction = act;
         mUsableType = wt;
         mStringId = stringID;
         mEffect = effectType;
+        mDescriptionId = descriptionId;
     }
 
-    private Talent(int stringID,int descriptionId, Action newAction, Action oldAction, UsableTyp wt, int fatigueSupplement){
-        mFatigueModifier = fatigueSupplement;
-        mStringId = stringID;
-        mEffect = EffectType.ACTIONREMAKE;
-    }
-
-
-    private Talent(int stringID,int descriptionId, Resolver.Value value){
+    private Talent(String name, int stringID,int descriptionId, Resolver.Value value){
+        mName = name;
         mEffect = EffectType.VALUE;
         mStringId = stringID;
         mValue = value;
+        mDescriptionId = descriptionId;
     }
 
-    private void setEffet(int[] effects){
+    private void setEffet(List<Integer> effects){
         mEffects = effects;
     }
 
-    private void setEffet(Map<MentalState,int[]> mentalEffects){
+    private void setEffet(Map<MentalState,List<Integer>> mentalEffects){
         mMentalEffects = mentalEffects;
-    }
-
-
-    public static boolean isReady(){
-        return isReady;
-    }
-
-    public static void init(InputStream ip,XmlPullParser parser, RootApplication app){
-
-        values = new HashMap<>();
-
-        try {
-            parser.setInput(ip, null);
-            parser.nextTag();
-            //parser.require(XmlPullParser.START_TAG, null, "Talents");
-            while (parser.next() != XmlPullParser.END_DOCUMENT) {
-                if (parser.getEventType() != XmlPullParser.START_TAG) {
-                    continue;
-                }
-                String name = parser.getName();
-                Log.d(LOG,"event start "+(parser.getEventType()== XmlPullParser.START_TAG) + " name "+name);
-                // Starts by looking for the Talent tag
-                if (name.equals("Talent")) {
-                    readEntry(parser,app);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                ip.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        isReady = true;
-    }
-
-    public static void readEntry(XmlPullParser parser, RootApplication application) throws IOException, XmlPullParserException {
-        String name= null;
-        UsableTyp weaponType = null;
-        Resolver.Value value = null;
-        EffectType effectType = null;
-        Action action = null, newAction = null;
-        Integer stringId = null, descriptionId = null, fatigueModifier = null;
-        Talent talent = null;
-
-        // Reading attributes of the Talent entry
-        int attributeCount = parser.getAttributeCount();
-        for(int i = 0;i<attributeCount;++i) {
-            Log.d(LOG,"attribute "+parser.getAttributeName(i) + " value "+parser.getAttributeValue(i));
-
-            switch(parser.getAttributeName(i)) {
-                case "name":
-                    name = parser.getAttributeValue(i);
-                    break;
-                case "description":
-                    descriptionId = application.getStringResource(parser.getAttributeValue(i));
-                    Log.d(LOG,"Stringvalue check"+ application.getResources().getString(descriptionId));
-                    break;
-                case "show_name":
-                    stringId = application.getStringResource(parser.getAttributeValue(i));
-                    Log.d(LOG,"Stringvalue check"+ application.getResources().getString(stringId));
-                    break;
-                case "effect_type":
-                    effectType = EffectType.valueOf(parser.getAttributeValue(i));
-                    break;
-                case "action":
-                    action = Action.valueOf(parser.getAttributeValue(i));
-                    break;
-                case "new_action":
-                    newAction = Action.valueOf(parser.getAttributeValue(i));
-                    break;
-                case "weapon_type":
-                    weaponType = UsableTyp.valueOf(parser.getAttributeValue(i));
-                    break;
-                case "resolver_value":
-                    value = Resolver.Value.valueOf(parser.getAttributeValue(i));
-                    break;
-                case "fatigue_modifier":
-                    fatigueModifier = Integer.valueOf(parser.getAttributeValue(i));
-            }
-        }
-
-        // filling information which is implicit
-        if(action == null && effectType.isAction()) {
-            try {
-                action = Action.valueOf(name);
-            }catch(Exception e){}
-        }
-
-        if(weaponType == null)
-            weaponType = UsableTyp.ROLE;
-
-        switch (effectType){
-            case DESCRIPTIVE:
-                break;
-            case RESULTMODIFIER:
-            case LUCKMODIFIER:
-            case SKILLMODIFIER:
-                talent = new Talent(stringId, descriptionId,action,weaponType,effectType);
-                break;
-            case ACTIONREMAKE:
-                talent = new Talent(stringId,descriptionId, newAction, action, weaponType, fatigueModifier);
-                break;
-            case VALUE:
-                talent = new Talent(stringId,descriptionId,value);
-                break;
-        }
-
-        if(!parser.isEmptyElementTag() && parser.next() == XmlPullParser.START_TAG){
-            switch (parser.getName()){
-                case "Effect":
-                    int numOfAttributes = parser.getAttributeCount();
-                    for(int i = 0;i<numOfAttributes;++i){
-                        if(parser.getAttributeName(i).equals("VALUES")){
-                            talent.setEffet(parseStringArray(parser.getAttributeValue(i)));
-                        }
-                    }
-                    break;
-                case "MentalEffect":
-                    int num_of_attributes = parser.getAttributeCount();
-                    HashMap<MentalState,int[]> temp = new HashMap<>();
-                    for(int i = 0;i<num_of_attributes;++i){
-                        temp.put(MentalState.valueOf(parser.getAttributeName(i)),parseStringArray(parser.getAttributeValue(i)));
-                    }
-                    talent.setEffet(temp);
-                    break;
-            }
-        }
-
-        values.put(name,talent);
-    }
-
-    private static int[] parseStringArray(String s){
-        List<String> items = Arrays.asList(s.split("\\s*,\\s*"));
-        int [] res = new int[items.size()];
-        for(int i = 0;i<items.size();++i){
-            res[i] = Integer.valueOf(items.get(i));
-        }
-        return res;
     }
 
     public static Talent getTalent(String name){
         return values.get(name);
     }
 
-    public static String getName(Talent tl){
-        for(Map.Entry<String,Talent> entry:values.entrySet()){
-            if(entry.getValue() == tl)
-                return entry.getKey();
-        }
-        return null;
+    public  String getName(){
+        return mName;
     }
 
     public int getEffect(MentalState mentalState, int level){
         if(mEffects != null)
-            return mEffects[Math.min(level,mEffects.length-1)];
+            return mEffects.get(Math.min(level, mEffects.size() - 1));
         if(mMentalEffects!= null){
             if(mMentalEffects.containsKey(mentalState)) {
-                int[] effects = mMentalEffects.get(mentalState);
-                return effects[Math.min(level, effects.length - 1)];
+                List<Integer> effects = mMentalEffects.get(mentalState);
+                return effects.get(Math.min(level, effects.size() - 1));
             }else
                 return 0;
         }
@@ -243,9 +82,7 @@ public class Talent {
         return mAction;
     }
 
-    public Action actionToCopy(){ return remadeAction;}
-
-    public UsableTyp getUsableType(){
+    public UsableType getUsableType(){
         return mUsableType;
     }
 
@@ -255,20 +92,67 @@ public class Talent {
         return mStringId;
     }
 
-    public int getFatigueModifier(){
-        return mFatigueModifier;
-    }
-
     public int getMax(){
         int max = -1;
         if(mEffects != null)
-            max = mEffects.length;
+            max = mEffects.size();
         if(mMentalEffects != null){
-            for(int[] ar:mMentalEffects.values())
-                max = Math.min(max,ar.length);
+            for(List<Integer> ar:mMentalEffects.values())
+                max = Math.min(max,ar.size());
         }
         if(max != -1)
            return max;
         return 5;
+    }
+
+    public static void parse(MyXmlParser myParser) {
+        Action action;
+        EffectType effectType;
+        UsableType usableType;
+        Talent talent;
+
+        for(MyXmlParser.Entry entry:myParser.main.entrys){
+            if(entry.hasAttribute("usable_type"))
+                usableType = UsableType.valueOf(entry.getAttribute("usable_type"));
+            else
+                usableType = UsableType.ROLE;
+            effectType = EffectType.valueOf(entry.getAttribute("effect_type"));
+            switch (effectType) {
+                case DESCRIPTIVE:
+                    break;
+                case RESULTMODIFIER:
+                case LUCKMODIFIER:
+                case SKILLMODIFIER:
+                case ALLOWACTION:
+                    if(entry.hasEntry("action"))
+                        action = Action.valueOf(entry.getAttribute("action"));
+                    else
+                        action = Action.valueOf(entry.getAttribute("name"));
+                    talent = new Talent(entry.getAttribute("name"),entry.getStringResource("show_name"), entry.getStringResource("description"),
+                            action, usableType, effectType);
+                    setValues(entry,talent);
+                    values.put(entry.getAttribute("name"), talent);
+                    break;
+                case VALUE:
+                    talent = new Talent(entry.getAttribute("name"),entry.getStringResource("show_name"),entry.getStringResource("description"),
+                            Resolver.Value.valueOf(entry.getAttribute("resolver_value")));
+                    setValues(entry,talent);
+                    values.put(entry.getAttribute("name"), talent);
+                    break;
+            }
+        }
+    }
+
+    private static void setValues(MyXmlParser.Entry entry, Talent talent){
+        if(entry.hasEntry("Effect")) {
+            talent.setEffet(entry.getEntryWithName("Effect").getIntegerList("values"));
+        }
+        if(entry.hasEntry("MentalEffect")){
+            HashMap<MentalState,List<Integer>> temp = new HashMap<>();
+            MyXmlParser.Entry valueEntry = entry.getEntryWithName("MentalEffect");
+            for(String s:valueEntry.getAttributes())
+                temp.put(MentalState.valueOf(s),valueEntry.getIntegerList(s));
+            talent.setEffet(temp);
+        }
     }
 }

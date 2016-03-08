@@ -36,7 +36,7 @@
             android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:windowActionBar="true" />
         <activity
-            android:name="ch.yannick.display.activityArmor.Dialog_NewArmor"
+            android:name="ch.yannick.display.activityArmor.Dialog_NewClothe"
             android:label="@string/heroes"
             android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
             android:theme="@style/SSEBaseDialog" />
@@ -119,9 +119,65 @@
             android:parentActivityName="ch.yannick.display.activityMain.Act_Configurations"
       		android:theme="@style/SSEBaseDialog" />
 
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.example.gcm" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="ch.yannick.context.services.MyGCMListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="ch.yannick.context.services.MyIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <service android:name="ch.yannick.context.services.MyRegistrationIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+
+
     </application>
 
-    <!--  Internet Permissions -->
+    <!-- GCM connects to Google Services. -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!--
+     Creates a custom permission so only this app can receive its messages.
+
+     NOTE: the permission *must* be called PACKAGE.permission.C2D_MESSAGE,
+           where PACKAGE is the application's package name.
+    -->
+    <permission
+        android:name="ch.yannick.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission
+        android:name="ch.yannick.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission
+        android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission
+        android:name="com.google.android.c2dm.permission.SEND" />
+
 
 </manifest>

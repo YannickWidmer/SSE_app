@@ -1,7 +1,6 @@
 package ch.yannick.display.activityPlay;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
@@ -22,7 +21,10 @@ public class Act_Equipement extends MyBaseActivity {
 
     @Override
     public void react(String res, int Flag) {
-        Log.d(LOG, "Does nothing onReact");
+        ((Frag_Equipment)getFragmentManager().findFragmentById(R.id.equipement)).refresh();
+        if(getFragmentManager().findFragmentById(R.id.frag_modifs)!= null)
+            ((Frag_modif)getFragmentManager().findFragmentById(R.id.frag_modifs)).refresh();
+
     }
 
 }

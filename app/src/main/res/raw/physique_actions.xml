@@ -1,0 +1,14 @@
+<Actions>
+    <Mouvement>
+        <Action name="RUN" show_name ="@string/action_run"
+            attributes ="SPEED,SPEED" fatigue="0"/>
+        <Action name="CLIMB" show_name ="@string/action_climb"
+            attributes ="FORCE,AGILITY" fatigue="2"/>
+        <Action name="SWIM" show_name ="@string/action_swim"
+            attributes ="STAMINA,PHYSIQUE" fatigue="3"/>
+    </Mouvement>
+    <Fight>
+        <Action name="THROW" show_name ="@string/action_throw"
+            attributes ="ACUITY,AGILITY" fatigue="0"/>
+    </Fight>
+</Actions>
