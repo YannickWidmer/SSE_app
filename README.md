@@ -6,3 +6,5 @@ Now by trying to do so the game got more and more complicated, such that errors 
 
 
 This Project is the project the mentioned app. To make things even more interesting we now started a webpage, which via gcm connects to this app. If we succed we will introduce a new way of pen and paper role playing. If not we are writing some insane amount of code for not so much 
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">SSE</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Yannick Widmer</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
