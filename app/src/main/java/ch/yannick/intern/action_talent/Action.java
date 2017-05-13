@@ -53,6 +53,10 @@ public class Action implements AdapterUsable {
     }
 
     public static Action valueOf(String name){
+        if(!mValues.containsKey(name)){
+            Log.e(LOG,"action value inexistant "+name );
+        }
+
         return mValues.get(name);
     }
 
@@ -81,7 +85,7 @@ public class Action implements AdapterUsable {
         Log.d(LOG,"reading action "+entry.getAttribute("name"));
         Attribute[] attributes = parseStringAttributeArray(entry.getList("attributes"));
         Action action = new Action(entry.getAttribute("name"), entry.getStringResource("show_name"),
-                attributes[0], attributes[1], entry.getInt("fatigue"));
+                attributes[0], attributes[1], entry.hasAttribute("fatigue")?entry.getInt("fatigue"):0);
         mValues.put(entry.getAttribute("name"),action);
         if(flag != null)
             mFlagActions.get(flag).add(action);
@@ -135,5 +139,6 @@ public class Action implements AdapterUsable {
     public static Set<String> values() {
         return mValues.keySet();
     }
+
 }
 

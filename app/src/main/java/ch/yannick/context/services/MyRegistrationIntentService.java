@@ -35,7 +35,7 @@ public class MyRegistrationIntentService extends IntentService {
                 Log.i(LOG, "GCM Registration Token: " + token);
 
                 // TODO: Implement this method to send any registration to your app's servers.
-                sendRegistrationToServer(token);
+             //   sendRegistrationToServer(token);
                 // Subscribe to topic channels
                 // subscribeTopics(token);
 
@@ -64,8 +64,22 @@ public class MyRegistrationIntentService extends IntentService {
      *
      * @param token The new token.
      */
-    private void sendRegistrationToServer(String token) {
-        // Add custom implementation, as needed.
-    }
+    /*private void sendRegistrationToServer(String token) {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
+                    @Override
+                    public void onResponse(JSONObject response) {
+                     //   mTxtDisplay.setText("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+    }
+*/
 }

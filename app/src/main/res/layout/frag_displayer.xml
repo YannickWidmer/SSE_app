@@ -17,7 +17,6 @@
             android:padding="@dimen/view_padding" />
         <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="+"/>
         <TextView android:id="@+id/result_value" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
-        <TextView android:id="@+id/result_string" style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="0"/>
     </ch.yannick.display.views.FlowLayout>
 
     <LinearLayout android:layout_width="match_parent"
@@ -30,19 +29,8 @@
             android:padding="5dp" />
         <TextView style="@style/BaseText" android:id="@+id/modif"
             android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" />
-    </LinearLayout>
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-       <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp"
-            android:text="@string/split"/>
-        <ch.yannick.display.views.ValueControler android:id="@+id/split"
-            app:lower_bound="1"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:padding="5dp"/>
-        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp"
-            android:text="@string/rest"/>
-        <TextView style="@style/BaseText" android:id="@+id/rest"
+        <TextView style="@style/BaseText" android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" android:text="@string/ticks"/>
+        <TextView style="@style/BaseText" android:id="@+id/ticks"
             android:layout_width ="wrap_content" android:layout_height = "wrap_content" android:padding="5dp" />
     </LinearLayout>
 

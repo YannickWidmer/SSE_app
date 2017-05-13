@@ -61,7 +61,6 @@ public class Frag_PlayAttributes extends Fragment implements OnClickListener {
 		compute();
         mDisplayer.setEnhancer(0);
         mDisplayer.setModif(0);
-		mDisplayer.setSplit(1);
 		mDisplayer.refresh();
 	}
 

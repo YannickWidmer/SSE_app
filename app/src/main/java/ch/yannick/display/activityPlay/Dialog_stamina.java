@@ -21,8 +21,6 @@ public class Dialog_stamina extends MyBaseActivity {
 
         final ValueControler now = ((ValueControler)findViewById(R.id.stamina_now));
         now.setValue(st.getStaminaNow());
-        final ValueControler used =((ValueControler)findViewById(R.id.stamina_used));
-        used.setValue(st.getStaminaUsed());
         final ValueControler max =((ValueControler)findViewById(R.id.stamina_max));
         max.setValue(st.getStaminaMax());
 
@@ -30,7 +28,7 @@ public class Dialog_stamina extends MyBaseActivity {
         findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                st.setStamina(now.getValue(),used.getValue(),max.getValue());
+                st.setStamina(now.getValue(),max.getValue());
                 Dialog_stamina.this.finish();
             }
         });
@@ -53,13 +51,6 @@ public class Dialog_stamina extends MyBaseActivity {
             @Override
             public void onClick(View v) {
                 now.setValue(max.getValue());
-            }
-        });
-
-        findViewById(R.id.used_empty).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                used.setValue(0);
             }
         });
 

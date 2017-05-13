@@ -73,7 +73,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
 
 	// action Table Columns
     private static final String  KEY_ATTRIBUTES="attributes",
-            KEY_FATIGUE="fatigue", KEY_MODIFIER = "modifier",
+            KEY_FATIGUE="fatigue", KEY_MODIFIER = "modifier", KEY_TICKS ="ticks",
             KEY_RESULT="resultValue", KEY_SKILL_ENHANCER = "enhancer";
 
     // state table colums
@@ -97,7 +97,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
                 + KEY_SERVER_ID + " LONG,"
                 + KEY_RACE + " STRING,"
-                + KEY_CLASS + " VARCHAR"
+                + KEY_CLASS + " STRING"
                 + ");";
 
         String CREATE_ATTRIBUTE_TABLE = "CREATE TABLE " + TABLE_ATTRIBUTE + "("
@@ -107,13 +107,13 @@ public class SQLDBManager extends SQLiteOpenHelper {
                 + " FOREIGN KEY ("+KEY_CHARACTER_ID+") REFERENCES "+TABLE_CHARACTER+" ("+KEY_ID+") ON DELETE CASCADE);";
 
         String CREATE_TALENT_TABLE=" CREATE TABLE "+ TABLE_TALENT+"("
-                + KEY_CHARACTER_ID + " LONG,"
+                + KEY_CHARACTER_ID + " INTEGER PRIMARY KEY,"
                 + KEY_NAME + " VARCHAR,"
                 + KEY_VALUE + " INTEGER,"
                 + " FOREIGN KEY ("+KEY_CHARACTER_ID+") REFERENCES "+TABLE_CHARACTER+" ("+KEY_ID+") ON DELETE CASCADE);";
 
         String CREATE_STATE_TABLE = "CREATE TABLE "+ TABLE_STATE +"("
-                + KEY_CHARACTER_ID + " INTEGER,"
+                + KEY_CHARACTER_ID + " INTEGER PRIMARY KEY,"
                 + KEY_LIFE_MAX + " INTEGER,"
                 + KEY_LIFE_NOW + " INTEGER,"
                 + KEY_STAMINA_MAX + " INTEGER,"
@@ -121,14 +121,14 @@ public class SQLDBManager extends SQLiteOpenHelper {
                 + KEY_PERIOD_STAMINA_MAX + " INTEGER,"
                 + KEY_PERIOD_STAMINA_NOW+ " INTEGER,"
                 + KEY_PERIOD_STAMINA_USED + " INTEGER,"
-                + KEY_MENTALSTATE + " STRING,"
+                + KEY_MENTALSTATE + " VARCHAR(255),"
                 + KEY_MENTALSTATE_X + " INTEGER,"
                 + KEY_MENTALSTATE_Y+ " INTEGER,"
                 + " FOREIGN KEY ("+KEY_CHARACTER_ID+") REFERENCES "+TABLE_CHARACTER+" ("+KEY_ID+") ON DELETE CASCADE);";
 
         String CREATE_TABLE_ITEM = " CREATE TABLE "+ TABLE_ITEM +"("
                 +KEY_ID + " INTEGER PRIMARY KEY,"
-                +KEY_NAME + " TEXT,"
+                +KEY_NAME + " STRING,"
                 +KEY_SERVER_ID + " LONG,"
                 +KEY_CHARACTER_ID+ " INTEGER,"
                 +KEY_DESCRIPTION + " TEXT,"
@@ -167,6 +167,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
                 + KEY_NAME + " STRING,"
                 + KEY_ATTRIBUTES +" VARCHAR,"
                 + KEY_FATIGUE + " INTEGER,"
+                + KEY_TICKS + " INTEGER,"
                 + KEY_SKILL_ENHANCER + " INTEGER,"
                 + KEY_MODIFIER + " INTEGER,"
                 + KEY_RESULT +" VARCHAR,"
@@ -314,13 +315,16 @@ public class SQLDBManager extends SQLiteOpenHelper {
         if(w instanceof UsableInterface){
             ActionData data;
             for(Action action:((UsableInterface) w).getActions()) {
+                Log.d(LOG,"" +action);
                 data = ((UsableInterface) w).getData(action);
+                Log.d(LOG,"" +data);
                 if(!data.isRemake) {
                     c = new ContentValues();
                     c.put(KEY_ITEM_ID, id);
                     c.put(KEY_NAME, action.getName());
                     c.put(KEY_ATTRIBUTES, data.getAttributesString());
                     c.put(KEY_FATIGUE, data.fatigue);
+                    c.put(KEY_TICKS,data.ticks);
                     c.put(KEY_SKILL_ENHANCER, data.enhancer);
                     c.put(KEY_RESULT, data.getResult());
                     pushData(TABLE_ATTRIBUTE_ACTION, null, c);
@@ -351,7 +355,7 @@ public class SQLDBManager extends SQLiteOpenHelper {
 		ArrayList<Item> list= new ArrayList<>();
     	db = getReadableDatabase();
     	Cursor cursor = db.query(TABLE_ITEM, new String[]{KEY_ID, KEY_NAME, KEY_SERVER_ID, KEY_CHARACTER_ID, KEY_DESCRIPTION, KEY_WEIGHT},
-                KEY_CHARACTER_ID +"=?",new String[]{String.valueOf(ownerId)}, null, null, null, null);
+                null,null, null, null, null, null);
 
         Item item;
         Cursor cSub;
@@ -373,12 +377,12 @@ public class SQLDBManager extends SQLiteOpenHelper {
                 cSub.close();
 
                 if(item instanceof Weapon){
-                    cSub = db.query(TABLE_ATTRIBUTE_ACTION,new String[]{KEY_ITEM_ID,KEY_NAME,KEY_ATTRIBUTES,KEY_FATIGUE,KEY_SKILL_ENHANCER,KEY_MODIFIER,KEY_RESULT},
+                    cSub = db.query(TABLE_ATTRIBUTE_ACTION,new String[]{KEY_ITEM_ID,KEY_NAME,KEY_ATTRIBUTES,KEY_FATIGUE,KEY_TICKS,KEY_SKILL_ENHANCER,KEY_MODIFIER,KEY_RESULT},
                             KEY_ITEM_ID+"=?",new String[]{String.valueOf(getLong(cursor,KEY_ID))},null,null,null,null);
                     if(cSub.moveToFirst()){
                         do{
                             ((Weapon) item).addData(Action.valueOf(getString(cSub, KEY_NAME)),
-                                    new ActionData(get(cSub,KEY_FATIGUE), get(cSub,KEY_SKILL_ENHANCER),get(cSub,KEY_MODIFIER), getString(cSub,KEY_RESULT)));
+                                    new ActionData(Action.valueOf(getString(cSub, KEY_NAME)),get(cSub, KEY_FATIGUE), get(cSub, KEY_SKILL_ENHANCER), get(cSub, KEY_MODIFIER), get(cSub, KEY_TICKS),getString(cSub,KEY_ATTRIBUTES), getString(cSub, KEY_RESULT)));
                         }while (cSub.moveToNext());
                     }
                 }
@@ -420,12 +424,12 @@ public class SQLDBManager extends SQLiteOpenHelper {
             cSub.close();
 
             if(item instanceof Weapon){
-                cSub = db.query(TABLE_ATTRIBUTE_ACTION,new String[]{KEY_ITEM_ID,KEY_NAME,KEY_ATTRIBUTES,KEY_FATIGUE,KEY_SKILL_ENHANCER,KEY_MODIFIER,KEY_RESULT},
+                cSub = db.query(TABLE_ATTRIBUTE_ACTION,new String[]{KEY_ITEM_ID,KEY_NAME,KEY_ATTRIBUTES,KEY_FATIGUE,KEY_TICKS,KEY_SKILL_ENHANCER,KEY_MODIFIER,KEY_RESULT},
                         KEY_ITEM_ID+"=?",new String[]{String.valueOf(getLong(cursor,KEY_ID))},null,null,null,null);
                 if(cSub.moveToFirst()){
                     do{
                         ((Weapon) item).addData(Action.valueOf(getString(cSub, KEY_NAME)),
-                                new ActionData(get(cSub,KEY_FATIGUE), get(cSub,KEY_SKILL_ENHANCER),get(cSub,KEY_MODIFIER), getString(cSub,KEY_RESULT)));
+                                new ActionData(Action.valueOf(getString(cSub, KEY_NAME)),get(cSub,KEY_FATIGUE), get(cSub,KEY_SKILL_ENHANCER),get(cSub,KEY_MODIFIER), get(cSub,KEY_TICKS),getString(cSub,KEY_ATTRIBUTES),getString(cSub,KEY_RESULT)));
                     }while (cSub.moveToNext());
                 }
             }

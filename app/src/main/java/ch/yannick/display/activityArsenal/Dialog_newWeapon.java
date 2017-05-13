@@ -6,8 +6,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import ch.yannick.context.MyBaseActivity;
 import ch.yannick.context.R;
@@ -25,7 +25,7 @@ public class Dialog_newWeapon extends MyBaseActivity implements AdapterView.OnIt
 		setContentView(R.layout.dialog_new_weapon);
 
         final ListView listview = (ListView) findViewById(R.id.listView);
-		List<UsableType> list = Arrays.asList(UsableType.values());
+		ArrayList<UsableType> list = new ArrayList(Arrays.asList(UsableType.values()));
 		list.remove(UsableType.ROLE);
         adapter = new EnumAdapter(getApplication(),list);
         listview.setAdapter(adapter);

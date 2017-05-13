@@ -56,7 +56,7 @@ public class Spell  implements UsableInterface {
 
     @Override
     public UsableType getTyp() {
-        return UsableType.SPELL;
+        return UsableType.ROLE;
     }
 
     @Override

@@ -7,34 +7,34 @@
 
     <Attack>
         <Action name="ATTACK" show_name="@string/action_attack"
-            attributes="AGILITY,FORCE" fatigue="2" />
+            attributes="AGILITY,FORCE" />
         <Action name="TWOHANDATTACK" show_name="@string/action_two_hand_attack"
-            attributes="AGILITY,FORCE" fatigue="4" flags ="TWOHANDED" />
+            attributes="AGILITY,FORCE" flags ="TWOHANDED" />
         <Action name="CHARGE" show_name="@string/action_attack"
-            attributes="SPEED,FORCE" fatigue="2" />
+            attributes="SPEED,FORCE" />
         <Action name="SHOOT" show_name="@string/action_shoot"
-            attributes="AGILITY,ACUITY" fatigue="1"/>
+            attributes="AGILITY,ACUITY" />
     </Attack>
     <Defend>
         <Action name="DEFEND" show_name="@string/action_defend"
-            attributes="AGILITY,SPEED" fatigue="2"/>
+            attributes="AGILITY,SPEED" />
         <Action name="KEEPDISTANCE" show_name="@string/action_keep_distance"
-            attributes="ACUITY,SPEED" fatigue="2"/>
+            attributes="ACUITY,SPEED" />
     </Defend>
     <Mouvement>
         <Action name="ESQUIV" show_name ="@string/action_esquiv"
-            attributes ="ACUITY,AGILITY" fatigue="0"/>
+            attributes ="ACUITY,AGILITY" />
     </Mouvement>
     <Fight>
         <Action name ="LOAD" show_name="@string/action_load"
-            attributes ="AGILITY,FORCE" fatigue="3" flags ="LOADING"/>
+            attributes ="AGILITY,FORCE"  flags ="LOADING"/>
         <Action name ="FILLMANA" show_name="@string/action_fill_mana"
-            attributes = "MAGIC,ASTUTENESS" fatigue="1"/>
+            attributes = "MAGIC,ASTUTENESS" />
         <Action name="CONJURE" show_name ="@string/action_conjure"
-            attributes ="MAGIC,ASTUTENESS" fatigue="1"/>
+            attributes ="MAGIC,ASTUTENESS" />
     </Fight>
 
     <Action name="OTHER" show_name ="@string/action_other"
-        attributes ="FORCE,FORCE" fatigue="0"/>
+        attributes ="FORCE,FORCE" />
 
 </Actions>

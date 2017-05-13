@@ -45,29 +45,7 @@
             ECSTASY = "1,2,3,3,4,5,5,6,6,7"/>
     </Talent>
 
-    <Talent name="TWOSWORDSATTACK" show_name="@string/talent_two_sword_dance" description="@string/talent_two_sword_dance_description"
-        usable_type="TWOSWORDS" effect_type="SKILLMODIFIER" action = "ATTACK">
-        <MentalEffect
-            CONCENTRATED = "0,0,0,1,1,1,2,2,3,3"
-            METAPHASE = "0,1,1,2,2,3,4,5,5,5"
-            SYNESTHESIA = "1,2,3,3,4,5,5,6,6,7"/>
-    </Talent>
 
-    <Talent name="POLEATTACK" show_name="@string/talent_pole_master" description="@string/talent_pole_master_description"
-        usable_type="POLEWEAPON" effect_type="SKILLMODIFIER" action = "ATTACK">
-        <MentalEffect
-            CONCENTRATED = "0,0,0,1,1,1,2,2,3,3"
-            METAPHASE = "0,1,1,2,2,3,4,5,5,5"
-            SYNESTHESIA = "1,2,3,3,4,5,5,6,6,7"/>
-    </Talent>
-
-    <Talent name = "TWOHANDDAMAGE" show_name="@string/talent_fury" description="@string/talent_fury_description"
-        usable_type="BISWORD" effect_type="RESULTMODIFIER" action= "TWOHANDEDATTACK">
-        <MentalEffect
-            FRENETIC = "0,0,0,1,1,1,2,2,3,3"
-            AGRESSIVE = "1,2,3,3,4,5,5,6,6,7"
-            BERSERK = "1,2,3,3,4,5,5,6,6,7"/>
-    </Talent>
 
     <Talent name = "HEALTH" show_name="@string/health" description="@string/talent_health_description"
         effect_type="VALUE"  resolver_value = "HEALTH">

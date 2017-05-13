@@ -42,9 +42,7 @@ public class Act_Configurations extends MyBaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_configurations);
-		if(getActionBar() != null){
-        	getActionBar().setDisplayHomeAsUpEnabled(false);
-        }
+        // GCM relevant operations
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

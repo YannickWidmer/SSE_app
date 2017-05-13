@@ -1,5 +1,7 @@
 package ch.yannick.intern.action_talent;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,10 @@ import ch.yannick.intern.personnage.Attribute;
  * Created by Yannick on 08.01.2016.
  */
 public class ActionData{
+    private static final String LOG = "ActionData";
     // Must attributes
-    public int fatigue,enhancer, modifier;
+    public Action action;
+    public int fatigue,enhancer, modifier,ticks;
     public boolean isRemake = false;
     // talent Bonus
     public int talentEnhancer, talentModifier, talentFatigue;
@@ -22,8 +26,8 @@ public class ActionData{
 
     // Result attributes
     public ArrayList<Dice> resultDice;
-    public int resultValue = -1, talentResult;
     public String resultString = "";
+    public int talentResult;
 
     public int getEnhancer(){
         return enhancer + talentEnhancer + equipmentEnhancer;
@@ -37,14 +41,19 @@ public class ActionData{
         return fatigue + talentFatigue + equipmeentFatigue;
     }
 
+    public int getTicks(){return ticks;}
+
     public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    public ActionData(int fatigue,int enhancer, int modifier, String result) {
+    public ActionData(Action action,int fatigue,int enhancer, int modifier,int ticks,String attributes, String result) {
+        this.action = action;
         this.fatigue = fatigue;
+        this.ticks = ticks;
         this.enhancer = enhancer;
         this.modifier = modifier;
+        attributesFromString(attributes);
         setResultFromString(result);
     }
 
@@ -52,6 +61,7 @@ public class ActionData{
         fatigue =action.getFatigue();
         enhancer = 0;
         modifier = 0;
+        ticks = 5;
         attributes = action.getAttributes();
         if (action.hasResult()) {
             resultDice = new ArrayList<>();
@@ -71,8 +81,8 @@ public class ActionData{
         fatigue =copy.fatigue;
         enhancer = copy.enhancer;
         modifier = copy.modifier;
+        ticks = copy.ticks;
         attributes = new ArrayList<>(copy.attributes);
-        resultValue = copy.resultValue;
         resultString = copy.resultString;
 
         if(copy.resultDice != null)
@@ -103,13 +113,22 @@ public class ActionData{
         return res;
     }
 
+    public void attributesFromString(String s){
+        Log.d(LOG,s);
+        String[] list = s.split("\\s*,\\s*");
+        attributes.clear();
+        attributes.add(Attribute.valueOf(list[0]));
+        attributes.add(Attribute.valueOf(list[1]));
+    }
+
     public String getResult() {
         String res = "";
-        if(resultValue !=-1){
-            res = resultValue + ","+ resultString;
+        if(resultString!= null && !resultString.equals("")){
+            res = resultString;
             if(resultDice != null)
                 for(Dice d:resultDice)
                     res += ","+d.name();
+            return res;
         }
         return "";
     }
@@ -117,7 +136,6 @@ public class ActionData{
     public void setResultFromString(String result) {
         String[] list = result.split("\\s*,\\s*");
         if(list.length>1) {
-            resultValue = Integer.valueOf(list[0]);
             resultString = list[1];
         }
         if(list.length>2){

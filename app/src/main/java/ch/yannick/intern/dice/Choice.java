@@ -22,7 +22,6 @@ public class Choice {
         this.dices = diceChoice;
         this.sum = sum;
 
-        this.sum = sum;
         int sumOfDices=0;
         for(Dice d:Dice.values())
             if(dices.containsKey(d))

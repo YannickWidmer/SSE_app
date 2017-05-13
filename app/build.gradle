@@ -22,5 +22,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:23.2.+'
     compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.mcxiaoke.volley:library:1.0.+'
+
 }
 apply plugin: 'com.google.gms.google-services'

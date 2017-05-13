@@ -36,7 +36,7 @@ import ch.yannick.intern.usables.Weapon;
 
 public class Frag_PlayControl extends Fragment {
 	private static final String LOG = "frag:Control";
-	private static final int act_end = 0, react_end = 2, new_round = 3, mental = 4, hit = 5;
+	private static final int act_end = 0, new_round = 3, mental = 4, hit = 5;
 	private State st;
     private JaugeView healthJauge, staminaJauge;
 
@@ -87,13 +87,7 @@ public class Frag_PlayControl extends Fragment {
 		v.findViewById(R.id.act).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                act(false);
-            }
-        });
-		v.findViewById(R.id.react).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                act(true);
+                act();
             }
         });
 		v.findViewById(R.id.takehit).setOnClickListener(new OnClickListener() {
@@ -118,23 +112,23 @@ public class Frag_PlayControl extends Fragment {
      * clickable if for some reason the master should still allow these actions.
      * Once the action is chosen the method act(action,react) is called.
      */
-	private void act(final boolean reaction) {
-		if(st.canAct(0,reaction)){
+	private void act() {
+		if(st.canAct(0)){
             List<ColoredHolder<Action>> actionsColored = new ArrayList<>();
             for(Action action:st.getActions(Limb.ALL)){
                 actionsColored.add(new ColoredHolder<Action>(action, action.getStringId(),
-                        st.canAct(action, Limb.ALL, reaction) ? R.color.white : R.color.grey));
-                Log.d(LOG,action.getName() +" canAct "+st.canAct(action, Limb.ALL, reaction));
+                        st.canAct(action, Limb.ALL) ? R.color.white : R.color.grey));
+                Log.d(LOG,action.getName() +" canAct "+st.canAct(action, Limb.ALL));
             }
 
             final AdapterColored<Action> actionAdapter = new AdapterColored<Action>(getActivity(),actionsColored);
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(reaction?R.string.react:R.string.act);
+            builder.setTitle(R.string.act);
             builder.setSingleChoiceItems(actionAdapter, 1, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int position) {
                     Action action = actionAdapter.getItem(position).getObject();
-                    act(action, reaction);
+                    act(action);
                     dialog.dismiss();
                 }
             });
@@ -157,25 +151,25 @@ public class Frag_PlayControl extends Fragment {
     * choices, the choices which should not be possible considering the State are greeyed out but still clickable in case the master should
     * still allow these. Once the choice is made the method fatigue is called.
      */
-    private void act(final Action act,final boolean reaction){
+    private void act(final Action act){
         final List<ColoredHolder<Limb>> coloredPossiblities = new ArrayList<>();
 
         for(Limb limb:Limb.values()){
             if(st.hasUsable(limb) && st.getActions(limb).contains(act)){
                 coloredPossiblities.add(new ColoredHolder<>(limb,limb.getStringId(),
-                        st.canAct(act, limb, reaction)?R.color.white:R.color.grey));
+                        st.canAct(act, limb)?R.color.white:R.color.grey));
             }
         }
 
 
         if(coloredPossiblities.size()>1){
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(reaction ? R.string.act : R.string.react);
+            builder.setTitle(R.string.act);
             AdapterColored<Limb> adapterColored = new AdapterColored<Limb>(getActivity(),coloredPossiblities);
             builder.setSingleChoiceItems(adapterColored, 1, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int position) {
-                    fatigue(coloredPossiblities.get(position).getObject(),act,reaction);
+                    fatigue(coloredPossiblities.get(position).getObject(),act);
                     dialog.dismiss();
                 }
             });
@@ -190,17 +184,17 @@ public class Frag_PlayControl extends Fragment {
 
             builder.create().show();
         }else
-            fatigue(coloredPossiblities.get(0).getObject(),act,reaction);
+            fatigue(coloredPossiblities.get(0).getObject(),act);
     }
 
     /* This method is the last of the three methods when act is triggered. This method opens the fatigue dialog such that the player might
      * adjust the fatigue for this action or reaction, most of the time he shoud just click ok. Further more this method also makes changes
      * which might arrise from the action. This is change the load state of a range weapon,
      */
-    private void fatigue(Limb which, Action action, boolean reaction){
-        if(st.getUsable(which).getTyp() == UsableType.RANGEWEAPON && action.is("Attack"))
+    private void fatigue(Limb which, Action action){
+        if(st.getUsable(which).getTyp() == UsableType.CROSSBOW  && action.is("Shoot"))
             ((Weapon)st.getUsable(which)).setLoad(false);
-        if(st.getUsable(which).getTyp() == UsableType.RANGEWEAPON && action == Action.valueOf("LOADING"))
+        if(st.getUsable(which).getTyp() == UsableType.CROSSBOW && action == Action.valueOf("LOADING"))
             ((Weapon)st.getUsable(which)).setLoad(true);
 
         Intent intent;
@@ -208,8 +202,7 @@ public class Frag_PlayControl extends Fragment {
         intent.putExtra("id",st.getId());
         intent.putExtra("which",which.name());
         intent.putExtra("action",action.getName());
-        intent.putExtra("reaction",reaction);
-        startActivityForResult(intent,reaction?react_end:act_end);
+        startActivityForResult(intent,act_end);
     }
 
 
@@ -263,11 +256,7 @@ public class Frag_PlayControl extends Fragment {
                     st.takeHit(hitZone, hit, pierce, direct);
                     break;
                 case act_end:
-                    if (!st.act(data.getIntExtra("fatigue", 0), false))
-                        toTired();
-                    break;
-                case react_end:
-                    if (!st.act(data.getIntExtra("fatigue", 0), true))
+                    if (!st.act(data.getIntExtra("fatigue", 0)))
                         toTired();
                     break;
                 case mental:
@@ -278,7 +267,7 @@ public class Frag_PlayControl extends Fragment {
                     break;
                 case new_round:
                     st.newRound();
-                    if (!st.act(data.getIntExtra("fatigue", 0), true))
+                    if (!st.act(data.getIntExtra("fatigue", 0)))
                         toTired();
                     break;
             }
@@ -288,8 +277,8 @@ public class Frag_PlayControl extends Fragment {
 	
 	protected void refresh(){
         healthJauge.setValues(st.getHealth(), 0, st.getHealthMax() - st.getHealth());
-		staminaJauge.setValues(st.getStaminaNow(), st.getStaminaUsed(),
-                st.getStaminaMax() - st.getStaminaNow() - st.getStaminaUsed());
+		staminaJauge.setValues(st.getStaminaNow(), 0,
+                st.getStaminaMax() - st.getStaminaNow());
         ((TextView) getView().findViewById(R.id.mental_state)).setText(st.getMentalState().getStringId());
         ((TextView) getView().findViewById(R.id.race)).setText(st.getRace().getStringId());
     }

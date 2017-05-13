@@ -32,9 +32,8 @@ public class Frag_Displayer extends Fragment{
 	private static String LOG = "frag:Displayer";
 	private int  mSkill, mModif;
 
-    private ValueControler mAlterControler, mSplitControler;
-    private TextView mRestView;
-	private DiceAdapter adap;
+    private ValueControler mAlterControler;
+    private DiceAdapter adap;
     private DiceComputer asyncDiceComputer;
     private DiceDisplayer degats;
 	@Override
@@ -103,17 +102,6 @@ public class Frag_Displayer extends Fragment{
             }
         });
 
-
-        mSplitControler = ((ValueControler)v.findViewById(R.id.split));
-        mSplitControler.setListener(new ValueChangeListener() {
-            @Override
-            public void onChangeValue(int value) {
-                Frag_Displayer.this.refresh();
-            }
-        });
-
-        mRestView = (TextView) v.findViewById(R.id.rest);
-
         refresh();
 	}
 
@@ -121,12 +109,9 @@ public class Frag_Displayer extends Fragment{
         getView().findViewById(R.id.damage_layout).setVisibility(View.GONE);
     }
 
-    public void setDegats(int resultNameId, List<Dice> resultDice, int resultValue, String resultString) {
+    public void setDegats(int resultNameId, List<Dice> resultDice) {
         degats.setDices(resultDice);
-        degats.setNumber(resultValue); // Is this used?
         ((TextView)getView().findViewById(R.id.result_name)).setText(resultNameId);
-        ((TextView)getView().findViewById(R.id.result_value)).setText("" + resultValue);
-        ((TextView)getView().findViewById(R.id.result_string)).setText(resultString);
         getView().findViewById(R.id.damage_layout).setVisibility(View.VISIBLE);
     }
 
@@ -135,13 +120,13 @@ public class Frag_Displayer extends Fragment{
         ((TextView)getView().findViewById(R.id.skill)).setText(mSkill + "");
 	}
 
+    public void setTicks(int value){
+        ((TextView)getView().findViewById(R.id.ticks)).setText(value + "");
+    }
+
     public void setModif(int value){
         mModif = value;
         ((TextView)getView().findViewById(R.id.modif)).setText("(" + value + ")");
-    }
-
-    public void setSplit(int value){
-        mSplitControler.setValue(value);
     }
 
     public void setEnhancer(int value){
@@ -149,10 +134,8 @@ public class Frag_Displayer extends Fragment{
     }
 
 	public void refresh(){
-        int skill = (mSkill+ mAlterControler.getValue())/ mSplitControler.getValue();
-        mRestView.setText(""+((mSkill+ mAlterControler.getValue()) % mSplitControler.getValue()));
-        Log.d(LOG,"skill + alter / split"+(mSkill+ mAlterControler.getValue())/ mSplitControler.getValue());
-	    if(asyncDiceComputer != null)
+        int skill = (mSkill+ mAlterControler.getValue());
+        if(asyncDiceComputer != null)
             asyncDiceComputer.cancel(true);
         asyncDiceComputer = new DiceComputer();
         asyncDiceComputer.execute(skill, mModif);

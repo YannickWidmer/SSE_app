@@ -49,33 +49,7 @@
             android:padding="@dimen/view_padding"
             android:text="@string/empty" />
 
-        <TextView
-            style="@style/BaseTextWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="1"
-            android:padding="@dimen/view_padding"
-            android:text="@string/used" />
 
-        <ch.yannick.display.views.ValueControler
-            android:id="@+id/stamina_used"
-            style="@style/BaseTextWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="1"
-            app:lower_bound="0" />
-
-        <Button
-            android:id="@+id/used_empty"
-            style="@style/BaseTextWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="2"
-            android:layout_row="1"
-            android:padding="@dimen/view_padding"
-            android:text="@string/empty" />
 
         <TextView
             style="@style/BaseTextWhite"

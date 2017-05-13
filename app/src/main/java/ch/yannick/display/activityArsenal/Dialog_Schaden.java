@@ -50,11 +50,8 @@ public class Dialog_Schaden extends MyBaseActivity {
         ActionData actionData = w.getData(action);
 
         schaden = (ValueControler) findViewById(R.id.schaden);
-        penetration = (ValueControler) findViewById(R.id.penetration);
-        direct = (ToggleButton)findViewById(R.id.direct);
         diceDisplayer = (DiceDisplayer) findViewById(R.id.degats_dice);
 
-        schaden.setValue(actionData.resultValue);
         diceDisplayer.setDices(actionData.resultDice);
 
         String[] resultString = actionData.resultString.split("\\s*:\\s*");
@@ -112,7 +109,6 @@ public class Dialog_Schaden extends MyBaseActivity {
 
     public void confirmed(View v){
         ActionData actionData = w.getData(action);
-        actionData.resultValue = schaden.getValue();
         if(direct.isChecked())
             actionData.resultString = "direct";
         else

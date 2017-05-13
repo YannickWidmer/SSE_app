@@ -1,6 +1,7 @@
 package ch.yannick.intern.usables;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ import ch.yannick.intern.state.State;
  */
 
 public class Weapon extends Item implements UsableInterface{
+    private static final String LOG ="Weapon";
     protected UsableType mType, mCombinedType;
     protected ArrayList<Action> allowed_action = new ArrayList<>();
     protected Map<Action, ActionData> actions = new HashMap<>();
@@ -38,11 +40,10 @@ public class Weapon extends Item implements UsableInterface{
         actions.clear();
         allowed_action.clear();
         for(Action action:type.getActions()){
-            actions.put(action,new ActionData(action));
+            Log.d(LOG,action+"");
+            actions.put(action,new ActionData(type.getData(action)));
             allowed_action.add(action);
         }
-        for(Action action:type.getSupplementaryActions())
-            actions.put(action,new ActionData(action));
     }
 
     public Weapon(Long id, Long serverId, Long owner, String name, String description, int weight, UsableType type){
@@ -132,23 +133,21 @@ public class Weapon extends Item implements UsableInterface{
 
 
     // Editing Methods
-    private void setAction(Action test,List<Attribute> attributes,int value,int fatigue, int resultValue){
+    private void setAction(Action test,List<Attribute> attributes,int value,int fatigue){
         if(actions.containsKey(test)) {
             actions.get(test).attributes = attributes;
             actions.get(test).enhancer = value;
             actions.get(test).fatigue = fatigue;
-            actions.get(test).resultValue = resultValue;
         }
     }
 
     private void setAction(Action test,List<Attribute> attributes,int value,int fatigue,
-                           int schaden, String resultString, ArrayList<Dice> damageDices){
+                            String resultString, ArrayList<Dice> damageDices){
         if(actions.containsKey(test)){
             actions.get(test).attributes = attributes;
             actions.get(test).enhancer=value;
             actions.get(test).fatigue=fatigue;
             actions.get(test).resultDice =damageDices;
-            actions.get(test).resultValue = schaden;
             actions.get(test).resultString = resultString;
         }
     }

@@ -67,7 +67,9 @@ public class Character {
     }
 
 	public int getAttr(Attribute attribute){
-		return mAttributes.get(attribute);
+		if(mAttributes.containsKey(attribute))
+    		return mAttributes.get(attribute);
+        return 0;
 	}
 	
 	public void setAttr(Attribute attribute, int value){
@@ -112,11 +114,11 @@ public class Character {
 	}
 
 	public int getVie() {
-		return mAttributes.get(Attribute.PHYSIQUE)*3;
+		return getAttr(Attribute.PHYSIQUE);
 	}
 	
 	public int getStamina(){
-		return mAttributes.get(Attribute.STAMINA)*4;
+		return getAttr(Attribute.STAMINA);
 	}
 
 	public void setMalus(Equipement malus) {

@@ -224,4 +224,11 @@
     <string name="arm_shield">arm shield</string>
     <string name="spell">spel</string>
     <string name="connect">connect</string>
+    <string name="longsword">longsword</string>
+    <string name="dague">dague</string>
+    <string name="axe">axe</string>
+    <string name="masse">mace</string>
+    <string name="crossbow">crossbow</string>
+    <string name="bow">bow</string>
+    <string name="ticks">ticks</string>
 </resources>

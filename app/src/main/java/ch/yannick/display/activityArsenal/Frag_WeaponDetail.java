@@ -257,13 +257,8 @@ public class Frag_WeaponDetail extends Fragment{
                 });
                 damageLayout.addView(dc);
                 damageLayout.addView(makeTextView("+"));
-                damageLayout.addView((makeControler(actionData.resultValue, -1, -1, new ValueChangeListener() {
-                    @Override
-                    public void onChangeValue(int value) {
-                        actionData.resultValue = value;
-                    }
-                })));
-                flow.addView(damageLayout);
+
+        flow.addView(damageLayout);
             }
 
 

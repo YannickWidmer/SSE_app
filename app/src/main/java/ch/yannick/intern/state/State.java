@@ -32,7 +32,7 @@ public class State {
     private static String LOG= "State";
 
     protected Character p;
-    protected int liveNow,liveMax,staminaMax,staminaNow,staminaUsed;
+    protected int liveNow,liveMax,staminaMax,staminaNow;
 	protected Inventory mInventory = new Inventory();
 
     private Vector mentalPosition;
@@ -40,7 +40,6 @@ public class State {
 
     public State(Character p){
 		this.p = p;
-		staminaUsed=0;
         mentalPosition = new Vector(0,0);
         computeMentalState();
 
@@ -71,7 +70,6 @@ public class State {
     }
 
     public void newRound() {
-        staminaUsed = 0;
         mInventory.setBoniAndMalus(p.getTalents(), this);
     }
 
@@ -86,9 +84,8 @@ public class State {
         return liveNow;
     }
 
-    public void setStamina(int now, int used, int max) {
+    public void setStamina(int now,  int max) {
         staminaNow = Math.min(now,max);
-        staminaUsed = used;
         staminaMax = max;
     }
 
@@ -98,10 +95,6 @@ public class State {
 	
 	public int getStaminaNow(){
 		return staminaNow;
-	}
-	
-	public int getStaminaUsed(){
-		return staminaUsed;
 	}
 
     // returns effective damage
@@ -115,29 +108,28 @@ public class State {
 		return getAttributeValue(Attribute.MAGIC)!=0;
 	}
 
-    public boolean canAct(int staminaCost, boolean reaction){
+
+    public boolean canAct(int staminaCost){
         if(staminaCost <0) return false;
-        if(!reaction)
-            staminaCost += staminaUsed;
         return staminaCost<=staminaNow;
     }
 
-    public boolean canAct(Action action, Limb which, boolean reaction) {
-        if(!canAct(mInventory.mUsables.getActionData(which,action).getFatigue(), reaction))
+    public boolean canAct(Action action, Limb which) {
+        if(!canAct(mInventory.mUsables.getActionData(which,action).getFatigue()))
             return false;
         return mInventory.mUsables.hasUsable(which)
                         && mInventory.mUsables.canAction(which,action);
     }
 
-    public boolean act(int staminaCost, boolean reaction){
-        if(!canAct(staminaCost,reaction))
+    public boolean act(int staminaCost){
+        if(!canAct(staminaCost))
             return false;
         else {
-            staminaUsed += staminaCost;
-            staminaNow -= reaction?staminaCost:staminaUsed;
+            staminaNow -= staminaCost;
             return true;
         }
     }
+
 
     public Map<Talent,Integer> getTalents() {
         return p.getTalents();

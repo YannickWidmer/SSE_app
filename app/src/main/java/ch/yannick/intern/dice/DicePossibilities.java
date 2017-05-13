@@ -44,7 +44,7 @@ public class DicePossibilities {
 		// max[i] c'est le nombre de dee i qui depasse
 		int maximum;
 		for(Dice d:Dice.values()){
-            maximum = mSum/d.getEyes()+1;
+            maximum = mSum/d.getEyes();
             if(maximum>3) maximum =3;
 			mMaxes.put(d,maximum);
 		}
@@ -52,7 +52,7 @@ public class DicePossibilities {
 		//Quelle est le plus petit des pour la regle du plus grand des
 		mHalfDice = Dice.getSmallest();
 		for(Dice d:Dice.values()) {
-            if (2 * d.getEyes() >= mSum) {
+            if (3 * d.getEyes() >= mSum) {
                 mHalfDice = d;
                 break;
             }
@@ -64,7 +64,7 @@ public class DicePossibilities {
 	}
 
 	public boolean next(){
-		if(mChoice.getRest()<=0 && -mChoice.getRest()<Dice.getSmallest().getEyes()){
+		if(mChoice.getRest()>=0 && mChoice.getRest() < Dice.getSmallest().getEyes()){
 			mResult.add(new Choice(mChoice.getDices(), mSum));
 		}
 		return mChoice.next(mMaxes,mHalfDice);

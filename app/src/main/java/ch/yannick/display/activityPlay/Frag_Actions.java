@@ -113,7 +113,6 @@ public class Frag_Actions extends Fragment implements AdapterView.OnItemClickLis
     // Actions in listviews
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mDisplayer.setSplit(1);
         mDisplayer.setEnhancer(0);
         mDisplayer.hideDegats();
         Limb l = (Limb) parent.getTag();
@@ -125,9 +124,9 @@ public class Frag_Actions extends Fragment implements AdapterView.OnItemClickLis
         mAttr.setSelection(st.getActionData(l, act).attributes);
         mDisplayer.setEnhancer(st.getActionData(l, act).getEnhancer());
         mDisplayer.setModif(st.getActionData(l, act).getModifier());
+        mDisplayer.setTicks(st.getActionData(l,act).ticks);
         if(act.hasResult())
-            mDisplayer.setDegats(act.getResultNameId(),st.getActionData(l, act).resultDice,st.getActionData(l, act).resultValue,
-                    st.getActionData(l, act).resultString);
+            mDisplayer.setDegats(act.getResultNameId(),st.getActionData(l, act).resultDice);
         mDisplayer.refresh();
     }
 
